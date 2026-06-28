@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>블랑드 더논현 | 15 : 15 소개팅</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500;600;700&family=Pretendard:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --white:#FFFFFF;
+    --cream:#FBF7F6;
+    --rose:#C97B86;
+    --rose-deep:#8B4A56;
+    --rose-soft:#F3E4E6;
+    --ink:#2B2526;
+    --ink-soft:#6B5F60;
+    --line:#E8DCDD;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    font-family:'Pretendard','Noto Serif KR',serif;
+    color:var(--ink);
+    background:var(--white);
+    line-height:1.7;
+    overflow-x:hidden;
+  }
+
+  .serif{font-family:'Noto Serif KR',serif;}
+
+  a{text-decoration:none;color:inherit;}
+
+  img{display:block;width:100%;height:100%;object-fit:cover;}
+
+  /* ---------- Nav ---------- */
+  header{
+    position:fixed;
+    top:0;left:0;right:0;
+    z-index:100;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:22px 6%;
+    background:rgba(255,255,255,0.88);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid transparent;
+    transition:border-color .3s;
+  }
+  header.scrolled{border-color:var(--line);}
+
+  .logo{
+    font-family:'Noto Serif KR',serif;
+    font-weight:600;
+    font-size:19px;
+    letter-spacing:0.5px;
+    color:var(--ink);
+  }
+  .logo span{color:var(--rose-deep);}
+
+  nav ul{
+    display:flex;
+    gap:36px;
+    list-style:none;
+  }
+  nav a{
+    font-size:13.5px;
+    letter-spacing:0.5px;
+    color:var(--ink-soft);
+    transition:color .25s;
+    position:relative;
+  }
+  nav a:hover{color:var(--rose-deep);}
+
+  .nav-cta{
+    border:1px solid var(--rose);
+    color:var(--rose-deep) !important;
+    padding:9px 22px;
+    border-radius:2px;
+    font-size:13px;
+    letter-spacing:1px;
+  }
+  .nav-cta:hover{background:var(--rose);color:var(--white) !important;}
+
+  .menu-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;}
+  .menu-toggle span{width:24px;height:1.5px;background:var(--ink);}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    padding:140px 6% 80px;
+    overflow:hidden;
+  }
+
+  .hero-bg-line{
+    position:absolute;
+    top:0;bottom:0;
+    left:50%;
+    width:1px;
+    background:linear-gradient(to bottom, transparent, var(--line) 15%, var(--line) 85%, transparent);
+  }
+
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.1fr 0.9fr;
+    gap:60px;
+    width:100%;
+    align-items:center;
+    position:relative;
+    z-index:2;
+  }
+
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    font-size:12.5px;
+    letter-spacing:2.5px;
+    color:var(--rose-deep);
+    margin-bottom:28px;
+  }
+  .eyebrow::before{
+    content:'';
+    width:28px;height:1px;
+    background:var(--rose);
+  }
+
+  .hero h1{
+    font-family:'Noto Serif KR',serif;
+    font-weight:300;
+    font-size:clamp(34px,5vw,58px);
+    line-height:1.28;
+    color:var(--ink);
+    margin-bottom:26px;
+    letter-spacing:-0.5px;
+  }
+  .hero h1 strong{
+    font-weight:700;
+    color:var(--rose-deep);
+  }
+
+  .hero p.lead{
+    font-size:16px;
+    color:var(--ink-soft);
+    max-width:440px;
+    margin-bottom:42px;
+  }
+
+  .hero-ratio{
+    display:flex;
+    align-items:baseline;
+    gap:14px;
+    margin-bottom:40px;
+  }
+  .hero-ratio .num{
+    font-family:'Noto Serif KR',serif;
+    font-weight:200;
+    font-size:64px;
+    color:var(--ink);
+    letter-spacing:-2px;
+  }
+  .hero-ratio .num.accent{color:var(--rose);}
+  .hero-ratio .colon{font-size:30px;color:var(--line);font-weight:300;}
+  .hero-ratio .cap{
+    font-size:12px;
+    letter-spacing:1.5px;
+    color:var(--ink-soft);
+    align-self:center;
+    border-left:1px solid var(--line);
+    padding-left:16px;
+    line-height:1.6;
+  }
+
+  .btn-primary{
+    display:inline-block;
+    background:var(--rose-deep);
+    color:var(--white);
+    padding:17px 38px;
+    font-size:13.5px;
+    letter-spacing:1.5px;
+    border-radius:2px;
+    transition:background .25s, transform .25s;
+  }
+  .btn-primary:hover{background:var(--ink);transform:translateY(-2px);}
+
+  .hero-visual{
+    position:relative;
+    aspect-ratio:3/4;
+    border-radius:2px;
+    overflow:hidden;
+    box-shadow:0 40px 80px -30px rgba(139,74,86,0.35);
+  }
+  .hero-visual img{filter:grayscale(8%) contrast(1.02);}
+  .hero-visual::after{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(43,37,38,0.45) 100%);
+  }
+  .hero-visual-tag{
+    position:absolute;
+    bottom:24px;left:24px;
+    color:var(--white);
+    font-size:12px;
+    letter-spacing:1.5px;
+    z-index:3;
+  }
+  .hero-visual-frame{
+    position:absolute;
+    top:-16px;right:-16px;
+    width:90%;height:90%;
+    border:1px solid var(--rose);
+    z-index:-1;
+  }
+
+  /* ---------- Section generic ---------- */
+  section{padding:120px 6%;}
+  .section-inner{max-width:1180px;margin:0 auto;}
+
+  .section-head{
+    text-align:center;
+    max-width:640px;
+    margin:0 auto 70px;
+  }
+  .section-head .eyebrow{justify-content:center;}
+  .section-head .eyebrow::before{display:none;}
+  .section-head h2{
+    font-family:'Noto Serif KR',serif;
+    font-weight:400;
+    font-size:clamp(26px,3.4vw,38px);
+    line-height:1.45;
+    color:var(--ink);
+  }
+  .section-head h2 strong{color:var(--rose-deep);font-weight:700;}
+  .section-head p{
+    margin-top:18px;
+    color:var(--ink-soft);
+    font-size:15px;
+  }
+
+  /* ---------- Message Section ---------- */
+  .message{
+    background:var(--cream);
+  }
+  .message-inner{
+    max-width:780px;
+    margin:0 auto;
+    text-align:center;
+  }
+  .message blockquote{
+    font-family:'Noto Serif KR',serif;
+    font-size:clamp(20px,2.6vw,27px);
+    line-height:1.85;
+    font-weight:300;
+    color:var(--ink);
+    margin-bottom:36px;
+  }
+  .message blockquote strong{
+    font-weight:600;
+    color:var(--rose-deep);
+  }
+  .message .quote-mark{
+    font-size:50px;
+    color:var(--rose);
+    font-family:'Noto Serif KR',serif;
+    line-height:1;
+    margin-bottom:10px;
+    opacity:0.7;
+  }
+  .message .sign{
+    font-size:13px;
+    letter-spacing:1.5px;
+    color:var(--ink-soft);
+  }
+  .message .sign::before{
+    content:'';
+    display:block;
+    width:1px;height:40px;
+    background:var(--rose);
+    margin:0 auto 20px;
+  }
+
+  /* ---------- Why / Pain points ---------- */
+  .why-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  .why-item{
+    background:var(--white);
+    padding:46px 30px;
+    text-align:center;
+    transition:background .3s;
+  }
+  .why-item:hover{background:var(--cream);}
+  .why-item .icon{
+    width:46px;height:46px;
+    margin:0 auto 22px;
+    border:1px solid var(--rose);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--rose-deep);
+    font-size:18px;
+    font-family:'Noto Serif KR',serif;
+  }
+  .why-item h3{
+    font-size:15.5px;
+    font-weight:600;
+    margin-bottom:10px;
+    color:var(--ink);
+  }
+  .why-item p{
+    font-size:13.5px;
+    color:var(--ink-soft);
+    line-height:1.75;
+  }
+
+  /* ---------- Promise / Standard ---------- */
+  .promise{
+    background:var(--ink);
+    color:var(--white);
+    position:relative;
+  }
+  .promise .section-head h2{color:var(--white);}
+  .promise .section-head p{color:#C9BFC0;}
+  .promise-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0;
+    border:1px solid rgba(255,255,255,0.15);
+  }
+  .promise-col{
+    padding:56px 50px;
+    position:relative;
+  }
+  .promise-col:first-child{border-right:1px solid rgba(255,255,255,0.15);}
+  .promise-col .tag{
+    font-size:12px;
+    letter-spacing:2px;
+    color:var(--rose);
+    margin-bottom:18px;
+    display:block;
+  }
+  .promise-col h3{
+    font-family:'Noto Serif KR',serif;
+    font-size:25px;
+    font-weight:400;
+    margin-bottom:26px;
+  }
+  .promise-col ul{list-style:none;}
+  .promise-col li{
+    font-size:14.5px;
+    color:#D8D0D1;
+    padding:13px 0;
+    border-top:1px solid rgba(255,255,255,0.1);
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+  }
+  .promise-col li:first-of-type{border-top:none;}
+  .promise-col li::before{
+    content:'';
+    width:5px;height:5px;
+    border-radius:50%;
+    background:var(--rose);
+    flex-shrink:0;
+  }
+
+  /* ---------- Gallery ---------- */
+  .gallery{background:var(--cream);}
+  .gallery-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    grid-template-rows:repeat(2,280px);
+    gap:14px;
+  }
+  .gallery-item{
+    position:relative;
+    overflow:hidden;
+    border-radius:2px;
+    cursor:pointer;
+  }
+  .gallery-item img{
+    transition:transform .6s cubic-bezier(.2,.8,.2,1);
+  }
+  .gallery-item:hover img{transform:scale(1.07);}
+  .gallery-item::after{
+    content:'';
+    position:absolute;inset:0;
+    background:linear-gradient(180deg, transparent 55%, rgba(43,37,38,0.55) 100%);
+    opacity:0;
+    transition:opacity .4s;
+  }
+  .gallery-item:hover::after{opacity:1;}
+  .gallery-item .gcap{
+    position:absolute;
+    bottom:18px;left:20px;
+    color:var(--white);
+    font-size:13px;
+    letter-spacing:0.5px;
+    opacity:0;
+    transform:translateY(8px);
+    transition:all .4s;
+    z-index:2;
+  }
+  .gallery-item:hover .gcap{opacity:1;transform:translateY(0);}
+  .gallery-item.big{grid-row:span 2;}
+
+  /* upload functionality */
+  .gallery-item .upload-overlay{
+    position:absolute;inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(251,247,246,0.92);
+    z-index:3;
+    cursor:pointer;
+    transition:background .3s;
+  }
+  .gallery-item .upload-overlay:hover{background:rgba(243,228,230,0.95);}
+  .gallery-item .upload-overlay .plus{
+    width:48px;height:48px;
+    border:1px dashed var(--rose);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--rose-deep);
+    font-size:22px;
+    font-weight:300;
+    margin-bottom:10px;
+  }
+  .gallery-item .upload-label{
+    font-size:12px;
+    color:var(--ink-soft);
+    letter-spacing:0.5px;
+  }
+  .upload-wrap{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+  .gallery-item input[type="file"]{display:none;}
+  .gallery-item.has-image .upload-overlay{display:none;}
+  .gallery-item .remove-btn{
+    position:absolute;
+    top:10px;right:10px;
+    width:28px;height:28px;
+    background:rgba(43,37,38,0.55);
+    color:#fff;
+    border:none;
+    border-radius:50%;
+    font-size:14px;
+    cursor:pointer;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:4;
+  }
+  .gallery-item.has-image .remove-btn{display:flex;}
+  .gallery-item .remove-btn:hover{background:var(--rose-deep);}
+
+  /* ---------- Process ---------- */
+  .process-list{
+    display:flex;
+    flex-direction:column;
+  }
+  .process-row{
+    display:grid;
+    grid-template-columns:90px 1fr 1.4fr;
+    gap:40px;
+    align-items:center;
+    padding:36px 0;
+    border-top:1px solid var(--line);
+  }
+  .process-row:last-child{border-bottom:1px solid var(--line);}
+  .process-row .pnum{
+    font-family:'Noto Serif KR',serif;
+    font-size:34px;
+    font-weight:300;
+    color:var(--rose);
+  }
+  .process-row h3{
+    font-size:17px;
+    font-weight:600;
+    color:var(--ink);
+  }
+  .process-row p{
+    font-size:14px;
+    color:var(--ink-soft);
+  }
+
+  /* ---------- CTA ---------- */
+  .cta-section{
+    background:linear-gradient(135deg, var(--rose-soft) 0%, var(--cream) 100%);
+    text-align:center;
+  }
+  .cta-section h2{
+    font-family:'Noto Serif KR',serif;
+    font-size:clamp(26px,3.6vw,40px);
+    font-weight:400;
+    margin-bottom:20px;
+    color:var(--ink);
+  }
+  .cta-section h2 strong{color:var(--rose-deep);font-weight:700;}
+  .cta-section p{
+    color:var(--ink-soft);
+    margin-bottom:42px;
+    font-size:15.5px;
+  }
+  .cta-buttons{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;}
+  .btn-outline{
+    display:inline-block;
+    border:1px solid var(--rose-deep);
+    color:var(--rose-deep);
+    padding:16px 36px;
+    font-size:13.5px;
+    letter-spacing:1.5px;
+    border-radius:2px;
+    transition:all .25s;
+  }
+  .btn-outline:hover{background:var(--rose-deep);color:var(--white);}
+
+  /* ---------- Footer ---------- */
+  footer{
+    background:var(--ink);
+    color:#B7AEAF;
+    padding:60px 6% 36px;
+    font-size:13px;
+  }
+  .footer-inner{
+    max-width:1180px;
+    margin:0 auto;
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:30px;
+    padding-bottom:30px;
+    border-bottom:1px solid rgba(255,255,255,0.12);
+    margin-bottom:24px;
+  }
+  .footer-logo{
+    font-family:'Noto Serif KR',serif;
+    font-size:18px;
+    color:var(--white);
+    margin-bottom:10px;
+  }
+  .footer-logo span{color:var(--rose);}
+  .footer-cols{display:flex;gap:60px;}
+  .footer-col h4{
+    color:var(--white);
+    font-size:13px;
+    letter-spacing:1px;
+    margin-bottom:14px;
+    font-weight:500;
+  }
+  .footer-col p, .footer-col a{
+    color:#9C9293;
+    line-height:2;
+    display:block;
+  }
+  .footer-bottom{
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:10px;
+    font-size:12px;
+    color:#776F70;
+  }
+
+  /* ---------- Modal (image lightbox for gallery click) ---------- */
+  .lightbox{
+    position:fixed;inset:0;
+    background:rgba(20,16,17,0.92);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:1000;
+    padding:40px;
+  }
+  .lightbox.active{display:flex;}
+  .lightbox img{
+    max-width:90vw;max-height:85vh;
+    width:auto;height:auto;
+    object-fit:contain;
+    border-radius:2px;
+  }
+  .lightbox-close{
+    position:absolute;
+    top:30px;right:40px;
+    color:var(--white);
+    font-size:28px;
+    cursor:pointer;
+    font-weight:300;
+  }
+
+  /* ---------- Reveal animation ---------- */
+  .reveal{
+    opacity:0;
+    transform:translateY(24px);
+    transition:opacity .8s ease, transform .8s ease;
+  }
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  @media (prefers-reduced-motion: reduce){
+    .reveal{transition:none;opacity:1;transform:none;}
+  }
+
+  /* ---------- Mobile line break helper ---------- */
+  .br-mobile{display:none;}
+  @media (max-width:600px){
+    .br-mobile{display:inline;}
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:980px){
+    nav, .nav-cta{display:none;}
+    .menu-toggle{display:flex;}
+    .hero-bg-line{display:none;}
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-visual{max-width:420px;margin:0 auto;order:-1;}
+    .why-grid{grid-template-columns:repeat(2,1fr);}
+    .promise-grid{grid-template-columns:1fr;}
+    .promise-col:first-child{border-right:none;border-bottom:1px solid rgba(255,255,255,0.15);}
+    .gallery-grid{grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(3,220px);}
+    .gallery-item.big{grid-row:span 1;}
+    .process-row{grid-template-columns:50px 1fr;grid-template-areas:"num title" "num desc";}
+    .process-row .pnum{grid-area:num;}
+    .process-row h3{grid-area:title;}
+    .process-row p{grid-area:desc;}
+  }
+
+  @media (max-width:600px){
+    section{padding:80px 6%;}
+    .hero{padding:120px 6% 60px;}
+    .hero-ratio .num{font-size:46px;}
+    .why-grid{grid-template-columns:1fr;}
+    .gallery-grid{grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(3,180px);}
+    .footer-inner{flex-direction:column;}
+    .footer-cols{gap:36px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header id="header">
+  <div class="logo">블랑드 <span>더논현</span></div>
+  <nav>
+    <ul>
+      <li><a href="#message">소개</a></li>
+      <li><a href="#why">차이점</a></li>
+      <li><a href="#gallery">모임 사진</a></li>
+      <li><a href="#process">진행 절차</a></li>
+      <li><a href="#apply">신청하기</a></li>
+    </ul>
+  </nav>
+  <a href="#apply" class="nav-cta">신청 문의</a>
+  <div class="menu-toggle"><span></span><span></span><span></span></div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="hero-bg-line"></div>
+  <div class="hero-grid">
+    <div class="hero-copy">
+      <div class="eyebrow">BLANDE THE NONHYEON</div>
+      <h1 class="serif">잘나가는 그들의<br><strong>15 대 15</strong> 소개팅</h1>
+      <p class="lead">너무 귀하고 소중한 당신은, 아무 데서나 사람을 만날 수 없습니다.<br>한 달에 딱 한 번, 소수정예로 열리는 모임에서<br>내 수준에 맞는 진짜 인연을 만나보세요.</p>
+
+      <div class="hero-ratio">
+        <span class="num">15</span>
+        <span class="colon">:</span>
+        <span class="num accent">15</span>
+        <span class="cap">월 1회 개최<br>소수정예 매칭</span>
+      </div>
+
+      <a href="#apply" class="btn-primary">참가 신청하기</a>
+    </div>
+
+    <div class="hero-visual-wrap" style="position:relative;">
+      <div class="hero-visual-frame"></div>
+      <div class="hero-visual" id="heroVisual">
+        <img id="heroImg" src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=1200&auto=format&fit=crop" alt="블랑드 더논현 모임 분위기">
+        <div class="hero-visual-tag serif">Blande the Nonhyeon — 2026</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MESSAGE ================= -->
+<section class="message" id="message">
+  <div class="message-inner reveal">
+    <div class="quote-mark serif">“</div>
+    <blockquote class="serif">
+      로테이션 소개팅, 파티, 지인 소개,<br class="br-mobile">앱, 결정사까지<br>
+      다양한 경로를 쉽게 접할 수 있지만<br>
+      어딜 나가도 <strong>괜찮은 사람</strong>은 없고<br>
+      시간만 낭비하셨다면,
+    </blockquote>
+    <p style="font-size:15.5px;color:var(--ink-soft);margin-bottom:30px;">
+      한 달에 딱 한 번 열리는 소수정예의 우리 모임에서<br>
+      내 수준에 맞는 진짜 인연을 찾아보세요.
+    </p>
+    <div class="sign serif">BLANDE THE NONHYEON</div>
+  </div>
+</section>
+
+<!-- ================= WHY ================= -->
+<section id="why">
+  <div class="section-inner">
+    <div class="section-head reveal">
+      <span class="eyebrow">WHY BLANDE</span>
+      <h2 class="serif">아무나 만날 수 없는,<br class="br-mobile"> <strong>당신만을 위한 공간</strong></h2>
+      <p>소중한 당신인 만큼,<br class="br-mobile"> 우리는 입장부터<br class="br-mobile"> 다르게 시작합니다.</p>
+    </div>
+
+    <div class="why-grid reveal">
+      <div class="why-item">
+        <div class="icon serif">男</div>
+        <h3>남성 — 인성과 능력</h3>
+        <p>경제력과 매너를 모두 갖춘<br>품격 있는 남성만을 엄선합니다.</p>
+      </div>
+      <div class="why-item">
+        <div class="icon serif">女</div>
+        <h3>여성 — 인성과 미모</h3>
+        <p>내면과 외면의 균형을 갖춘<br>여성분만을 신중히 모십니다.</p>
+      </div>
+      <div class="why-item">
+        <div class="icon serif">月</div>
+        <h3>월 1회, 소수정예</h3>
+        <p>많이 만나는 것이 아니라<br>제대로 만나는 모임입니다.</p>
+      </div>
+      <div class="why-item">
+        <div class="icon serif">緣</div>
+        <h3>평생을 함께할 반려</h3>
+        <p>가벼운 만남이 아닌<br>진지한 인연을 위한 자리입니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROMISE ================= -->
+<section class="promise">
+  <div class="section-inner">
+    <div class="section-head reveal">
+      <span class="eyebrow">OUR STANDARD</span>
+      <h2 class="serif">우리가 지키는 <strong>두 가지 기준</strong></h2>
+      <p>품격 있는 만남을 위해,<br class="br-mobile">블랑드는 양쪽 모두에게<br class="br-mobile"> 같은 기준을 적용합니다.</p>
+    </div>
+
+    <div class="promise-grid reveal">
+      <div class="promise-col">
+        <span class="tag">FOR MEN</span>
+        <h3 class="serif">인성과 능력을<br>보장합니다</h3>
+        <ul>
+          <li>안정적인 직업과 경제력 검증</li>
+          <li>매너와 대화 태도 사전 확인</li>
+          <li>진지한 만남 의사가 있는 분만 참여</li>
+          <li>외적인 자기관리 수준 확인</li>
+        </ul>
+      </div>
+      <div class="promise-col">
+        <span class="tag">FOR WOMEN</span>
+        <h3 class="serif">인성과 미모를<br>보장합니다</h3>
+        <ul>
+          <li>분위기와 이미지 사전 확인</li>
+          <li>따뜻한 인성과 배려심 검증</li>
+          <li>진지한 만남 의사가 있는 분만 참여</li>
+          <li>품격 있는 자리에 어울리는 매너</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GALLERY ================= -->
+<section class="gallery" id="gallery">
+  <div class="section-inner">
+    <div class="section-head reveal">
+      <span class="eyebrow">MOMENTS</span>
+      <h2 class="serif">블랑드 더논현의 <strong>모임 현장</strong></h2>
+      <p>품격 있는 공간에서 진행되는<br class="br-mobile"> 실제 모임의 분위기를 소개합니다.</p>
+    </div>
+
+    <div class="gallery-grid reveal" id="galleryGrid">
+      <div class="gallery-item big" data-slot="1">
+        <button class="remove-btn" aria-label="사진 삭제">×</button>
+        <img alt="모임 사진 1">
+        <span class="gcap serif">Scene 01 — 라운지</span>
+        <label class="upload-overlay">
+          <div class="upload-wrap">
+            <div class="plus">+</div>
+            <span class="upload-label">사진 추가</span>
+          </div>
+          <input type="file" accept="image/*">
+        </label>
+      </div>
+
+      <div class="gallery-item" data-slot="2">
+        <button class="remove-btn" aria-label="사진 삭제">×</button>
+        <img alt="모임 사진 2">
+        <span class="gcap serif">Scene 02 — 환영회</span>
+        <label class="upload-overlay">
+          <div class="upload-wrap">
+            <div class="plus">+</div>
+            <span class="upload-label">사진 추가</span>
+          </div>
+          <input type="file" accept="image/*">
+        </label>
+      </div>
+
+      <div class="gallery-item" data-slot="3">
+        <button class="remove-btn" aria-label="사진 삭제">×</button>
+        <img alt="모임 사진 3">
+        <span class="gcap serif">Scene 03 — 대화</span>
+        <label class="upload-overlay">
+          <div class="upload-wrap">
+            <div class="plus">+</div>
+            <span class="upload-label">사진 추가</span>
+          </div>
+          <input type="file" accept="image/*">
+        </label>
+      </div>
+
+      <div class="gallery-item" data-slot="4">
+        <button class="remove-btn" aria-label="사진 삭제">×</button>
+        <img alt="모임 사진 4">
+        <span class="gcap serif">Scene 04 — 테이블</span>
+        <label class="upload-overlay">
+          <div class="upload-wrap">
+            <div class="plus">+</div>
+            <span class="upload-label">사진 추가</span>
+          </div>
+          <input type="file" accept="image/*">
+        </label>
+      </div>
+
+      <div class="gallery-item" data-slot="5">
+        <button class="remove-btn" aria-label="사진 삭제">×</button>
+        <img alt="모임 사진 5">
+        <span class="gcap serif">Scene 05 — 마무리</span>
+        <label class="upload-overlay">
+          <div class="upload-wrap">
+            <div class="plus">+</div>
+            <span class="upload-label">사진 추가</span>
+          </div>
+          <input type="file" accept="image/*">
+        </label>
+      </div>
+
+      <div class="gallery-item" data-slot="6">
+        <button class="remove-btn" aria-label="사진 삭제">×</button>
+        <img alt="모임 사진 6">
+        <span class="gcap serif">Scene 06 — 공간</span>
+        <label class="upload-overlay">
+          <div class="upload-wrap">
+            <div class="plus">+</div>
+            <span class="upload-label">사진 추가</span>
+          </div>
+          <input type="file" accept="image/*">
+        </label>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROCESS ================= -->
+<section id="process">
+  <div class="section-inner">
+    <div class="section-head reveal">
+      <span class="eyebrow">PROCESS</span>
+      <h2 class="serif">신청부터 만남까지,<br class="br-mobile"> <strong>간결한 절차</strong></h2>
+    </div>
+
+    <div class="process-list reveal">
+      <div class="process-row">
+        <span class="pnum serif">01</span>
+        <h3>신청 및 1차 상담</h3>
+        <p>간단한 프로필과 희망 조건을 남겨주시면, 담당자가 직접 연락드립니다.</p>
+      </div>
+      <div class="process-row">
+        <span class="pnum serif">02</span>
+        <h3>매칭 심사</h3>
+        <p>인성, 능력, 이미지 등 기준에 따라 신중하게 검토 후 참여 여부를 안내드립니다.</p>
+      </div>
+      <div class="process-row">
+        <span class="pnum serif">03</span>
+        <h3>월례 모임 참석</h3>
+        <p>매달 한 번, 정해진 날에 15대15 소수정예로 모임이 진행됩니다.</p>
+      </div>
+      <div class="process-row">
+        <span class="pnum serif">04</span>
+        <h3>애프터 & 후속 관리</h3>
+        <p>마음에 맞는 인연이 있다면, 이후 만남까지 세심하게 이어드립니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CTA ================= -->
+<section class="cta-section" id="apply">
+  <div class="reveal">
+    <h2 class="serif">이제, <strong>진짜 인연</strong>을<br class="br-mobile"> 만날 시간입니다</h2>
+    <p>평생을 함께할 반려를 찾는 공간,<br class="br-mobile"> 블랑드 더논현이 함께합니다.</p>
+    <div class="cta-buttons">
+      <a href="https://forms.gle/임시링크입니다" target="_blank" rel="noopener" class="btn-primary">신청하기</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo serif">블랑드 <span>더논현</span></div>
+      <p style="max-width:280px;color:#9C9293;">잘나가는 그들의 15:15 소개팅.<br>평생을 함께할 반려를 찾는 공간입니다.</p>
+    </div>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h4>BLANDE</h4>
+        <a href="#message">소개</a>
+        <a href="#why">차이점</a>
+        <a href="#process">진행 절차</a>
+      </div>
+      <div class="footer-col">
+        <h4>CONTACT</h4>
+        <p>서울 강남구 논현동</p>
+        <p>02-1234-5678</p>
+        <p>매일 10:00 – 20:00</p>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 BLANDE THE NONHYEON. All rights reserved.</span>
+    <span>이용약관 · 개인정보처리방침</span>
+  </div>
+</footer>
+
+<!-- ================= LIGHTBOX ================= -->
+<div class="lightbox" id="lightbox">
+  <span class="lightbox-close" id="lightboxClose">×</span>
+  <img id="lightboxImg" src="" alt="확대 이미지">
+</div>
+
+<script>
+  // 헤더 스크롤 효과
+  const header = document.getElementById('header');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // 스크롤 reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+
+  // 갤러리 사진 업로드 (6칸, 로컬 파일 미리보기)
+  const galleryItems = document.querySelectorAll('.gallery-item');
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+
+  galleryItems.forEach(item => {
+    const fileInput = item.querySelector('input[type="file"]');
+    const img = item.querySelector('img');
+    const removeBtn = item.querySelector('.remove-btn');
+
+    fileInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        img.src = ev.target.result;
+        item.classList.add('has-image');
+      };
+      reader.readAsDataURL(file);
+    });
+
+    removeBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      img.src = '';
+      item.classList.remove('has-image');
+      fileInput.value = '';
+    });
+
+    img.addEventListener('click', () => {
+      if (item.classList.contains('has-image')) {
+        lightboxImg.src = img.src;
+        lightbox.classList.add('active');
+      }
+    });
+  });
+
+  document.getElementById('lightboxClose').addEventListener('click', () => {
+    lightbox.classList.remove('active');
+  });
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) lightbox.classList.remove('active');
+  });
+</script>
+
+</body>
+</html>
