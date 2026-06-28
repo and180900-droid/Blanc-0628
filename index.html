@@ -613,6 +613,73 @@
   }
 
   /* =========================================================
+     ADMIN LOGIN MODAL
+     ========================================================= */
+  .adm-login-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(43,37,38,0.55);
+    z-index:2500;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+    font-family:'Pretendard',sans-serif;
+  }
+  .adm-login-overlay.adm-open{display:flex;}
+  .adm-login-box{
+    background:var(--white);
+    border-radius:6px;
+    padding:44px 38px;
+    max-width:360px;
+    width:100%;
+    text-align:center;
+    box-shadow:0 30px 60px -20px rgba(43,37,38,0.4);
+  }
+  .adm-login-mark{
+    font-size:13px;
+    letter-spacing:1.5px;
+    color:var(--rose-deep);
+    margin-bottom:18px;
+  }
+  .adm-login-box h2{
+    font-size:19px;
+    font-weight:500;
+    color:var(--ink);
+    margin:0 0 8px;
+  }
+  .adm-login-box p{
+    font-size:13px;
+    color:var(--ink-soft);
+    margin:0 0 26px;
+  }
+  .adm-login-input{
+    width:100%;
+    padding:13px 15px;
+    border:1px solid var(--line);
+    border-radius:2px;
+    font-size:14px;
+    font-family:inherit;
+    color:var(--ink);
+    outline:none;
+    text-align:center;
+    letter-spacing:2px;
+  }
+  .adm-login-input:focus{border-color:var(--rose);}
+  .adm-login-error{
+    color:#b3413f;
+    font-size:12.5px;
+    min-height:18px;
+    margin-top:10px;
+  }
+  .adm-login-actions{
+    display:flex;
+    gap:10px;
+    margin-top:18px;
+  }
+  .adm-login-actions .adm-btn{flex:1;}
+
+  /* =========================================================
      ADMIN PANEL (같은 페이지 내 오버레이, 모든 클래스 adm- 접두사)
      ========================================================= */
   .adm-panel{
@@ -1014,6 +1081,23 @@
   <img id="lightboxImg" src="" alt="확대 이미지">
 </div>
 
+<!-- ================= ADMIN LOGIN MODAL ================= -->
+<div id="admLoginModal" class="adm-login-overlay">
+  <div class="adm-login-box">
+    <div class="adm-login-mark serif">블랑드 더논현</div>
+    <h2 class="adm-serif">관리자 로그인</h2>
+    <p>비밀번호를 입력해주세요</p>
+    <form id="admLoginForm" autocomplete="off">
+      <input type="password" id="admLoginPw" class="adm-login-input" placeholder="비밀번호" autocomplete="new-password">
+      <div class="adm-login-error" id="admLoginErrorMsg"></div>
+      <div class="adm-login-actions">
+        <button type="button" class="adm-btn" id="admLoginCancel">취소</button>
+        <button type="submit" class="adm-btn adm-primary">확인</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <!-- ================= ADMIN PANEL (같은 페이지 내 오버레이) ================= -->
 <div id="admPanel" class="adm-panel">
   <div class="adm-header">
@@ -1250,16 +1334,45 @@
     if (e.target === lightbox) lightbox.classList.remove('active');
   });
 
-  // 어드민 패널 진입 (눈에 안 보이는 박스 클릭 → 비밀번호 확인 → 같은 페이지 내 패널 표시)
+  // 어드민 패널 진입 (눈에 안 보이는 박스 클릭 → 커스텀 비밀번호 모달 → 같은 페이지 내 패널 표시)
+  const admLoginModal = document.getElementById('admLoginModal');
+  const admLoginForm = document.getElementById('admLoginForm');
+  const admLoginPw = document.getElementById('admLoginPw');
+  const admLoginErrorMsg = document.getElementById('admLoginErrorMsg');
+
   document.getElementById('adminDot').addEventListener('click', () => {
-    const pw = prompt('관리자 비밀번호를 입력하세요');
-    if (pw === null) return;
-    if (pw === 'cc2266') {
+    admLoginErrorMsg.textContent = '';
+    admLoginPw.value = '';
+    admLoginModal.classList.add('adm-open');
+    setTimeout(() => admLoginPw.focus(), 50);
+  });
+
+  document.getElementById('admLoginCancel').addEventListener('click', () => {
+    admLoginModal.classList.remove('adm-open');
+  });
+
+  admLoginModal.addEventListener('click', (e) => {
+    if (e.target === admLoginModal) admLoginModal.classList.remove('adm-open');
+  });
+
+  admLoginForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (admLoginPw.value === 'cc2266') {
+      admLoginModal.classList.remove('adm-open');
       document.getElementById('admPanel').classList.add('adm-open');
       document.body.style.overflow = 'hidden';
       if (typeof admLoadExistingContent === 'function') admLoadExistingContent();
     } else {
-      alert('비밀번호가 올바르지 않습니다.');
+      admLoginErrorMsg.textContent = '비밀번호가 올바르지 않습니다.';
+      admLoginPw.value = '';
+      admLoginPw.focus();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    if (admLoginModal.classList.contains('adm-open')) {
+      admLoginModal.classList.remove('adm-open');
     }
   });
 </script>
