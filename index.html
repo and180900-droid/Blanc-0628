@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -390,9 +391,11 @@
     overflow:hidden;
     border-radius:2px;
     cursor:pointer;
+    background:var(--rose-soft);
   }
   .gallery-item img{
     transition:transform .6s cubic-bezier(.2,.8,.2,1);
+    cursor:zoom-in;
   }
   .gallery-item:hover img{transform:scale(1.07);}
   .gallery-item::after{
@@ -416,60 +419,6 @@
   }
   .gallery-item:hover .gcap{opacity:1;transform:translateY(0);}
   .gallery-item.big{grid-row:span 2;}
-
-  /* upload functionality */
-  .gallery-item .upload-overlay{
-    position:absolute;inset:0;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:rgba(251,247,246,0.92);
-    z-index:3;
-    cursor:pointer;
-    transition:background .3s;
-  }
-  .gallery-item .upload-overlay:hover{background:rgba(243,228,230,0.95);}
-  .gallery-item .upload-overlay .plus{
-    width:48px;height:48px;
-    border:1px dashed var(--rose);
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:var(--rose-deep);
-    font-size:22px;
-    font-weight:300;
-    margin-bottom:10px;
-  }
-  .gallery-item .upload-label{
-    font-size:12px;
-    color:var(--ink-soft);
-    letter-spacing:0.5px;
-  }
-  .upload-wrap{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-  }
-  .gallery-item input[type="file"]{display:none;}
-  .gallery-item.has-image .upload-overlay{display:none;}
-  .gallery-item .remove-btn{
-    position:absolute;
-    top:10px;right:10px;
-    width:28px;height:28px;
-    background:rgba(43,37,38,0.55);
-    color:#fff;
-    border:none;
-    border-radius:50%;
-    font-size:14px;
-    cursor:pointer;
-    display:none;
-    align-items:center;
-    justify-content:center;
-    z-index:4;
-  }
-  .gallery-item.has-image .remove-btn{display:flex;}
-  .gallery-item .remove-btn:hover{background:var(--rose-deep);}
 
   /* ---------- Process ---------- */
   .process-list{
@@ -578,6 +527,18 @@
     font-size:12px;
     color:#776F70;
   }
+  .admin-dot{
+    display:inline-block;
+    width:10px;height:10px;
+    margin-left:8px;
+    background:#FFFFFF;
+    opacity:0.06;
+    border-radius:1px;
+    cursor:pointer;
+    vertical-align:middle;
+    transition:opacity .2s;
+  }
+  .admin-dot:hover{opacity:0.18;}
 
   /* ---------- Modal (image lightbox for gallery click) ---------- */
   .lightbox{
@@ -650,6 +611,150 @@
     .footer-inner{flex-direction:column;}
     .footer-cols{gap:36px;}
   }
+
+  /* =========================================================
+     ADMIN PANEL (같은 페이지 내 오버레이, 모든 클래스 adm- 접두사)
+     ========================================================= */
+  .adm-panel{
+    position:fixed;
+    inset:0;
+    background:var(--cream);
+    z-index:2000;
+    overflow-y:auto;
+    display:none;
+    font-family:'Pretendard',sans-serif;
+    color:var(--ink);
+  }
+  .adm-panel.adm-open{display:block;}
+  .adm-serif{font-family:'Noto Serif KR',serif;}
+
+  .adm-header{
+    background:var(--white);
+    border-bottom:1px solid var(--line);
+    padding:18px 5%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    position:sticky;
+    top:0;
+    z-index:10;
+  }
+  .adm-header h1{font-size:17px;margin:0;font-weight:600;}
+  .adm-header h1 span{color:var(--rose-deep);}
+  .adm-header-actions{display:flex;gap:10px;}
+  .adm-btn{
+    padding:10px 20px;
+    border-radius:2px;
+    font-size:13px;
+    border:1px solid var(--rose-deep);
+    background:var(--white);
+    color:var(--rose-deep);
+    cursor:pointer;
+    letter-spacing:0.3px;
+    font-family:inherit;
+  }
+  .adm-btn.adm-primary{background:var(--rose-deep);color:#fff;border-color:var(--rose-deep);}
+  .adm-btn.adm-primary:hover{background:var(--ink);border-color:var(--ink);}
+  .adm-btn:hover{background:var(--rose-soft);}
+  .adm-btn:disabled{opacity:0.5;cursor:not-allowed;}
+
+  .adm-body{max-width:920px;margin:0 auto;padding:40px 5% 100px;}
+
+  .adm-save-banner{
+    position:fixed;
+    bottom:24px;left:50%;
+    transform:translateX(-50%) translateY(20px);
+    background:var(--ink);
+    color:#fff;
+    padding:14px 28px;
+    border-radius:30px;
+    font-size:13.5px;
+    opacity:0;
+    pointer-events:none;
+    transition:all .3s;
+    z-index:2100;
+  }
+  .adm-save-banner.adm-show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+  .adm-card{
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:28px 30px;
+    margin-bottom:24px;
+  }
+  .adm-card h2{font-size:15.5px;margin:0 0 4px;color:var(--rose-deep);font-weight:600;}
+  .adm-card .adm-desc{font-size:12.5px;color:var(--ink-soft);margin:0 0 20px;}
+  .adm-field{margin-bottom:18px;}
+  .adm-field:last-child{margin-bottom:0;}
+  .adm-field label{
+    display:block;
+    font-size:12.5px;
+    color:var(--ink-soft);
+    margin-bottom:6px;
+    letter-spacing:0.3px;
+  }
+  .adm-field input[type="text"], .adm-field textarea{
+    width:100%;
+    padding:11px 13px;
+    border:1px solid var(--line);
+    border-radius:2px;
+    font-size:14px;
+    font-family:inherit;
+    color:var(--ink);
+    outline:none;
+    resize:vertical;
+  }
+  .adm-field input[type="text"]:focus, .adm-field textarea:focus{border-color:var(--rose);}
+  .adm-hint{font-size:11px;color:#9C9293;margin-top:4px;}
+  .adm-row2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+
+  .adm-img-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+  .adm-img-slot{
+    position:relative;
+    aspect-ratio:1/1;
+    border:1px dashed var(--line);
+    border-radius:3px;
+    overflow:hidden;
+    cursor:pointer;
+    background:var(--cream);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .adm-img-slot img{width:100%;height:100%;object-fit:cover;display:none;}
+  .adm-img-slot.adm-has-img img{display:block;}
+  .adm-img-slot.adm-has-img .adm-placeholder{display:none;}
+  .adm-img-slot .adm-placeholder{font-size:12px;color:#9C9293;text-align:center;padding:10px;}
+  .adm-img-slot .adm-label-tag{
+    position:absolute;top:6px;left:6px;
+    background:rgba(43,37,38,0.65);
+    color:#fff;
+    font-size:10.5px;
+    padding:3px 7px;
+    border-radius:2px;
+    z-index:2;
+  }
+  .adm-img-slot input[type="file"]{display:none;}
+  .adm-img-slot .adm-uploading-badge{
+    position:absolute;inset:0;
+    background:rgba(255,255,255,0.85);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    font-size:11.5px;
+    color:var(--rose-deep);
+  }
+  .adm-img-slot.adm-uploading .adm-uploading-badge{display:flex;}
+  .adm-hero-slot{grid-column:span 3;aspect-ratio:16/9;}
+
+  .adm-footer-bar{display:flex;justify-content:flex-end;gap:10px;margin-top:8px;}
+
+  @media (max-width:700px){
+    .adm-row2{grid-template-columns:1fr;}
+    .adm-img-grid{grid-template-columns:repeat(2,1fr);}
+    .adm-hero-slot{grid-column:span 2;}
+  }
 </style>
 </head>
 <body>
@@ -676,8 +781,8 @@
   <div class="hero-grid">
     <div class="hero-copy">
       <div class="eyebrow">BLANDE THE NONHYEON</div>
-      <h1 class="serif">잘나가는 그들의<br><strong>15 대 15</strong> 소개팅</h1>
-      <p class="lead">너무 귀하고 소중한 당신은, 아무 데서나 사람을 만날 수 없습니다.<br>한 달에 딱 한 번, 소수정예로 열리는 모임에서<br>내 수준에 맞는 진짜 인연을 만나보세요.</p>
+      <h1 class="serif" id="cms-hero_title">잘나가는 그들의<br><strong>15 대 15</strong> 소개팅</h1>
+      <p class="lead" id="cms-hero_lead">너무 귀하고 소중한 당신은, 아무 데서나 사람을 만날 수 없습니다.<br>한 달에 딱 한 번, 소수정예로 열리는 모임에서<br>내 수준에 맞는 진짜 인연을 만나보세요.</p>
 
       <div class="hero-ratio">
         <span class="num">15</span>
@@ -692,7 +797,7 @@
     <div class="hero-visual-wrap" style="position:relative;">
       <div class="hero-visual-frame"></div>
       <div class="hero-visual" id="heroVisual">
-        <img id="heroImg" src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=1200&auto=format&fit=crop" alt="블랑드 더논현 모임 분위기">
+        <img id="heroImg" data-cms-img="hero_image" src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=1200&auto=format&fit=crop" alt="블랑드 더논현 모임 분위기">
         <div class="hero-visual-tag serif">Blande the Nonhyeon — 2026</div>
       </div>
     </div>
@@ -703,13 +808,13 @@
 <section class="message" id="message">
   <div class="message-inner reveal">
     <div class="quote-mark serif">“</div>
-    <blockquote class="serif">
+    <blockquote class="serif" id="cms-message_quote">
       로테이션 소개팅, 파티, 지인 소개,<br class="br-mobile">앱, 결정사까지<br>
       다양한 경로를 쉽게 접할 수 있지만<br>
       어딜 나가도 <strong>괜찮은 사람</strong>은 없고<br>
       시간만 낭비하셨다면,
     </blockquote>
-    <p style="font-size:15.5px;color:var(--ink-soft);margin-bottom:30px;">
+    <p style="font-size:15.5px;color:var(--ink-soft);margin-bottom:30px;" id="cms-message_sub">
       한 달에 딱 한 번 열리는 소수정예의 우리 모임에서<br>
       내 수준에 맞는 진짜 인연을 찾아보세요.
     </p>
@@ -722,30 +827,30 @@
   <div class="section-inner">
     <div class="section-head reveal">
       <span class="eyebrow">WHY BLANDE</span>
-      <h2 class="serif">아무나 만날 수 없는,<br class="br-mobile"> <strong>당신만을 위한 공간</strong></h2>
-      <p>소중한 당신인 만큼,<br class="br-mobile"> 우리는 입장부터<br class="br-mobile"> 다르게 시작합니다.</p>
+      <h2 class="serif" id="cms-why_title">아무나 만날 수 없는,<br class="br-mobile"> <strong>당신만을 위한 공간</strong></h2>
+      <p id="cms-why_sub">소중한 당신인 만큼,<br class="br-mobile"> 우리는 입장부터<br class="br-mobile"> 다르게 시작합니다.</p>
     </div>
 
     <div class="why-grid reveal">
       <div class="why-item">
         <div class="icon serif">男</div>
-        <h3>남성 — 인성과 능력</h3>
-        <p>경제력과 매너를 모두 갖춘<br>품격 있는 남성만을 엄선합니다.</p>
+        <h3 id="cms-why_1_title">남성 — 인성과 능력</h3>
+        <p id="cms-why_1_body">경제력과 매너를 모두 갖춘<br>품격 있는 남성만을 엄선합니다.</p>
       </div>
       <div class="why-item">
         <div class="icon serif">女</div>
-        <h3>여성 — 인성과 미모</h3>
-        <p>내면과 외면의 균형을 갖춘<br>여성분만을 신중히 모십니다.</p>
+        <h3 id="cms-why_2_title">여성 — 인성과 미모</h3>
+        <p id="cms-why_2_body">내면과 외면의 균형을 갖춘<br>여성분만을 신중히 모십니다.</p>
       </div>
       <div class="why-item">
         <div class="icon serif">月</div>
-        <h3>월 1회, 소수정예</h3>
-        <p>많이 만나는 것이 아니라<br>제대로 만나는 모임입니다.</p>
+        <h3 id="cms-why_3_title">월 1회, 소수정예</h3>
+        <p id="cms-why_3_body">많이 만나는 것이 아니라<br>제대로 만나는 모임입니다.</p>
       </div>
       <div class="why-item">
         <div class="icon serif">緣</div>
-        <h3>평생을 함께할 반려</h3>
-        <p>가벼운 만남이 아닌<br>진지한 인연을 위한 자리입니다.</p>
+        <h3 id="cms-why_4_title">평생을 함께할 반려</h3>
+        <p id="cms-why_4_body">가벼운 만남이 아닌<br>진지한 인연을 위한 자리입니다.</p>
       </div>
     </div>
   </div>
@@ -756,15 +861,15 @@
   <div class="section-inner">
     <div class="section-head reveal">
       <span class="eyebrow">OUR STANDARD</span>
-      <h2 class="serif">우리가 지키는 <strong>두 가지 기준</strong></h2>
-      <p>품격 있는 만남을 위해,<br class="br-mobile">블랑드는 양쪽 모두에게<br class="br-mobile"> 같은 기준을 적용합니다.</p>
+      <h2 class="serif" id="cms-promise_title">우리가 지키는 <strong>두 가지 기준</strong></h2>
+      <p id="cms-promise_sub">품격 있는 만남을 위해,<br class="br-mobile">블랑드는 양쪽 모두에게<br class="br-mobile"> 같은 기준을 적용합니다.</p>
     </div>
 
     <div class="promise-grid reveal">
       <div class="promise-col">
         <span class="tag">FOR MEN</span>
         <h3 class="serif">인성과 능력을<br>보장합니다</h3>
-        <ul>
+        <ul id="cms-men_list">
           <li>안정적인 직업과 경제력 검증</li>
           <li>매너와 대화 태도 사전 확인</li>
           <li>진지한 만남 의사가 있는 분만 참여</li>
@@ -774,7 +879,7 @@
       <div class="promise-col">
         <span class="tag">FOR WOMEN</span>
         <h3 class="serif">인성과 미모를<br>보장합니다</h3>
-        <ul>
+        <ul id="cms-women_list">
           <li>분위기와 이미지 사전 확인</li>
           <li>따뜻한 인성과 배려심 검증</li>
           <li>진지한 만남 의사가 있는 분만 참여</li>
@@ -790,87 +895,39 @@
   <div class="section-inner">
     <div class="section-head reveal">
       <span class="eyebrow">MOMENTS</span>
-      <h2 class="serif">블랑드 더논현의 <strong>모임 현장</strong></h2>
-      <p>품격 있는 공간에서 진행되는<br class="br-mobile"> 실제 모임의 분위기를 소개합니다.</p>
+      <h2 class="serif" id="cms-gallery_title">블랑드 더논현의 <strong>모임 현장</strong></h2>
+      <p id="cms-gallery_sub">품격 있는 공간에서 진행되는<br class="br-mobile"> 실제 모임의 분위기를 소개합니다.</p>
     </div>
 
     <div class="gallery-grid reveal" id="galleryGrid">
       <div class="gallery-item big" data-slot="1">
-        <button class="remove-btn" aria-label="사진 삭제">×</button>
-        <img alt="모임 사진 1">
-        <span class="gcap serif">Scene 01 — 라운지</span>
-        <label class="upload-overlay">
-          <div class="upload-wrap">
-            <div class="plus">+</div>
-            <span class="upload-label">사진 추가</span>
-          </div>
-          <input type="file" accept="image/*">
-        </label>
+      <img alt="모임 사진 1" data-cms-img="gallery_1">
+      <span class="gcap serif">Scene 01 — 라운지</span>
       </div>
 
       <div class="gallery-item" data-slot="2">
-        <button class="remove-btn" aria-label="사진 삭제">×</button>
-        <img alt="모임 사진 2">
-        <span class="gcap serif">Scene 02 — 환영회</span>
-        <label class="upload-overlay">
-          <div class="upload-wrap">
-            <div class="plus">+</div>
-            <span class="upload-label">사진 추가</span>
-          </div>
-          <input type="file" accept="image/*">
-        </label>
+      <img alt="모임 사진 2" data-cms-img="gallery_2">
+      <span class="gcap serif">Scene 02 — 환영회</span>
       </div>
 
       <div class="gallery-item" data-slot="3">
-        <button class="remove-btn" aria-label="사진 삭제">×</button>
-        <img alt="모임 사진 3">
-        <span class="gcap serif">Scene 03 — 대화</span>
-        <label class="upload-overlay">
-          <div class="upload-wrap">
-            <div class="plus">+</div>
-            <span class="upload-label">사진 추가</span>
-          </div>
-          <input type="file" accept="image/*">
-        </label>
+      <img alt="모임 사진 3" data-cms-img="gallery_3">
+      <span class="gcap serif">Scene 03 — 대화</span>
       </div>
 
       <div class="gallery-item" data-slot="4">
-        <button class="remove-btn" aria-label="사진 삭제">×</button>
-        <img alt="모임 사진 4">
-        <span class="gcap serif">Scene 04 — 테이블</span>
-        <label class="upload-overlay">
-          <div class="upload-wrap">
-            <div class="plus">+</div>
-            <span class="upload-label">사진 추가</span>
-          </div>
-          <input type="file" accept="image/*">
-        </label>
+      <img alt="모임 사진 4" data-cms-img="gallery_4">
+      <span class="gcap serif">Scene 04 — 테이블</span>
       </div>
 
       <div class="gallery-item" data-slot="5">
-        <button class="remove-btn" aria-label="사진 삭제">×</button>
-        <img alt="모임 사진 5">
-        <span class="gcap serif">Scene 05 — 마무리</span>
-        <label class="upload-overlay">
-          <div class="upload-wrap">
-            <div class="plus">+</div>
-            <span class="upload-label">사진 추가</span>
-          </div>
-          <input type="file" accept="image/*">
-        </label>
+      <img alt="모임 사진 5" data-cms-img="gallery_5">
+      <span class="gcap serif">Scene 05 — 마무리</span>
       </div>
 
       <div class="gallery-item" data-slot="6">
-        <button class="remove-btn" aria-label="사진 삭제">×</button>
-        <img alt="모임 사진 6">
-        <span class="gcap serif">Scene 06 — 공간</span>
-        <label class="upload-overlay">
-          <div class="upload-wrap">
-            <div class="plus">+</div>
-            <span class="upload-label">사진 추가</span>
-          </div>
-          <input type="file" accept="image/*">
-        </label>
+      <img alt="모임 사진 6" data-cms-img="gallery_6">
+      <span class="gcap serif">Scene 06 — 공간</span>
       </div>
     </div>
   </div>
@@ -887,23 +944,23 @@
     <div class="process-list reveal">
       <div class="process-row">
         <span class="pnum serif">01</span>
-        <h3>신청 및 1차 상담</h3>
-        <p>간단한 프로필과 희망 조건을 남겨주시면, 담당자가 직접 연락드립니다.</p>
+        <h3 id="cms-process_1_title">신청 및 1차 상담</h3>
+        <p id="cms-process_1_body">간단한 프로필과 희망 조건을 남겨주시면, 담당자가 직접 연락드립니다.</p>
       </div>
       <div class="process-row">
         <span class="pnum serif">02</span>
-        <h3>매칭 심사</h3>
-        <p>인성, 능력, 이미지 등 기준에 따라 신중하게 검토 후 참여 여부를 안내드립니다.</p>
+        <h3 id="cms-process_2_title">매칭 심사</h3>
+        <p id="cms-process_2_body">인성, 능력, 이미지 등 기준에 따라 신중하게 검토 후 참여 여부를 안내드립니다.</p>
       </div>
       <div class="process-row">
         <span class="pnum serif">03</span>
-        <h3>월례 모임 참석</h3>
-        <p>매달 한 번, 정해진 날에 15대15 소수정예로 모임이 진행됩니다.</p>
+        <h3 id="cms-process_3_title">월례 모임 참석</h3>
+        <p id="cms-process_3_body">매달 한 번, 정해진 날에 15대15 소수정예로 모임이 진행됩니다.</p>
       </div>
       <div class="process-row">
         <span class="pnum serif">04</span>
-        <h3>애프터 & 후속 관리</h3>
-        <p>마음에 맞는 인연이 있다면, 이후 만남까지 세심하게 이어드립니다.</p>
+        <h3 id="cms-process_4_title">애프터 & 후속 관리</h3>
+        <p id="cms-process_4_body">마음에 맞는 인연이 있다면, 이후 만남까지 세심하게 이어드립니다.</p>
       </div>
     </div>
   </div>
@@ -912,8 +969,8 @@
 <!-- ================= CTA ================= -->
 <section class="cta-section" id="apply">
   <div class="reveal">
-    <h2 class="serif">이제, <strong>진짜 인연</strong>을<br class="br-mobile"> 만날 시간입니다</h2>
-    <p>평생을 함께할 반려를 찾는 공간,<br class="br-mobile"> 블랑드 더논현이 함께합니다.</p>
+    <h2 class="serif" id="cms-cta_title">이제, <strong>진짜 인연</strong>을<br class="br-mobile"> 만날 시간입니다</h2>
+    <p id="cms-cta_sub">평생을 함께할 반려를 찾는 공간,<br class="br-mobile"> 블랑드 더논현이 함께합니다.</p>
     <div class="cta-buttons">
       <a href="https://forms.gle/임시링크입니다" target="_blank" rel="noopener" class="btn-primary">신청하기</a>
     </div>
@@ -936,14 +993,14 @@
       </div>
       <div class="footer-col">
         <h4>CONTACT</h4>
-        <p>서울 강남구 논현동</p>
-        <p>02-1234-5678</p>
-        <p>매일 10:00 – 20:00</p>
+        <p id="cms-contact_address">서울 강남구 논현동</p>
+        <p id="cms-contact_phone">02-1234-5678</p>
+        <p id="cms-contact_hours">매일 10:00 – 20:00</p>
       </div>
     </div>
   </div>
   <div class="footer-bottom">
-    <span>© 2026 BLANDE THE NONHYEON. All rights reserved.</span>
+    <span>© 2026 BLANDE THE NONHYEON. All rights reserved.<span class="admin-dot" id="adminDot" title=""></span></span>
     <span>이용약관 · 개인정보처리방침</span>
   </div>
 </footer>
@@ -953,6 +1010,201 @@
   <span class="lightbox-close" id="lightboxClose">×</span>
   <img id="lightboxImg" src="" alt="확대 이미지">
 </div>
+
+<!-- ================= ADMIN PANEL (같은 페이지 내 오버레이) ================= -->
+<div id="admPanel" class="adm-panel">
+  <div class="adm-header">
+    <h1 class="adm-serif">블랑드 더논현 <span>관리자</span></h1>
+    <div class="adm-header-actions">
+      <button class="adm-btn" id="admCloseBtn">닫기</button>
+      <button class="adm-btn adm-primary" id="admSaveAllBtn">전체 저장</button>
+    </div>
+  </div>
+
+  <div class="adm-body">
+
+    <div class="adm-card">
+      <h2>히어로 섹션</h2>
+      <p class="adm-desc">맨 위 첫 화면에 보이는 제목, 소개 문구, 대표 이미지입니다.</p>
+      <div class="adm-field">
+        <label>제목 (강조할 부분은 **양쪽 별표** 로 감싸주세요)</label>
+        <textarea data-key="hero_title" rows="2">잘나가는 그들의 **15 대 15** 소개팅</textarea>
+        <div class="adm-hint">강조하고 싶은 단어를 **별표**로 감싸면 진한 색으로 표시됩니다.</div>
+      </div>
+      <div class="adm-field">
+        <label>소개 문구</label>
+        <textarea data-key="hero_lead" rows="3">너무 귀하고 소중한 당신은, 아무 데서나 사람을 만날 수 없습니다.
+한 달에 딱 한 번, 소수정예로 열리는 모임에서
+내 수준에 맞는 진짜 인연을 만나보세요.</textarea>
+      </div>
+      <div class="adm-field">
+        <label>대표 이미지</label>
+        <div class="adm-img-grid">
+          <div class="adm-img-slot adm-hero-slot" data-img-key="hero_image">
+            <span class="adm-label-tag">대표 이미지</span>
+            <img>
+            <div class="adm-placeholder">클릭하여 이미지 업로드</div>
+            <div class="adm-uploading-badge">업로드 중...</div>
+            <input type="file" accept="image/*">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="adm-card">
+      <h2>메시지 섹션</h2>
+      <p class="adm-desc">화이트 배경의 인용구 섹션 문구입니다.</p>
+      <div class="adm-field">
+        <label>인용구 (강조: **이렇게**)</label>
+        <textarea data-key="message_quote" rows="4">로테이션 소개팅, 파티, 지인 소개, 앱, 결정사까지
+다양한 경로를 쉽게 접할 수 있지만
+어딜 나가도 **괜찮은 사람**은 없고
+시간만 낭비하셨다면,</textarea>
+      </div>
+      <div class="adm-field">
+        <label>부연 설명</label>
+        <textarea data-key="message_sub" rows="2">한 달에 딱 한 번 열리는 소수정예의 우리 모임에서
+내 수준에 맞는 진짜 인연을 찾아보세요.</textarea>
+      </div>
+    </div>
+
+    <div class="adm-card">
+      <h2>WHY BLANDE 섹션</h2>
+      <p class="adm-desc">차이점을 설명하는 4개 카드 섹션입니다.</p>
+      <div class="adm-field">
+        <label>섹션 제목 (강조: **이렇게**)</label>
+        <textarea data-key="why_title" rows="2">아무나 만날 수 없는, **당신만을 위한 공간**</textarea>
+      </div>
+      <div class="adm-field">
+        <label>섹션 부제목</label>
+        <textarea data-key="why_sub" rows="2">소중한 당신인 만큼,
+우리는 입장부터
+다르게 시작합니다.</textarea>
+      </div>
+      <div class="adm-row2">
+        <div class="adm-field"><label>카드 1 제목</label><input type="text" data-key="why_1_title" value="남성 — 인성과 능력"></div>
+        <div class="adm-field"><label>카드 1 본문</label><input type="text" data-key="why_1_body" value="경제력과 매너를 모두 갖춘 품격 있는 남성만을 엄선합니다."></div>
+      </div>
+      <div class="adm-row2">
+        <div class="adm-field"><label>카드 2 제목</label><input type="text" data-key="why_2_title" value="여성 — 인성과 미모"></div>
+        <div class="adm-field"><label>카드 2 본문</label><input type="text" data-key="why_2_body" value="내면과 외면의 균형을 갖춘 여성분만을 신중히 모십니다."></div>
+      </div>
+      <div class="adm-row2">
+        <div class="adm-field"><label>카드 3 제목</label><input type="text" data-key="why_3_title" value="월 1회, 소수정예"></div>
+        <div class="adm-field"><label>카드 3 본문</label><input type="text" data-key="why_3_body" value="많이 만나는 것이 아니라 제대로 만나는 모임입니다."></div>
+      </div>
+      <div class="adm-row2">
+        <div class="adm-field"><label>카드 4 제목</label><input type="text" data-key="why_4_title" value="평생을 함께할 반려"></div>
+        <div class="adm-field"><label>카드 4 본문</label><input type="text" data-key="why_4_body" value="가벼운 만남이 아닌 진지한 인연을 위한 자리입니다."></div>
+      </div>
+    </div>
+
+    <div class="adm-card">
+      <h2>OUR STANDARD 섹션 (다크 배경)</h2>
+      <p class="adm-desc">남성/여성 각각의 기준을 보여주는 섹션입니다.</p>
+      <div class="adm-field">
+        <label>섹션 제목 (강조: **이렇게**)</label>
+        <textarea data-key="promise_title" rows="2">우리가 지키는 **두 가지 기준**</textarea>
+      </div>
+      <div class="adm-field">
+        <label>섹션 부제목</label>
+        <textarea data-key="promise_sub" rows="2">품격 있는 만남을 위해,
+블랑드는 양쪽 모두에게
+같은 기준을 적용합니다.</textarea>
+      </div>
+      <div class="adm-field">
+        <label>남성 기준 (한 줄에 하나씩 입력)</label>
+        <textarea data-key="men_list" rows="4">안정적인 직업과 경제력 검증
+매너와 대화 태도 사전 확인
+진지한 만남 의사가 있는 분만 참여
+외적인 자기관리 수준 확인</textarea>
+      </div>
+      <div class="adm-field">
+        <label>여성 기준 (한 줄에 하나씩 입력)</label>
+        <textarea data-key="women_list" rows="4">분위기와 이미지 사전 확인
+따뜻한 인성과 배려심 검증
+진지한 만남 의사가 있는 분만 참여
+품격 있는 자리에 어울리는 매너</textarea>
+      </div>
+    </div>
+
+    <div class="adm-card">
+      <h2>모임 사진 갤러리</h2>
+      <p class="adm-desc">실제 모임 현장 사진 6장과 섹션 문구입니다. 칸을 클릭해 사진을 올리면 저장 시 반영됩니다.</p>
+      <div class="adm-field">
+        <label>섹션 제목 (강조: **이렇게**)</label>
+        <textarea data-key="gallery_title" rows="2">블랑드 더논현의 **모임 현장**</textarea>
+      </div>
+      <div class="adm-field">
+        <label>섹션 부제목</label>
+        <textarea data-key="gallery_sub" rows="2">품격 있는 공간에서 진행되는
+실제 모임의 분위기를 소개합니다.</textarea>
+      </div>
+      <div class="adm-field">
+        <label>갤러리 사진 (6장)</label>
+        <div class="adm-img-grid">
+          <div class="adm-img-slot" data-img-key="gallery_1"><span class="adm-label-tag">1</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
+          <div class="adm-img-slot" data-img-key="gallery_2"><span class="adm-label-tag">2</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
+          <div class="adm-img-slot" data-img-key="gallery_3"><span class="adm-label-tag">3</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
+          <div class="adm-img-slot" data-img-key="gallery_4"><span class="adm-label-tag">4</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
+          <div class="adm-img-slot" data-img-key="gallery_5"><span class="adm-label-tag">5</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
+          <div class="adm-img-slot" data-img-key="gallery_6"><span class="adm-label-tag">6</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="adm-card">
+      <h2>진행 절차 섹션</h2>
+      <div class="adm-row2">
+        <div class="adm-field"><label>01 제목</label><input type="text" data-key="process_1_title" value="신청 및 1차 상담"></div>
+        <div class="adm-field"><label>01 본문</label><input type="text" data-key="process_1_body" value="간단한 프로필과 희망 조건을 남겨주시면, 담당자가 직접 연락드립니다."></div>
+      </div>
+      <div class="adm-row2">
+        <div class="adm-field"><label>02 제목</label><input type="text" data-key="process_2_title" value="매칭 심사"></div>
+        <div class="adm-field"><label>02 본문</label><input type="text" data-key="process_2_body" value="인성, 능력, 이미지 등 기준에 따라 신중하게 검토 후 참여 여부를 안내드립니다."></div>
+      </div>
+      <div class="adm-row2">
+        <div class="adm-field"><label>03 제목</label><input type="text" data-key="process_3_title" value="월례 모임 참석"></div>
+        <div class="adm-field"><label>03 본문</label><input type="text" data-key="process_3_body" value="매달 한 번, 정해진 날에 15대15 소수정예로 모임이 진행됩니다."></div>
+      </div>
+      <div class="adm-row2">
+        <div class="adm-field"><label>04 제목</label><input type="text" data-key="process_4_title" value="애프터 & 후속 관리"></div>
+        <div class="adm-field"><label>04 본문</label><input type="text" data-key="process_4_body" value="마음에 맞는 인연이 있다면, 이후 만남까지 세심하게 이어드립니다."></div>
+      </div>
+    </div>
+
+    <div class="adm-card">
+      <h2>마지막 신청 안내 섹션</h2>
+      <div class="adm-field">
+        <label>제목 (강조: **이렇게**)</label>
+        <textarea data-key="cta_title" rows="2">이제, **진짜 인연**을 만날 시간입니다</textarea>
+      </div>
+      <div class="adm-field">
+        <label>부제목</label>
+        <textarea data-key="cta_sub" rows="2">평생을 함께할 반려를 찾는 공간,
+블랑드 더논현이 함께합니다.</textarea>
+      </div>
+    </div>
+
+    <div class="adm-card">
+      <h2>연락처 정보 (하단 푸터)</h2>
+      <div class="adm-row2">
+        <div class="adm-field"><label>주소</label><input type="text" data-key="contact_address" value="서울 강남구 논현동"></div>
+        <div class="adm-field"><label>전화번호</label><input type="text" data-key="contact_phone" value="02-1234-5678"></div>
+      </div>
+      <div class="adm-field">
+        <label>운영시간</label>
+        <input type="text" data-key="contact_hours" value="매일 10:00 – 20:00">
+      </div>
+    </div>
+
+    <div class="adm-footer-bar">
+      <button class="adm-btn adm-primary" id="admSaveAllBtn2">전체 저장</button>
+    </div>
+  </div>
+</div>
+
+<div class="adm-save-banner" id="admSaveBanner">저장되었습니다</div>
 
 <script>
   // 헤더 스크롤 효과
@@ -973,36 +1225,15 @@
   }, { threshold: 0.15 });
   revealEls.forEach(el => io.observe(el));
 
-  // 갤러리 사진 업로드 (6칸, 로컬 파일 미리보기)
+  // 갤러리 라이트박스 (이미지는 어드민 페이지에서만 변경 가능)
   const galleryItems = document.querySelectorAll('.gallery-item');
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightboxImg');
 
   galleryItems.forEach(item => {
-    const fileInput = item.querySelector('input[type="file"]');
     const img = item.querySelector('img');
-    const removeBtn = item.querySelector('.remove-btn');
-
-    fileInput.addEventListener('change', (e) => {
-      const file = e.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = (ev) => {
-        img.src = ev.target.result;
-        item.classList.add('has-image');
-      };
-      reader.readAsDataURL(file);
-    });
-
-    removeBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      img.src = '';
-      item.classList.remove('has-image');
-      fileInput.value = '';
-    });
-
     img.addEventListener('click', () => {
-      if (item.classList.contains('has-image')) {
+      if (img.src) {
         lightboxImg.src = img.src;
         lightbox.classList.add('active');
       }
@@ -1014,6 +1245,180 @@
   });
   lightbox.addEventListener('click', (e) => {
     if (e.target === lightbox) lightbox.classList.remove('active');
+  });
+
+  // 어드민 패널 진입 (눈에 안 보이는 박스 클릭 → 비밀번호 확인 → 같은 페이지 내 패널 표시)
+  document.getElementById('adminDot').addEventListener('click', () => {
+    const pw = prompt('관리자 비밀번호를 입력하세요');
+    if (pw === null) return;
+    if (pw === 'cc2266') {
+      document.getElementById('admPanel').classList.add('adm-open');
+      document.body.style.overflow = 'hidden';
+      if (typeof admLoadExistingContent === 'function') admLoadExistingContent();
+    } else {
+      alert('비밀번호가 올바르지 않습니다.');
+    }
+  });
+</script>
+
+<!-- ================= FIREBASE: 콘텐츠 불러오기 + 어드민 저장 ================= -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+  import { getStorage, ref, uploadString, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA7ffOaPtbCnxDWpdkrAqDf1ierxIFriYc",
+    authDomain: "blanc-4f0b0.firebaseapp.com",
+    projectId: "blanc-4f0b0",
+    storageBucket: "blanc-4f0b0.firebasestorage.app",
+    messagingSenderId: "791572766364",
+    appId: "1:791572766364:web:546ca5c8a7490584159759"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const storage = getStorage(app);
+  const DOC_REF = doc(db, "site", "content");
+
+  /* ---------- 방문자 화면: 저장된 콘텐츠 불러와 표시 ---------- */
+  async function loadContent() {
+    try {
+      const snap = await getDoc(DOC_REF);
+      if (!snap.exists()) return; // 저장된 내용이 없으면 기본값(HTML 원본) 그대로 표시
+      const data = snap.data();
+
+      Object.keys(data.texts || {}).forEach(key => {
+        if (key === 'men_list' || key === 'women_list') return;
+        const el = document.getElementById('cms-' + key);
+        if (el && data.texts[key]) el.innerHTML = data.texts[key];
+      });
+
+      ['men_list', 'women_list'].forEach(key => {
+        const el = document.getElementById('cms-' + key);
+        if (el && data.texts && data.texts[key]) {
+          const lines = data.texts[key].split('\n').map(s => s.trim()).filter(Boolean);
+          if (lines.length) el.innerHTML = lines.map(line => `<li>${line}</li>`).join('');
+        }
+      });
+
+      document.querySelectorAll('[data-cms-img]').forEach(imgEl => {
+        const key = imgEl.getAttribute('data-cms-img');
+        if (data.images && data.images[key]) imgEl.src = data.images[key];
+      });
+    } catch (err) {
+      console.error('콘텐츠 로딩 실패:', err);
+    }
+  }
+  loadContent();
+
+  /* ---------- 어드민 패널: 기존 콘텐츠를 폼에 채우기 ---------- */
+  let admPendingImages = {};
+
+  window.admLoadExistingContent = async function () {
+    try {
+      const snap = await getDoc(DOC_REF);
+      if (!snap.exists()) return;
+      const data = snap.data();
+
+      document.querySelectorAll('#admPanel [data-key]').forEach(el => {
+        const key = el.getAttribute('data-key');
+        if (data.texts && data.texts[key] !== undefined) el.value = data.texts[key];
+      });
+
+      document.querySelectorAll('#admPanel .adm-img-slot').forEach(slot => {
+        const key = slot.getAttribute('data-img-key');
+        if (data.images && data.images[key]) {
+          slot.querySelector('img').src = data.images[key];
+          slot.classList.add('adm-has-img');
+        }
+      });
+    } catch (err) {
+      console.error('어드민 콘텐츠 로딩 실패:', err);
+    }
+  };
+
+  /* ---------- 어드민 패널: 이미지 업로드(미리보기) ---------- */
+  document.querySelectorAll('#admPanel .adm-img-slot').forEach(slot => {
+    const fileInput = slot.querySelector('input[type="file"]');
+    const imgTag = slot.querySelector('img');
+    const key = slot.getAttribute('data-img-key');
+
+    slot.addEventListener('click', () => fileInput.click());
+
+    fileInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        imgTag.src = ev.target.result;
+        slot.classList.add('adm-has-img');
+        admPendingImages[key] = ev.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  });
+
+  function admApplyMarkdown(text) {
+    return text.split('\n').join('<br>').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+  }
+
+  /* ---------- 어드민 패널: 전체 저장 ---------- */
+  async function admSaveAll(btn) {
+    btn.disabled = true;
+    const originalText = btn.textContent;
+    btn.textContent = '저장 중...';
+
+    try {
+      const imageUrls = {};
+      for (const key of Object.keys(admPendingImages)) {
+        const slot = document.querySelector(`#admPanel .adm-img-slot[data-img-key="${key}"]`);
+        if (slot) slot.classList.add('adm-uploading');
+        const storageRef = ref(storage, `blande/${key}.jpg`);
+        await uploadString(storageRef, admPendingImages[key], 'data_url');
+        imageUrls[key] = await getDownloadURL(storageRef);
+        if (slot) slot.classList.remove('adm-uploading');
+      }
+
+      const snap = await getDoc(DOC_REF);
+      const existing = snap.exists() ? snap.data() : { texts: {}, images: {} };
+      const mergedImages = { ...(existing.images || {}), ...imageUrls };
+
+      const texts = {};
+      document.querySelectorAll('#admPanel [data-key]').forEach(el => {
+        const key = el.getAttribute('data-key');
+        if (!key) return;
+        texts[key] = (key === 'men_list' || key === 'women_list')
+          ? el.value.trim()
+          : admApplyMarkdown(el.value.trim());
+      });
+
+      await setDoc(DOC_REF, { texts, images: mergedImages }, { merge: true });
+
+      admPendingImages = {};
+      admShowBanner('저장되었습니다. 사이트에 바로 반영됩니다.');
+      loadContent(); // 메인 화면도 즉시 갱신
+    } catch (err) {
+      console.error(err);
+      admShowBanner('저장 중 오류가 발생했습니다.');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = originalText;
+    }
+  }
+
+  function admShowBanner(msg) {
+    const banner = document.getElementById('admSaveBanner');
+    banner.textContent = msg;
+    banner.classList.add('adm-show');
+    setTimeout(() => banner.classList.remove('adm-show'), 2600);
+  }
+
+  document.getElementById('admSaveAllBtn').addEventListener('click', (e) => admSaveAll(e.currentTarget));
+  document.getElementById('admSaveAllBtn2').addEventListener('click', (e) => admSaveAll(e.currentTarget));
+  document.getElementById('admCloseBtn').addEventListener('click', () => {
+    document.getElementById('admPanel').classList.remove('adm-open');
+    document.body.style.overflow = '';
   });
 </script>
 
