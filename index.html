@@ -861,7 +861,7 @@
         <span class="cap">월 1회 개최<br>소수정예 매칭</span>
       </div>
 
-      <a href="#apply" class="btn-primary">참가 신청하기</a>
+      <a href="https://forms.gle/임시링크입니다" data-cms-link="apply_url" target="_blank" rel="noopener" class="btn-primary">참가 신청하기</a>
     </div>
 
     <div class="hero-visual-wrap" style="position:relative;">
@@ -1042,7 +1042,7 @@
     <h2 class="serif" id="cms-cta_title">이제, <strong>진짜 인연</strong>을<br class="br-mobile"> 만날 시간입니다</h2>
     <p id="cms-cta_sub">평생을 함께할 반려를 찾는 공간,<br class="br-mobile"> 블랑드 더논현이 함께합니다.</p>
     <div class="cta-buttons">
-      <a href="https://forms.gle/임시링크입니다" target="_blank" rel="noopener" class="btn-primary">신청하기</a>
+      <a href="https://forms.gle/임시링크입니다" data-cms-link="apply_url" target="_blank" rel="noopener" class="btn-primary">신청하기</a>
     </div>
   </div>
 </section>
@@ -1274,6 +1274,16 @@
     </div>
 
     <div class="adm-card">
+      <h2>버튼 연결 링크</h2>
+      <p class="adm-desc">"참가 신청하기" / "신청하기" 버튼을 누르면 이동할 주소입니다. 구글폼, 카카오톡 채널, 네이버폼 등 원하는 링크로 바꿀 수 있습니다.</p>
+      <div class="adm-field">
+        <label>신청 링크 (히어로 + 하단 버튼 모두 적용)</label>
+        <input type="text" data-link-key="apply_url" value="https://forms.gle/임시링크입니다" placeholder="https://forms.gle/...">
+        <div class="adm-hint">http:// 또는 https:// 로 시작하는 전체 주소를 입력해주세요.</div>
+      </div>
+    </div>
+
+    <div class="adm-card">
       <h2>연락처 정보 (하단 푸터)</h2>
       <div class="adm-row2">
         <div class="adm-field"><label>주소</label><input type="text" data-key="contact_address" value="서울 강남구 논현동"></div>
@@ -1419,6 +1429,13 @@
             if (lines.length) el.innerHTML = lines.map(line => `<li>${line}</li>`).join('');
           }
         });
+
+        // 버튼 연결 링크 적용
+        Object.keys(data.links || {}).forEach(key => {
+          const url = data.links[key];
+          if (!url) return;
+          document.querySelectorAll(`[data-cms-link="${key}"]`).forEach(a => { a.href = url; });
+        });
       }
 
       // 이미지는 site_images 컬렉션의 개별 문서에서 병렬로 불러오기
@@ -1450,6 +1467,10 @@
         document.querySelectorAll('#admPanel [data-key]').forEach(el => {
           const key = el.getAttribute('data-key');
           if (data.texts && data.texts[key] !== undefined) el.value = data.texts[key];
+        });
+        document.querySelectorAll('#admPanel [data-link-key]').forEach(el => {
+          const key = el.getAttribute('data-link-key');
+          if (data.links && data.links[key]) el.value = data.links[key];
         });
       }
 
@@ -1579,7 +1600,16 @@
           : admApplyMarkdown(el.value.trim());
       });
 
-      await admWithTimeout(setDoc(DOC_REF, { texts }, { merge: true }), 15000, 'setDoc');
+      const links = {};
+      document.querySelectorAll('#admPanel [data-link-key]').forEach(el => {
+        const key = el.getAttribute('data-link-key');
+        if (!key) return;
+        let url = el.value.trim();
+        if (url && !/^https?:\/\//i.test(url)) url = 'https://' + url;
+        links[key] = url;
+      });
+
+      await admWithTimeout(setDoc(DOC_REF, { texts, links }, { merge: true }), 15000, 'setDoc');
 
       admPendingImages = {};
       admShowBanner('저장되었습니다. 사이트에 바로 반영됩니다.');
