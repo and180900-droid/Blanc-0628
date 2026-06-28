@@ -1264,11 +1264,10 @@
   });
 </script>
 
-<!-- ================= FIREBASE: 콘텐츠 불러오기 + 어드민 저장 ================= -->
+<!-- ================= FIREBASE: 콘텐츠 불러오기 + 어드민 저장 (Storage 없이 Firestore만 사용) ================= -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
   import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-  import { getStorage, ref, uploadString, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyA7ffOaPtbCnxDWpdkrAqDf1ierxIFriYc",
@@ -1281,34 +1280,46 @@
 
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
-  const storage = getStorage(app);
   const DOC_REF = doc(db, "site", "content");
+  // 이미지는 각각 별도 문서에 Base64로 저장 (Firestore 문서당 1MB 제한 회피)
+  const imgDocRef = (key) => doc(db, "site_images", key);
 
   /* ---------- 방문자 화면: 저장된 콘텐츠 불러와 표시 ---------- */
+  const ALL_IMG_KEYS = ['hero_image','gallery_1','gallery_2','gallery_3','gallery_4','gallery_5','gallery_6'];
+
   async function loadContent() {
     try {
       const snap = await getDoc(DOC_REF);
-      if (!snap.exists()) return; // 저장된 내용이 없으면 기본값(HTML 원본) 그대로 표시
-      const data = snap.data();
+      if (snap.exists()) {
+        const data = snap.data();
 
-      Object.keys(data.texts || {}).forEach(key => {
-        if (key === 'men_list' || key === 'women_list') return;
-        const el = document.getElementById('cms-' + key);
-        if (el && data.texts[key]) el.innerHTML = data.texts[key];
-      });
+        Object.keys(data.texts || {}).forEach(key => {
+          if (key === 'men_list' || key === 'women_list') return;
+          const el = document.getElementById('cms-' + key);
+          if (el && data.texts[key]) el.innerHTML = data.texts[key];
+        });
 
-      ['men_list', 'women_list'].forEach(key => {
-        const el = document.getElementById('cms-' + key);
-        if (el && data.texts && data.texts[key]) {
-          const lines = data.texts[key].split('\n').map(s => s.trim()).filter(Boolean);
-          if (lines.length) el.innerHTML = lines.map(line => `<li>${line}</li>`).join('');
+        ['men_list', 'women_list'].forEach(key => {
+          const el = document.getElementById('cms-' + key);
+          if (el && data.texts && data.texts[key]) {
+            const lines = data.texts[key].split('\n').map(s => s.trim()).filter(Boolean);
+            if (lines.length) el.innerHTML = lines.map(line => `<li>${line}</li>`).join('');
+          }
+        });
+      }
+
+      // 이미지는 site_images 컬렉션의 개별 문서에서 병렬로 불러오기
+      await Promise.all(ALL_IMG_KEYS.map(async (key) => {
+        try {
+          const imgSnap = await getDoc(imgDocRef(key));
+          if (imgSnap.exists() && imgSnap.data().url) {
+            const imgEl = document.querySelector(`[data-cms-img="${key}"]`);
+            if (imgEl) imgEl.src = imgSnap.data().url;
+          }
+        } catch (e) {
+          console.error('이미지 로딩 실패:', key, e);
         }
-      });
-
-      document.querySelectorAll('[data-cms-img]').forEach(imgEl => {
-        const key = imgEl.getAttribute('data-cms-img');
-        if (data.images && data.images[key]) imgEl.src = data.images[key];
-      });
+      }));
     } catch (err) {
       console.error('콘텐츠 로딩 실패:', err);
     }
@@ -1321,27 +1332,61 @@
   window.admLoadExistingContent = async function () {
     try {
       const snap = await getDoc(DOC_REF);
-      if (!snap.exists()) return;
-      const data = snap.data();
+      if (snap.exists()) {
+        const data = snap.data();
+        document.querySelectorAll('#admPanel [data-key]').forEach(el => {
+          const key = el.getAttribute('data-key');
+          if (data.texts && data.texts[key] !== undefined) el.value = data.texts[key];
+        });
+      }
 
-      document.querySelectorAll('#admPanel [data-key]').forEach(el => {
-        const key = el.getAttribute('data-key');
-        if (data.texts && data.texts[key] !== undefined) el.value = data.texts[key];
-      });
-
-      document.querySelectorAll('#admPanel .adm-img-slot').forEach(slot => {
-        const key = slot.getAttribute('data-img-key');
-        if (data.images && data.images[key]) {
-          slot.querySelector('img').src = data.images[key];
-          slot.classList.add('adm-has-img');
+      await Promise.all(ALL_IMG_KEYS.map(async (key) => {
+        try {
+          const imgSnap = await getDoc(imgDocRef(key));
+          if (imgSnap.exists() && imgSnap.data().url) {
+            const slot = document.querySelector(`#admPanel .adm-img-slot[data-img-key="${key}"]`);
+            if (slot) {
+              slot.querySelector('img').src = imgSnap.data().url;
+              slot.classList.add('adm-has-img');
+            }
+          }
+        } catch (e) {
+          console.error('어드민 이미지 로딩 실패:', key, e);
         }
-      });
+      }));
     } catch (err) {
       console.error('어드민 콘텐츠 로딩 실패:', err);
     }
   };
 
-  /* ---------- 어드민 패널: 이미지 업로드(미리보기) ---------- */
+  /* ---------- 이미지 압축 (Firestore 1MB 문서 제한 회피용) ---------- */
+  function admCompressImage(file, maxDim, quality) {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      const reader = new FileReader();
+      reader.onload = (ev) => { img.src = ev.target.result; };
+      reader.onerror = reject;
+      img.onload = () => {
+        let { width, height } = img;
+        if (width > height && width > maxDim) {
+          height = Math.round(height * (maxDim / width));
+          width = maxDim;
+        } else if (height > maxDim) {
+          width = Math.round(width * (maxDim / height));
+          height = maxDim;
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+        resolve(canvas.toDataURL('image/jpeg', quality));
+      };
+      img.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
+  /* ---------- 어드민 패널: 이미지 업로드(압축 후 미리보기) ---------- */
   document.querySelectorAll('#admPanel .adm-img-slot').forEach(slot => {
     const fileInput = slot.querySelector('input[type="file"]');
     const imgTag = slot.querySelector('img');
@@ -1349,16 +1394,21 @@
 
     slot.addEventListener('click', () => fileInput.click());
 
-    fileInput.addEventListener('change', (e) => {
+    fileInput.addEventListener('change', async (e) => {
       const file = e.target.files[0];
       if (!file) return;
-      const reader = new FileReader();
-      reader.onload = (ev) => {
-        imgTag.src = ev.target.result;
+      try {
+        slot.classList.add('adm-uploading');
+        const compressed = await admCompressImage(file, 1280, 0.75);
+        imgTag.src = compressed;
         slot.classList.add('adm-has-img');
-        admPendingImages[key] = ev.target.result;
-      };
-      reader.readAsDataURL(file);
+        admPendingImages[key] = compressed;
+      } catch (err) {
+        console.error('이미지 압축 실패:', err);
+        alert('이미지를 처리하지 못했습니다. 다른 사진으로 시도해주세요.');
+      } finally {
+        slot.classList.remove('adm-uploading');
+      }
     });
   });
 
@@ -1377,40 +1427,35 @@
     const code = err && err.code ? err.code : '';
     const msg = err && err.message ? err.message : String(err);
     if (msg.startsWith('TIMEOUT')) {
-      return '응답이 너무 오래 걸립니다. Firebase Storage/Firestore 보안 규칙이 막혀있을 수 있어요. (요청이 멈춤)';
+      return '응답이 너무 오래 걸립니다. Firebase Firestore 보안 규칙이 막혀있을 수 있어요. (요청이 멈춤)';
     }
-    if (code.includes('permission-denied') || code.includes('unauthorized')) {
-      return '저장 권한이 없습니다. Firebase 콘솔에서 Firestore/Storage 보안 규칙을 read/write 허용으로 바꿔주세요.';
+    if (code.includes('permission-denied')) {
+      return '저장 권한이 없습니다. Firebase 콘솔에서 Firestore 보안 규칙을 read/write 허용으로 바꿔주세요.';
     }
-    if (code.includes('storage/unauthorized')) {
-      return 'Storage 업로드 권한이 없습니다. Firebase 콘솔 → Storage → 규칙을 확인해주세요.';
-    }
-    if (code.includes('not-found')) {
-      return 'Storage 버킷을 찾을 수 없습니다. Firebase 콘솔에서 Storage가 활성화되어 있는지 확인해주세요.';
+    if (msg.includes('longer than') || msg.includes('exceeds') || code.includes('invalid-argument')) {
+      return '이미지 용량이 너무 큽니다. 더 작은 사진으로 다시 시도해주세요.';
     }
     return `저장 중 오류: ${code || msg}`;
   }
 
-  /* ---------- 어드민 패널: 전체 저장 ---------- */
+  /* ---------- 어드민 패널: 전체 저장 (이미지는 site_images 컬렉션에 개별 저장) ---------- */
   async function admSaveAll(btn) {
     btn.disabled = true;
     const originalText = btn.textContent;
     btn.textContent = '저장 중...';
 
     try {
-      const imageUrls = {};
-      for (const key of Object.keys(admPendingImages)) {
+      const uploadKeys = Object.keys(admPendingImages);
+      for (const key of uploadKeys) {
         const slot = document.querySelector(`#admPanel .adm-img-slot[data-img-key="${key}"]`);
         if (slot) slot.classList.add('adm-uploading');
-        const storageRef = ref(storage, `blande/${key}.jpg`);
-        await admWithTimeout(uploadString(storageRef, admPendingImages[key], 'data_url'), 15000, 'upload:' + key);
-        imageUrls[key] = await admWithTimeout(getDownloadURL(storageRef), 15000, 'url:' + key);
+        await admWithTimeout(
+          setDoc(imgDocRef(key), { url: admPendingImages[key] }),
+          15000,
+          'image:' + key
+        );
         if (slot) slot.classList.remove('adm-uploading');
       }
-
-      const snap = await admWithTimeout(getDoc(DOC_REF), 15000, 'getDoc');
-      const existing = snap.exists() ? snap.data() : { texts: {}, images: {} };
-      const mergedImages = { ...(existing.images || {}), ...imageUrls };
 
       const texts = {};
       document.querySelectorAll('#admPanel [data-key]').forEach(el => {
@@ -1421,7 +1466,7 @@
           : admApplyMarkdown(el.value.trim());
       });
 
-      await admWithTimeout(setDoc(DOC_REF, { texts, images: mergedImages }, { merge: true }), 15000, 'setDoc');
+      await admWithTimeout(setDoc(DOC_REF, { texts }, { merge: true }), 15000, 'setDoc');
 
       admPendingImages = {};
       admShowBanner('저장되었습니다. 사이트에 바로 반영됩니다.');
