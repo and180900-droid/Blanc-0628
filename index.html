@@ -826,22 +826,68 @@
     .adm-img-grid{grid-template-columns:repeat(2,1fr);}
     .adm-hero-slot{grid-column:span 2;}
   }
-  /* 지난 모임 참가자 버튼 */
+  /* 지난 모임 참가자 버튼 - 휘황찬란 네온사인 스타일 */
   .past-link-btn{
     display:inline-block;
-    border:1px solid rgba(255,255,255,0.3);
-    color:rgba(255,255,255,0.75);
-    padding:14px 36px;
-    border-radius:2px;
-    font-size:13.5px;
-    letter-spacing:1.5px;
+    border:2px solid #ff6ec7;
+    color:#ffe9f5;
+    padding:22px 64px;
+    border-radius:999px;
+    font-size:19px;
+    font-weight:600;
+    letter-spacing:2px;
     text-decoration:none;
-    transition:all .25s;
+    transition:transform .25s;
     font-family:'Pretendard',sans-serif;
+    text-shadow:
+      0 0 6px #fff,
+      0 0 14px #ff6ec7,
+      0 0 26px #ff6ec7,
+      0 0 44px #ff2fb0,
+      0 0 3px #7ef9ff;
+    box-shadow:
+      0 0 10px #ff6ec7,
+      0 0 26px #ff2fb0,
+      0 0 46px rgba(255,110,199,0.6),
+      0 0 70px rgba(126,249,255,0.35),
+      inset 0 0 16px rgba(255,110,199,0.4);
+    background:rgba(255,110,199,0.06);
+    animation:neonFlicker 3.2s linear infinite, neonColorCycle 6s linear infinite;
   }
   .past-link-btn:hover{
-    border-color:var(--rose);
-    color:var(--rose);
+    transform:scale(1.05);
+  }
+  @keyframes neonColorCycle{
+    0%{
+      border-color:#ff6ec7;
+      text-shadow:0 0 6px #fff,0 0 14px #ff6ec7,0 0 26px #ff6ec7,0 0 44px #ff2fb0,0 0 3px #7ef9ff;
+      box-shadow:0 0 10px #ff6ec7,0 0 26px #ff2fb0,0 0 46px rgba(255,110,199,0.6),0 0 70px rgba(126,249,255,0.35),inset 0 0 16px rgba(255,110,199,0.4);
+    }
+    33%{
+      border-color:#7ef9ff;
+      text-shadow:0 0 6px #fff,0 0 14px #7ef9ff,0 0 26px #7ef9ff,0 0 44px #2fd8ff,0 0 3px #ff6ec7;
+      box-shadow:0 0 10px #7ef9ff,0 0 26px #2fd8ff,0 0 46px rgba(126,249,255,0.6),0 0 70px rgba(255,110,199,0.35),inset 0 0 16px rgba(126,249,255,0.4);
+    }
+    66%{
+      border-color:#ffd76e;
+      text-shadow:0 0 6px #fff,0 0 14px #ffd76e,0 0 26px #ffd76e,0 0 44px #ff9f2f,0 0 3px #ff6ec7;
+      box-shadow:0 0 10px #ffd76e,0 0 26px #ff9f2f,0 0 46px rgba(255,215,110,0.6),0 0 70px rgba(255,110,199,0.35),inset 0 0 16px rgba(255,215,110,0.4);
+    }
+    100%{
+      border-color:#ff6ec7;
+      text-shadow:0 0 6px #fff,0 0 14px #ff6ec7,0 0 26px #ff6ec7,0 0 44px #ff2fb0,0 0 3px #7ef9ff;
+      box-shadow:0 0 10px #ff6ec7,0 0 26px #ff2fb0,0 0 46px rgba(255,110,199,0.6),0 0 70px rgba(126,249,255,0.35),inset 0 0 16px rgba(255,110,199,0.4);
+    }
+  }
+  @keyframes neonFlicker{
+    0%,3%,6%,7%,9%,72%,74%,100%{opacity:1;}
+    4%,5%,8%,73%{opacity:0.35;}
+  }
+  @media (max-width:600px){
+    .past-link-btn{padding:18px 40px;font-size:16px;letter-spacing:1.2px;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .past-link-btn{animation:none;}
   }
 </style>
 </head>
