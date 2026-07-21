@@ -128,6 +128,21 @@
     white-space:nowrap;
   }
 
+  .past-date-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    margin:28px auto 0;
+    padding:10px 26px;
+    border:1px solid rgba(201,123,134,0.45);
+    border-radius:999px;
+    color:var(--rose);
+    font-family:'Noto Serif KR',serif;
+    font-size:14px;
+    letter-spacing:0.5px;
+  }
+  .past-date-wrap{text-align:center;}
+
   /* ---------- Past Participants ---------- */
   .past-section{padding:20px 6% 130px;}
   .section-inner{max-width:1180px;margin:0 auto;}
@@ -280,6 +295,10 @@
   <p>블랙라벨 더논현에 실제로 참여했던 회원분들의 프로필을 소개합니다.</p>
 </div>
 
+<div class="past-date-wrap">
+  <span class="past-date-badge serif" id="cms-past_date">2026년 7월 25일 (토)</span>
+</div>
+
 <!-- ================= PAST PARTICIPANTS ================= -->
 <section class="past-section">
   <div class="section-inner">
@@ -372,7 +391,7 @@
   });
 </script>
 
-<!-- ================= FIREBASE: 지난 모임 사진 불러오기 ================= -->
+<!-- ================= FIREBASE: 지난 모임 사진/날짜 불러오기 ================= -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
   import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
@@ -388,6 +407,7 @@
 
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
+  const DOC_REF = doc(db, "site", "content");
   const imgDocRef = (key) => doc(db, "site_images", key);
 
   const PAST_IMG_KEYS = ['past_gallery_1','past_gallery_2','past_gallery_3','past_gallery_4','past_gallery_5','past_gallery_6'];
@@ -403,6 +423,21 @@
       console.error('지난 모임 사진 로딩 실패:', key, e);
     }
   }));
+
+  (async () => {
+    try {
+      const snap = await getDoc(DOC_REF);
+      if (snap.exists()) {
+        const data = snap.data();
+        if (data.texts && data.texts.past_date) {
+          const el = document.getElementById('cms-past_date');
+          if (el) el.innerHTML = data.texts.past_date;
+        }
+      }
+    } catch (e) {
+      console.error('지난 모임 날짜 로딩 실패:', e);
+    }
+  })();
 </script>
 
 </body>
