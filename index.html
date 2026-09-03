@@ -1036,7 +1036,7 @@
 <!-- ================= VIDEO SHOWCASE ================= -->
 <section class="video-showcase reveal" id="videoShowcase">
   <div class="video-showcase-frame">
-    <video id="showcaseVideo" muted loop playsinline autoplay preload="metadata" poster="https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=800&auto=format&fit=crop"></video>
+    <video id="showcaseVideo" src="video.mp4" muted loop playsinline autoplay preload="auto" poster="https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=800&auto=format&fit=crop"></video>
   </div>
   <div class="video-showcase-cap serif">Blande the Nonhyeon — Highlight</div>
 </section>
@@ -1374,12 +1374,28 @@
     </div>
 
     <div class="adm-card">
-      <h2>지난 모임 페이지 사진 (past.html)</h2>
-      <p class="adm-desc">지난 모임 참가자 페이지 하단에 노출되는 사진 6장입니다. 칸을 클릭해 사진을 올리면 저장 시 past.html에 바로 반영됩니다.</p>
+      <h2>지난 모임 페이지 — 최신 리스트 상단 사진</h2>
+      <p class="adm-desc">past.html 맨 위, 가장 최근 신청자 리스트(예: 26년8월30일 리스트) 바로 위에 노출되는 사진 6장입니다. 다음 달 리스트로 교체할 때도 이 칸의 사진만 바꿔주시면 됩니다.</p>
       <div class="adm-field">
-        <label>지난 모임 날짜</label>
-        <input type="text" data-key="past_date" value="2026년 7월 25일 (토)">
-        <p class="adm-hint">past.html 상단에 표시되는 날짜/요일입니다. 예: 2026년 7월 25일 (토)</p>
+        <label>최신 리스트 상단 사진 (6장)</label>
+        <div class="adm-img-grid">
+          <div class="adm-img-slot" data-img-key="latest_gallery_1"><span class="adm-label-tag">1</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
+          <div class="adm-img-slot" data-img-key="latest_gallery_2"><span class="adm-label-tag">2</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
+          <div class="adm-img-slot" data-img-key="latest_gallery_3"><span class="adm-label-tag">3</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
+          <div class="adm-img-slot" data-img-key="latest_gallery_4"><span class="adm-label-tag">4</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
+          <div class="adm-img-slot" data-img-key="latest_gallery_5"><span class="adm-label-tag">5</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
+          <div class="adm-img-slot" data-img-key="latest_gallery_6"><span class="adm-label-tag">6</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="adm-card">
+      <h2>지난 모임 페이지 사진 (past.html 하단 "그날의 모임 사진")</h2>
+      <p class="adm-desc">지난 모임 참가자 페이지 맨 아래, "그날의 모임 사진" 섹션에 노출되는 사진 6장입니다. 칸을 클릭해 사진을 올리면 저장 시 past.html에 바로 반영됩니다.</p>
+      <div class="adm-field">
+        <label>지난 모임 날짜 (아래쪽, 예전 리스트용)</label>
+        <input type="text" data-key="past_date" value="2026년 7월 18일 (토)">
+        <p class="adm-hint">past.html에서 아래쪽(예전) 리스트 위에 표시되는 날짜/요일입니다. 예: 2026년 7월 18일 (토)</p>
       </div>
       <div class="adm-field">
         <label>지난 모임 사진 (6장)</label>
@@ -1581,7 +1597,7 @@
   const imgDocRef = (key) => doc(db, "site_images", key);
 
   /* ---------- 방문자 화면: 저장된 콘텐츠 불러와 표시 ---------- */
-  const ALL_IMG_KEYS = ['hero_image','gallery_1','gallery_2','gallery_3','gallery_4','gallery_5','gallery_6','past_gallery_1','past_gallery_2','past_gallery_3','past_gallery_4','past_gallery_5','past_gallery_6'];
+  const ALL_IMG_KEYS = ['hero_image','gallery_1','gallery_2','gallery_3','gallery_4','gallery_5','gallery_6','past_gallery_1','past_gallery_2','past_gallery_3','past_gallery_4','past_gallery_5','past_gallery_6','latest_gallery_1','latest_gallery_2','latest_gallery_3','latest_gallery_4','latest_gallery_5','latest_gallery_6'];
 
   async function loadContent() {
     try {
@@ -1610,12 +1626,22 @@
           document.querySelectorAll(`[data-cms-link="${key}"]`).forEach(a => { a.href = url; });
         });
 
-        // 세로 비디오 링크 적용
-        const showcaseVideoEl = document.getElementById('showcaseVideo');
-        if (showcaseVideoEl && data.links && data.links.showcase_video_url) {
-          showcaseVideoEl.src = data.links.showcase_video_url;
-          showcaseVideoEl.load();
+        // 세로 비디오 링크 적용 (관리자 패널에 링크를 넣으면 GitHub에 올린 기본 video.mp4보다 우선 적용)
+        const linkedVideoUrl = data.links && data.links.showcase_video_url;
+        if (linkedVideoUrl) {
+          const showcaseVideoEl = document.getElementById('showcaseVideo');
+          if (showcaseVideoEl) {
+            showcaseVideoEl.src = linkedVideoUrl;
+            showcaseVideoEl.load();
+          }
         }
+      }
+
+      // 비디오 자동재생 시도 (브라우저 자동재생 정책 대응)
+      const showcaseVideoEl = document.getElementById('showcaseVideo');
+      if (showcaseVideoEl) {
+        showcaseVideoEl.muted = true;
+        showcaseVideoEl.play().catch(() => {});
       }
 
       // 이미지는 site_images 컬렉션의 개별 문서에서 병렬로 불러오기
