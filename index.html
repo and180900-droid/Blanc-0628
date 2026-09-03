@@ -1390,6 +1390,22 @@
     </div>
 
     <div class="adm-card">
+      <h2>지난 모임 페이지 — 예전 리스트 상단 사진</h2>
+      <p class="adm-desc">past.html에서 아래쪽(예전) 신청자 리스트 바로 위에 노출되는 사진 6장입니다.</p>
+      <div class="adm-field">
+        <label>예전 리스트 상단 사진 (6장)</label>
+        <div class="adm-img-grid">
+          <div class="adm-img-slot" data-img-key="older_gallery_1"><span class="adm-label-tag">1</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
+          <div class="adm-img-slot" data-img-key="older_gallery_2"><span class="adm-label-tag">2</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
+          <div class="adm-img-slot" data-img-key="older_gallery_3"><span class="adm-label-tag">3</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
+          <div class="adm-img-slot" data-img-key="older_gallery_4"><span class="adm-label-tag">4</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
+          <div class="adm-img-slot" data-img-key="older_gallery_5"><span class="adm-label-tag">5</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
+          <div class="adm-img-slot" data-img-key="older_gallery_6"><span class="adm-label-tag">6</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="adm-card">
       <h2>지난 모임 페이지 사진 (past.html 하단 "그날의 모임 사진")</h2>
       <p class="adm-desc">지난 모임 참가자 페이지 맨 아래, "그날의 모임 사진" 섹션에 노출되는 사진 6장입니다. 칸을 클릭해 사진을 올리면 저장 시 past.html에 바로 반영됩니다.</p>
       <div class="adm-field">
@@ -1597,7 +1613,7 @@
   const imgDocRef = (key) => doc(db, "site_images", key);
 
   /* ---------- 방문자 화면: 저장된 콘텐츠 불러와 표시 ---------- */
-  const ALL_IMG_KEYS = ['hero_image','gallery_1','gallery_2','gallery_3','gallery_4','gallery_5','gallery_6','past_gallery_1','past_gallery_2','past_gallery_3','past_gallery_4','past_gallery_5','past_gallery_6','latest_gallery_1','latest_gallery_2','latest_gallery_3','latest_gallery_4','latest_gallery_5','latest_gallery_6'];
+  const ALL_IMG_KEYS = ['hero_image','gallery_1','gallery_2','gallery_3','gallery_4','gallery_5','gallery_6','past_gallery_1','past_gallery_2','past_gallery_3','past_gallery_4','past_gallery_5','past_gallery_6','latest_gallery_1','latest_gallery_2','latest_gallery_3','latest_gallery_4','latest_gallery_5','latest_gallery_6','older_gallery_1','older_gallery_2','older_gallery_3','older_gallery_4','older_gallery_5','older_gallery_6'];
 
   async function loadContent() {
     try {
