@@ -579,17 +579,23 @@
         if (data.texts && data.texts.contact_hours) document.getElementById('cms-contact_hours').textContent = data.texts.contact_hours;
       }
 
-      await Promise.all(IMG_KEYS.map(async (key) => {
+      // 모든 이미지를 먼저 다 받아온 뒤 한 번에 화면에 적용 (하나씩 순차적으로 뜨는 현상 방지)
+      const imgResults = await Promise.all(IMG_KEYS.map(async (key) => {
         try {
           const imgSnap = await getDoc(imgDocRef(key));
           if (imgSnap.exists() && imgSnap.data().url) {
-            const imgEl = document.querySelector(`[data-cms-img="${key}"]`);
-            if (imgEl) imgEl.src = imgSnap.data().url;
+            return { key, url: imgSnap.data().url };
           }
         } catch (e) {
           console.error('이미지 로딩 실패:', key, e);
         }
+        return null;
       }));
+      imgResults.forEach(result => {
+        if (!result) return;
+        const imgEl = document.querySelector(`[data-cms-img="${result.key}"]`);
+        if (imgEl) imgEl.src = result.url;
+      });
     } catch (err) {
       console.error('콘텐츠 로딩 실패:', err);
     }
