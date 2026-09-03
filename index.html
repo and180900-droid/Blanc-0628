@@ -337,7 +337,7 @@
   }
   .video-showcase-frame{
     position:relative;
-    width:min(340px, 78vw);
+    width:min(480px, 78vw);
     aspect-ratio:9/16;
     margin:0 auto;
     border-radius:6px;
@@ -1644,18 +1644,23 @@
         showcaseVideoEl.play().catch(() => {});
       }
 
-      // 이미지는 site_images 컬렉션의 개별 문서에서 병렬로 불러오기
-      await Promise.all(ALL_IMG_KEYS.map(async (key) => {
+      // 모든 이미지를 먼저 다 받아온 뒤 한 번에 화면에 적용 (하나씩 순차적으로 뜨는 현상 방지)
+      const imgResults = await Promise.all(ALL_IMG_KEYS.map(async (key) => {
         try {
           const imgSnap = await getDoc(imgDocRef(key));
           if (imgSnap.exists() && imgSnap.data().url) {
-            const imgEl = document.querySelector(`[data-cms-img="${key}"]`);
-            if (imgEl) imgEl.src = imgSnap.data().url;
+            return { key, url: imgSnap.data().url };
           }
         } catch (e) {
           console.error('이미지 로딩 실패:', key, e);
         }
+        return null;
       }));
+      imgResults.forEach(result => {
+        if (!result) return;
+        const imgEl = document.querySelector(`[data-cms-img="${result.key}"]`);
+        if (imgEl) imgEl.src = result.url;
+      });
     } catch (err) {
       console.error('콘텐츠 로딩 실패:', err);
     }
