@@ -329,6 +329,47 @@
     line-height:1.75;
   }
 
+  /* ---------- Video Showcase ---------- */
+  .video-showcase{
+    padding:70px 6% 100px;
+    background:var(--white);
+    text-align:center;
+  }
+  .video-showcase-frame{
+    position:relative;
+    width:min(340px, 78vw);
+    aspect-ratio:9/16;
+    margin:0 auto;
+    border-radius:6px;
+    overflow:hidden;
+    box-shadow:0 40px 80px -30px rgba(139,74,86,0.35);
+    background:var(--ink);
+  }
+  .video-showcase-frame::after{
+    content:'';
+    position:absolute;
+    top:-14px;right:-14px;
+    width:90%;height:90%;
+    border:1px solid var(--rose);
+    z-index:-1;
+  }
+  .video-showcase video{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+    background:var(--ink);
+  }
+  .video-showcase-cap{
+    margin-top:20px;
+    font-size:12px;
+    letter-spacing:1.5px;
+    color:var(--ink-soft);
+  }
+  @media (max-width:600px){
+    .video-showcase{padding:50px 6% 70px;}
+  }
+
   /* ---------- Promise / Standard ---------- */
   .promise{
     background:var(--ink);
@@ -992,6 +1033,14 @@
   </div>
 </section>
 
+<!-- ================= VIDEO SHOWCASE ================= -->
+<section class="video-showcase reveal" id="videoShowcase">
+  <div class="video-showcase-frame">
+    <video id="showcaseVideo" muted loop playsinline autoplay preload="metadata" poster="https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=800&auto=format&fit=crop"></video>
+  </div>
+  <div class="video-showcase-cap serif">Blande the Nonhyeon — Highlight</div>
+</section>
+
 <!-- ================= PROMISE ================= -->
 <section class="promise">
   <div class="section-inner">
@@ -1261,6 +1310,16 @@
     </div>
 
     <div class="adm-card">
+      <h2>세로 비디오 섹션</h2>
+      <p class="adm-desc">"WHY BLACK LABEL" 섹션과 "OUR STANDARD" 섹션 사이에 표시되는 세로(9:16) 영상입니다. 영상 파일을 직접 올리는 대신, 이미 업로드된 영상의 재생 링크(mp4 주소 등)를 입력해주세요.</p>
+      <div class="adm-field">
+        <label>영상 링크 (mp4 URL)</label>
+        <input type="text" data-link-key="showcase_video_url" placeholder="https://.../video.mp4">
+        <div class="adm-hint">http:// 또는 https:// 없이 입력해도 자동으로 붙습니다. 유튜브 링크가 아닌, 재생 가능한 mp4/webm 파일 주소를 입력해야 정상 재생됩니다.</div>
+      </div>
+    </div>
+
+    <div class="adm-card">
       <h2>OUR STANDARD 섹션 (다크 배경)</h2>
       <p class="adm-desc">남성/여성 각각의 기준을 보여주는 섹션입니다.</p>
       <div class="adm-field">
@@ -1460,17 +1519,36 @@
     if (e.target === admLoginModal) admLoginModal.classList.remove('adm-open');
   });
 
-  admLoginForm.addEventListener('submit', (e) => {
+  // 비밀번호는 평문으로 저장하지 않고 SHA-256 해시값만 비교합니다.
+  // (해시값: "cc2266"의 SHA-256) — 페이지 소스를 봐도 실제 비밀번호는 노출되지 않습니다.
+  const ADM_PW_HASH = 'a027f3282f5aa4b3076e6e9c1638c49d05a0004a8767185e6eebd1ee92e6d77f';
+
+  async function admHashText(text) {
+    const enc = new TextEncoder().encode(text);
+    const buf = await crypto.subtle.digest('SHA-256', enc);
+    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+  }
+
+  admLoginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    if (admLoginPw.value === 'cc2266') {
-      admLoginModal.classList.remove('adm-open');
-      document.getElementById('admPanel').classList.add('adm-open');
-      document.body.style.overflow = 'hidden';
-      if (typeof admLoadExistingContent === 'function') admLoadExistingContent();
-    } else {
-      admLoginErrorMsg.textContent = '비밀번호가 올바르지 않습니다.';
-      admLoginPw.value = '';
-      admLoginPw.focus();
+    const submitBtn = admLoginForm.querySelector('button[type="submit"]');
+    submitBtn.disabled = true;
+    try {
+      const inputHash = await admHashText(admLoginPw.value);
+      if (inputHash === ADM_PW_HASH) {
+        admLoginModal.classList.remove('adm-open');
+        document.getElementById('admPanel').classList.add('adm-open');
+        document.body.style.overflow = 'hidden';
+        if (typeof admLoadExistingContent === 'function') admLoadExistingContent();
+      } else {
+        admLoginErrorMsg.textContent = '비밀번호가 올바르지 않습니다.';
+        admLoginPw.value = '';
+        admLoginPw.focus();
+      }
+    } catch (err) {
+      admLoginErrorMsg.textContent = '로그인 확인 중 오류가 발생했습니다.';
+    } finally {
+      submitBtn.disabled = false;
     }
   });
 
@@ -1531,6 +1609,13 @@
           if (!url) return;
           document.querySelectorAll(`[data-cms-link="${key}"]`).forEach(a => { a.href = url; });
         });
+
+        // 세로 비디오 링크 적용
+        const showcaseVideoEl = document.getElementById('showcaseVideo');
+        if (showcaseVideoEl && data.links && data.links.showcase_video_url) {
+          showcaseVideoEl.src = data.links.showcase_video_url;
+          showcaseVideoEl.load();
+        }
       }
 
       // 이미지는 site_images 컬렉션의 개별 문서에서 병렬로 불러오기
