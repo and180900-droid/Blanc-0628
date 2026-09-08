@@ -1470,13 +1470,17 @@
           <div>
             <small style="display:block;margin-bottom:6px;color:var(--ink-soft);">글자 크기</small>
             <select data-key="past_date_size">
-              <option value="22px">22px</option><option value="24px">24px</option><option value="28px" selected>28px</option><option value="32px">32px</option><option value="36px">36px</option><option value="40px">40px</option>
+              <option value="24px">보통</option>
+              <option value="30px" selected>중간</option>
+              <option value="38px">크게</option>
             </select>
           </div>
           <div>
             <small style="display:block;margin-bottom:6px;color:var(--ink-soft);">굵기</small>
             <select data-key="past_date_weight">
-              <option value="400">보통</option><option value="500" selected>중간</option><option value="700">크게</option>
+              <option value="400">보통</option>
+              <option value="500" selected>중간</option>
+              <option value="700">크게</option>
             </select>
           </div>
           <div>
@@ -1953,8 +1957,8 @@
   function admPastDatePreview(){
     const get=(k)=>document.querySelector(`#admPanel [data-key="${k}"]`);
     const text=get('past_date')?.value?.trim() || '26년 9월 27일 (일)';
-    const size=get('past_date_size')?.value || '28px';
-    const weight=get('past_date_weight')?.value || '600';
+    const size=get('past_date_size')?.value || '30px';
+    const weight=get('past_date_weight')?.value || '500';
     const color=get('past_date_color')?.value || '#F7DDE0';
     const effect=get('past_date_effect')?.value || 'luxury';
     const arrow=get('past_date_arrow')?.value || 'both';
