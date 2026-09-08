@@ -1,11 +1,15 @@
 
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="naver-site-verification" content="d4cb4f204375193f9cbbde423c092e7707dca02c" />
-<title>블랙라벨 더논현 | 15 : 15 소개팅</title>
+<title>블랙라벨 더논현 | 15:15 프리미엄 소개팅</title>
+<link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500;600;700&family=Pretendard:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -931,6 +935,52 @@
   @media (prefers-reduced-motion: reduce){
     .past-link-btn{animation:none;}
   }
+
+  /* ===== 지난 모임 신청자 리스트 날짜 : 프리미엄 스타일 ===== */
+  .adm-past-date-preview{
+    margin-top:18px;
+    padding:28px 20px 30px;
+    border:1px solid rgba(201,123,134,.45);
+    border-radius:14px;
+    background:linear-gradient(145deg,#30292a,#241f20);
+    text-align:center;
+    overflow:hidden;
+    position:relative;
+  }
+  .adm-past-date-preview:before,
+  .adm-past-date-preview:after{
+    content:""; position:absolute; top:50%; width:18%; height:1px;
+    background:linear-gradient(90deg,transparent,#C97B86);
+  }
+  .adm-past-date-preview:before{left:0}
+  .adm-past-date-preview:after{right:0; transform:scaleX(-1)}
+  .adm-past-date-preview .past-date-demo{
+    display:inline-block;
+    color:#F7DDE0;
+    font-family:'Noto Serif KR',serif;
+    font-size:28px;
+    font-weight:600;
+    letter-spacing:1.2px;
+    line-height:1.45;
+    text-shadow:0 0 5px rgba(255,235,238,.85),0 0 16px rgba(201,123,134,.75),0 0 30px rgba(201,123,134,.35);
+    position:relative;
+    z-index:1;
+  }
+  .adm-past-date-preview .past-date-caption{
+    display:block; margin-top:9px; font-size:11px; color:#C9B9BA; letter-spacing:1px;
+  }
+  .adm-field select[data-key], .adm-field input[type="number"][data-key]{
+    min-height:48px; padding:11px 14px; border:1px solid var(--line); border-radius:8px;
+    background:#fff; color:var(--ink); font:inherit;
+  }
+  .adm-field input[type="color"][data-key]{
+    width:100%; height:50px; padding:4px; border:1px solid var(--line); border-radius:8px; background:#fff;
+  }
+  .adm-past-date-settings{
+    display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px;
+  }
+  @media(max-width:700px){.adm-past-date-settings{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
@@ -1409,9 +1459,48 @@
       <h2>지난 모임 페이지 사진 (past.html 하단 "그날의 모임 사진")</h2>
       <p class="adm-desc">지난 모임 참가자 페이지 맨 아래, "그날의 모임 사진" 섹션에 노출되는 사진 6장입니다. 칸을 클릭해 사진을 올리면 저장 시 past.html에 바로 반영됩니다.</p>
       <div class="adm-field">
-        <label>지난 모임 날짜 (아래쪽, 예전 리스트용)</label>
-        <input type="text" data-key="past_date" value="2026년 7월 18일 (토)">
-        <p class="adm-hint">past.html에서 아래쪽(예전) 리스트 위에 표시되는 날짜/요일입니다. 예: 2026년 7월 18일 (토)</p>
+        <label>신청자 리스트 날짜 · 공개 페이지 상단 표시</label>
+        <input type="text" data-key="past_date" value="26년 9월 27일 (일)" style="font-size:20px;font-weight:600;">
+        <p class="adm-hint">이 날짜를 바꾸면 공개 신청자 리스트의 날짜도 바뀌도록 저장됩니다. 아래 디자인 설정도 함께 저장됩니다.</p>
+      </div>
+
+      <div class="adm-field">
+        <label>신청자 리스트 날짜 디자인</label>
+        <div class="adm-past-date-settings">
+          <div>
+            <small style="display:block;margin-bottom:6px;color:var(--ink-soft);">글자 크기</small>
+            <select data-key="past_date_size">
+              <option value="22px">22px</option><option value="24px">24px</option><option value="28px" selected>28px</option><option value="32px">32px</option><option value="36px">36px</option><option value="40px">40px</option>
+            </select>
+          </div>
+          <div>
+            <small style="display:block;margin-bottom:6px;color:var(--ink-soft);">굵기</small>
+            <select data-key="past_date_weight">
+              <option value="400">보통</option><option value="500" selected>중간</option><option value="700">크게</option>
+            </select>
+          </div>
+          <div>
+            <small style="display:block;margin-bottom:6px;color:var(--ink-soft);">글자 색상</small>
+            <input type="color" data-key="past_date_color" value="#F7DDE0">
+          </div>
+          <div>
+            <small style="display:block;margin-bottom:6px;color:var(--ink-soft);">효과</small>
+            <select data-key="past_date_effect">
+              <option value="luxury" selected>로즈골드 글로우</option><option value="soft">은은한 광택</option><option value="none">효과 없음</option>
+            </select>
+          </div>
+          <div>
+            <small style="display:block;margin-bottom:6px;color:var(--ink-soft);">화살표</small>
+            <select data-key="past_date_arrow">
+              <option value="both" selected>↓ 날짜 ↓</option><option value="left">↓ 날짜</option><option value="right">날짜 ↓</option><option value="none">날짜만</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="adm-past-date-preview">
+        <span class="past-date-demo" id="admPastDateDemo">↓ 26년 9월 27일 (일) ↓</span>
+        <span class="past-date-caption">공개 페이지 표시 미리보기</span>
       </div>
       <div class="adm-field">
         <label>지난 모임 사진 (6장)</label>
@@ -1858,6 +1947,28 @@
     clearTimeout(window.__admBannerTimer);
     window.__admBannerTimer = setTimeout(() => banner.classList.remove('adm-show'), 5000);
   }
+
+
+  // ---------- 신청자 리스트 날짜 디자인 미리보기 ----------
+  function admPastDatePreview(){
+    const get=(k)=>document.querySelector(`#admPanel [data-key="${k}"]`);
+    const text=get('past_date')?.value?.trim() || '26년 9월 27일 (일)';
+    const size=get('past_date_size')?.value || '28px';
+    const weight=get('past_date_weight')?.value || '600';
+    const color=get('past_date_color')?.value || '#F7DDE0';
+    const effect=get('past_date_effect')?.value || 'luxury';
+    const arrow=get('past_date_arrow')?.value || 'both';
+    const prefix=arrow==='both'||arrow==='left' ? '↓ ' : '';
+    const suffix=arrow==='both'||arrow==='right' ? ' ↓' : '';
+    const el=document.getElementById('admPastDateDemo');
+    if(!el)return;
+    el.textContent=prefix+text+suffix;
+    el.style.fontSize=size; el.style.fontWeight=weight; el.style.color=color;
+    el.style.textShadow=effect==='luxury' ? `0 0 5px ${color},0 0 16px ${color},0 0 30px rgba(201,123,134,.35)` : effect==='soft' ? `0 0 7px ${color}` : 'none';
+  }
+  document.querySelectorAll('#admPanel [data-key="past_date"],#admPanel [data-key="past_date_size"],#admPanel [data-key="past_date_weight"],#admPanel [data-key="past_date_color"],#admPanel [data-key="past_date_effect"],#admPanel [data-key="past_date_arrow"]').forEach(el=>el.addEventListener('input',admPastDatePreview));
+  document.querySelectorAll('#admPanel [data-key="past_date_size"],#admPanel [data-key="past_date_weight"],#admPanel [data-key="past_date_effect"],#admPanel [data-key="past_date_arrow"]').forEach(el=>el.addEventListener('change',admPastDatePreview));
+  setTimeout(admPastDatePreview, 50);
 
   document.getElementById('admSaveAllBtn').addEventListener('click', (e) => admSaveAll(e.currentTarget));
   document.getElementById('admSaveAllBtn2').addEventListener('click', (e) => admSaveAll(e.currentTarget));
