@@ -1,5 +1,6 @@
 
 
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -372,6 +373,28 @@
   }
   @media (max-width:600px){
     .video-showcase{padding:50px 6% 70px;}
+  }
+
+  /* ---------- index 신청자 리스트 날짜: 기존 위치 유지 ---------- */
+  .index-past-date-wrap{
+    text-align:center;
+    margin:-28px auto 38px;
+  }
+  .index-past-date-link{
+    display:inline-block;
+    font-family:'Noto Serif KR',serif;
+    font-size:14px;
+    font-weight:400;
+    line-height:1.6;
+    letter-spacing:.2px;
+    color:#C9B9BA;
+    text-decoration:none;
+    transition:color .25s, opacity .25s, text-shadow .25s;
+  }
+  .index-past-date-link:hover{opacity:.95;}
+  @media(max-width:600px){
+    .index-past-date-wrap{margin:-18px auto 30px;}
+    .index-past-date-link{font-size:13px;}
   }
 
   /* ---------- Promise / Standard ---------- */
@@ -1100,6 +1123,14 @@
       <p id="cms-promise_sub">품격 있는 만남을 위해,<br class="br-mobile">블랙라벨은 양쪽 모두에게<br class="br-mobile"> 같은 기준을 적용합니다.</p>
     </div>
 
+    <!-- 이 위치가 메인 index의 신청자 리스트 문구 위치입니다.
+         past.html에는 영향을 주지 않습니다. -->
+    <div class="index-past-date-wrap reveal">
+      <a href="past.html" class="index-past-date-link" data-index-past-date>
+        ↓ 26년 9월 27일 (일) 신청자 리스트 ↓
+      </a>
+    </div>
+
     <div class="promise-grid reveal">
       <div class="promise-col">
         <span class="tag">FOR MEN</span>
@@ -1129,6 +1160,7 @@
         <span style="margin-left:8px;opacity:0.7;">→</span>
       </a>
     </div>
+
   </div>
 </section>
 
@@ -1715,10 +1747,38 @@
         const data = snap.data();
 
         Object.keys(data.texts || {}).forEach(key => {
-          if (key === 'men_list' || key === 'women_list') return;
+          if (key === 'men_list' || key === 'women_list' || key === 'past_date') return;
           const el = document.getElementById('cms-' + key);
           if (el && data.texts[key]) el.innerHTML = data.texts[key];
         });
+
+        // ===== 기존 index 신청자 리스트 문구만 관리자 값과 연결 =====
+        // 새 요소를 만들거나 위치를 이동하지 않습니다.
+        const t = data.texts || {};
+        const indexDateEl = document.querySelector('[data-index-past-date]');
+        if (indexDateEl) {
+          const dateText = (t.past_date || '26년 9월 27일 (일)')
+            .replace(/<br\s*\/?>(\s*)/gi, ' ')
+            .replace(/<[^>]*>/g, '')
+            .trim();
+          const arrow = t.past_date_arrow || 'both';
+          const prefix = (arrow === 'both' || arrow === 'left') ? '↓ ' : '';
+          const suffix = (arrow === 'both' || arrow === 'right') ? ' ↓' : '';
+          indexDateEl.textContent = prefix + dateText + ' 신청자 리스트' + suffix;
+
+          const size = t.past_date_size || '';
+          const weight = t.past_date_weight || '';
+          const color = t.past_date_color || '';
+          const effect = t.past_date_effect || 'none';
+          if (size) indexDateEl.style.fontSize = size;
+          if (weight) indexDateEl.style.fontWeight = weight;
+          if (color) {
+            indexDateEl.style.color = color;
+            indexDateEl.style.textShadow = effect === 'luxury'
+              ? `0 0 5px ${color}, 0 0 16px ${color}, 0 0 30px rgba(201,123,134,.35)`
+              : effect === 'soft' ? `0 0 7px ${color}` : 'none';
+          }
+        }
 
         ['men_list', 'women_list'].forEach(key => {
           const el = document.getElementById('cms-' + key);
