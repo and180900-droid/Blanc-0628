@@ -1755,6 +1755,14 @@
         // ===== 기존 index 신청자 리스트 문구만 관리자 값과 연결 =====
         // 새 요소를 만들거나 위치를 이동하지 않습니다.
         const t = data.texts || {};
+        // 기존에 남아 있을 수 있는 작은 중복 문구는 숨기고,
+        // 우리가 지정한 메인 신청자 리스트 문구(data-index-past-date)만 표시합니다.
+        document.querySelectorAll('body *:not([data-index-past-date])').forEach(el => {
+          if (el.children.length === 0 && /신청자 리스트/.test(el.textContent || '')) {
+            el.style.display = 'none';
+          }
+        });
+
         const indexDateEl = document.querySelector('[data-index-past-date]');
         if (indexDateEl) {
           const dateText = (t.past_date || '26년 9월 27일 (일)')
