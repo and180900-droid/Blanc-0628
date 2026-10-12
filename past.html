@@ -27,6 +27,8 @@
   a{text-decoration:none;color:inherit;}
   img{display:block;width:100%;height:100%;object-fit:cover;}
   img[data-cms-img]:not([src]), img[data-cms-img][src=""]{display:none;}
+  img[data-cms-img]{opacity:0;transition:opacity .35s ease;}
+  img[data-cms-img].loaded{opacity:1;}
 
   /* ---------- Nav ---------- */
   header{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:22px 6%;background:rgba(255,255,255,0.88);backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .3s;}
@@ -454,7 +456,7 @@
 <!-- ================= FIREBASE: 콘텐츠 불러오기 (읽기 전용, 편집은 index.html 관리자 패널에서) ================= -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-  import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+  import { getFirestore, initializeFirestore, persistentLocalCache, persistentMultipleTabManager, doc, getDoc, getDocFromCache } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyA7ffOaPtbCnxDWpdkrAqDf1ierxIFriYc",
@@ -466,16 +468,17 @@
   };
 
   const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
+
+  // 한 번 받은 사진은 브라우저에 저장해 두어, 다음 방문부터 바로 표시합니다.
+  let db;
+  try {
+    db = initializeFirestore(app, { localCache: persistentLocalCache({ tabManager: persistentMultipleTabManager() }) });
+  } catch (e) {
+    db = getFirestore(app);
+  }
+
   const DOC_REF = doc(db, "site", "content");
   const imgDocRef = (key) => doc(db, "site_images", key);
-
-  const IMG_KEYS = [
-    'current_gallery_1','current_gallery_2','current_gallery_3','current_gallery_4','current_gallery_5','current_gallery_6',
-    'latest_gallery_1','latest_gallery_2','latest_gallery_3','latest_gallery_4','latest_gallery_5','latest_gallery_6',
-    'older_gallery_1','older_gallery_2','older_gallery_3','older_gallery_4','older_gallery_5','older_gallery_6',
-    'past_gallery_1','past_gallery_2','past_gallery_3','past_gallery_4','past_gallery_5','past_gallery_6'
-  ];
 
   // 관리자 날짜가 "9월 27"처럼 짧아도 "2026년 9월 27일 (일)" 형태로 자동 변환
   function fmtPastDate(raw){
@@ -489,42 +492,83 @@
     return `${y}년 ${mo}월 ${d}일 (${w})`;
   }
 
-  async function loadPastContent() {
+  // ---------- 텍스트(날짜·연락처): 문서 1개만 읽으므로 빠릅니다 ----------
+  async function loadTexts() {
     try {
       const snap = await getDoc(DOC_REF);
-      if (snap.exists()) {
-        const data = snap.data();
-        if (data.texts && data.texts.past_date) {
-          const el = document.getElementById('cms-past_date');
-          if (el) el.textContent = fmtPastDate(data.texts.past_date);
-        }
-        if (data.texts && data.texts.contact_address) document.getElementById('cms-contact_address').textContent = data.texts.contact_address;
-        if (data.texts && data.texts.contact_phone) document.getElementById('cms-contact_phone').textContent = data.texts.contact_phone;
-        if (data.texts && data.texts.contact_hours) document.getElementById('cms-contact_hours').textContent = data.texts.contact_hours;
+      if (!snap.exists()) return;
+      const t = snap.data().texts || {};
+      if (t.past_date) {
+        const el = document.getElementById('cms-past_date');
+        if (el) el.textContent = fmtPastDate(t.past_date);
       }
-
-      // 모든 이미지를 먼저 다 받아온 뒤 한 번에 화면에 적용
-      const imgResults = await Promise.all(IMG_KEYS.map(async (key) => {
-        try {
-          const imgSnap = await getDoc(imgDocRef(key));
-          if (imgSnap.exists() && imgSnap.data().url) {
-            return { key, url: imgSnap.data().url };
-          }
-        } catch (e) {
-          console.error('이미지 로딩 실패:', key, e);
-        }
-        return null;
-      }));
-      imgResults.forEach(result => {
-        if (!result) return;
-        const imgEl = document.querySelector(`[data-cms-img="${result.key}"]`);
-        if (imgEl) imgEl.src = result.url;
+      ['contact_address','contact_phone','contact_hours'].forEach(k => {
+        const el = document.getElementById('cms-' + k);
+        if (el && t[k]) el.textContent = t[k];
       });
     } catch (err) {
-      console.error('콘텐츠 로딩 실패:', err);
+      console.error('텍스트 로딩 실패:', err);
     }
   }
-  loadPastContent();
+
+  // ---------- 사진: 한 장씩 도착하는 대로 바로 표시 ----------
+  function applyImg(key, url) {
+    const el = document.querySelector(`[data-cms-img="${key}"]`);
+    if (!el || !url || el.getAttribute('data-url-set') === url) return;
+    el.setAttribute('data-url-set', url);
+    el.decoding = 'async';
+    el.onload = () => el.classList.add('loaded');
+    el.src = url;
+    if (el.complete) el.classList.add('loaded');
+  }
+
+  async function loadOneImage(key) {
+    const ref = imgDocRef(key);
+    // 1) 저장된 사본이 있으면 즉시 표시
+    try {
+      const c = await getDocFromCache(ref);
+      if (c.exists() && c.data().url) applyImg(key, c.data().url);
+    } catch (e) { /* 저장된 사본 없음 */ }
+    // 2) 서버에서 최신본 확인 (바뀌었을 때만 교체)
+    try {
+      const s = await getDoc(ref);
+      if (s.exists() && s.data().url) applyImg(key, s.data().url);
+    } catch (e) {
+      console.error('이미지 로딩 실패:', key, e);
+    }
+  }
+
+  const loadedGroups = new Set();
+  function loadGroup(prefix) {
+    if (loadedGroups.has(prefix)) return;
+    loadedGroups.add(prefix);
+    for (let i = 1; i <= 6; i++) loadOneImage(`${prefix}_${i}`);
+  }
+
+  // 맨 위 "이번 모임" 사진을 가장 먼저, 나머지는 화면에 가까워질 때 불러옵니다.
+  const GROUPS = [
+    ['currentGalleryGrid', 'current_gallery'],
+    ['latestGalleryGrid',  'latest_gallery'],
+    ['olderGalleryGrid',   'older_gallery'],
+    ['pastGalleryGrid',    'past_gallery']
+  ];
+
+  loadTexts();
+  loadGroup('current_gallery');
+
+  const lazyIO = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const g = GROUPS.find(x => x[0] === e.target.id);
+      if (g) loadGroup(g[1]);
+      lazyIO.unobserve(e.target);
+    });
+  }, { rootMargin: '800px 0px' });
+
+  GROUPS.slice(1).forEach(([id]) => {
+    const el = document.getElementById(id);
+    if (el) lazyIO.observe(el);
+  });
 </script>
 
 </body>
