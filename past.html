@@ -22,58 +22,22 @@
 
   *{margin:0;padding:0;box-sizing:border-box;}
   html{scroll-behavior:smooth;}
-  body{
-    font-family:'Pretendard','Noto Serif KR',serif;
-    color:var(--ink);
-    background:var(--white);
-    line-height:1.7;
-    overflow-x:hidden;
-  }
+  body{font-family:'Pretendard','Noto Serif KR',serif;color:var(--ink);background:var(--white);line-height:1.7;overflow-x:hidden;}
   .serif{font-family:'Noto Serif KR',serif;}
   a{text-decoration:none;color:inherit;}
   img{display:block;width:100%;height:100%;object-fit:cover;}
   img[data-cms-img]:not([src]), img[data-cms-img][src=""]{display:none;}
 
   /* ---------- Nav ---------- */
-  header{
-    position:fixed;
-    top:0;left:0;right:0;
-    z-index:100;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:22px 6%;
-    background:rgba(255,255,255,0.88);
-    backdrop-filter:blur(10px);
-    border-bottom:1px solid transparent;
-    transition:border-color .3s;
-  }
+  header{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:22px 6%;background:rgba(255,255,255,0.88);backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .3s;}
   header.scrolled{border-color:var(--line);}
-  .logo{
-    font-family:'Noto Serif KR',serif;
-    font-weight:600;
-    font-size:19px;
-    letter-spacing:0.5px;
-    color:var(--ink);
-  }
+  .logo{font-family:'Noto Serif KR',serif;font-weight:600;font-size:19px;letter-spacing:0.5px;color:var(--ink);}
   .logo span{color:var(--rose-deep);}
   nav ul{display:flex;gap:36px;list-style:none;}
-  nav a{
-    font-size:13.5px;
-    letter-spacing:0.5px;
-    color:var(--ink-soft);
-    transition:color .25s;
-  }
+  nav a{font-size:13.5px;letter-spacing:0.5px;color:var(--ink-soft);transition:color .25s;}
   nav a:hover{color:var(--rose-deep);}
   nav a.active{color:var(--rose-deep);}
-  .nav-cta{
-    border:1px solid var(--rose);
-    color:var(--rose-deep) !important;
-    padding:9px 22px;
-    border-radius:2px;
-    font-size:13px;
-    letter-spacing:1px;
-  }
+  .nav-cta{border:1px solid var(--rose);color:var(--rose-deep) !important;padding:9px 22px;border-radius:2px;font-size:13px;letter-spacing:1px;}
   .nav-cta:hover{background:var(--rose);color:var(--white) !important;}
   .menu-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;}
   .menu-toggle span{width:24px;height:1.5px;background:var(--ink);}
@@ -81,201 +45,65 @@
   /* ---------- Section generic ---------- */
   section{padding:100px 6%;}
   .section-inner{max-width:1180px;margin:0 auto;}
-  .section-head{
-    text-align:center;
-    max-width:640px;
-    margin:0 auto 60px;
-  }
+  .section-head{text-align:center;max-width:640px;margin:0 auto 60px;}
   .section-head .eyebrow{justify-content:center;}
   .section-head .eyebrow::before{display:none;}
-  .section-head h2{
-    font-family:'Noto Serif KR',serif;
-    font-weight:400;
-    font-size:clamp(26px,3.4vw,38px);
-    line-height:1.45;
-    color:var(--ink);
-  }
+  .section-head h2{font-family:'Noto Serif KR',serif;font-weight:400;font-size:clamp(26px,3.4vw,38px);line-height:1.45;color:var(--ink);}
   .section-head h2 strong{color:var(--rose-deep);font-weight:700;}
   .section-head p{margin-top:18px;color:var(--ink-soft);font-size:15px;}
-
-  .eyebrow{
-    display:inline-flex;
-    align-items:center;
-    gap:10px;
-    font-size:12.5px;
-    letter-spacing:2.5px;
-    color:var(--rose-deep);
-    margin-bottom:20px;
-  }
+  .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:12.5px;letter-spacing:2.5px;color:var(--rose-deep);margin-bottom:20px;}
 
   /* ---------- Intro ---------- */
-  .past-intro{
-    padding:160px 6% 40px;
-    text-align:center;
-  }
-  .past-intro h1{
-    font-family:'Noto Serif KR',serif;
-    font-weight:400;
-    font-size:clamp(28px,3.8vw,42px);
-    color:var(--ink);
-    margin-bottom:18px;
-  }
+  .past-intro{padding:160px 6% 40px;text-align:center;}
+  .past-intro h1{font-family:'Noto Serif KR',serif;font-weight:400;font-size:clamp(28px,3.8vw,42px);color:var(--ink);margin-bottom:18px;}
   .past-intro h1 strong{color:var(--rose-deep);font-weight:700;}
   .past-intro p{color:var(--ink-soft);font-size:15px;}
 
   /* ---------- Promise-style dated blocks ---------- */
-  .promise{
-    background:var(--ink);
-    color:var(--white);
-    padding:90px 6%;
-  }
+  .promise{background:var(--ink);color:var(--white);padding:90px 6%;}
   .promise + .promise{padding-top:70px;}
-  .promise .date-tag{
-    display:inline-block;
-    border:1px solid var(--rose);
-    color:var(--rose);
-    font-size:13px;
-    letter-spacing:1.5px;
-    padding:10px 26px;
-    border-radius:999px;
-    margin-bottom:46px;
-  }
+  .promise .date-tag{display:inline-block;border:1px solid var(--rose);color:var(--rose);font-size:13px;letter-spacing:1.5px;padding:10px 26px;border-radius:999px;margin-bottom:46px;}
   .promise .date-tag-wrap{text-align:center;}
 
-  .mini-photo-grid{
-    display:grid;
-    grid-template-columns:repeat(6,1fr);
-    gap:10px;
-    max-width:1180px;
-    margin:0 auto 50px;
-  }
-  .mini-photo-item{
-    aspect-ratio:1/1;
-    border-radius:3px;
-    overflow:hidden;
-    border:1px solid rgba(255,255,255,0.15);
-    background:rgba(255,255,255,0.04);
-    cursor:pointer;
-  }
+  .mini-photo-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;max-width:1180px;margin:0 auto 50px;}
+  .mini-photo-item{aspect-ratio:1/1;border-radius:3px;overflow:hidden;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.04);cursor:pointer;}
   .mini-photo-item img{transition:transform .5s ease;cursor:zoom-in;}
   .mini-photo-item:hover img{transform:scale(1.06);}
 
-  .promise-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:0;
-    border:1px solid rgba(255,255,255,0.15);
-    max-width:1180px;
-    margin:0 auto;
-  }
+  .promise-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid rgba(255,255,255,0.15);max-width:1180px;margin:0 auto;}
   .promise-col{padding:56px 50px;position:relative;}
   .promise-col:first-child{border-right:1px solid rgba(255,255,255,0.15);}
-  .promise-col .tag{
-    font-size:12px;
-    letter-spacing:2px;
-    color:var(--rose);
-    margin-bottom:18px;
-    display:block;
-  }
-  .promise-col h3{
-    font-family:'Noto Serif KR',serif;
-    font-size:25px;
-    font-weight:400;
-    margin-bottom:26px;
-  }
+  .promise-col .tag{font-size:12px;letter-spacing:2px;color:var(--rose);margin-bottom:18px;display:block;}
+  .promise-col h3{font-family:'Noto Serif KR',serif;font-size:25px;font-weight:400;margin-bottom:26px;}
   .promise-col ul{list-style:none;}
-  .promise-col li{
-    font-size:14px;
-    color:#D8D0D1;
-    padding:12px 0;
-    border-top:1px solid rgba(255,255,255,0.1);
-    display:flex;
-    align-items:baseline;
-    gap:10px;
-  }
+  .promise-col li{font-size:14px;color:#D8D0D1;padding:12px 0;border-top:1px solid rgba(255,255,255,0.1);display:flex;align-items:baseline;gap:10px;}
   .promise-col li:first-of-type{border-top:none;}
-  .promise-col li::before{
-    content:'';
-    width:5px;height:5px;
-    border-radius:50%;
-    background:var(--rose);
-    flex-shrink:0;
-  }
+  .promise-col li::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--rose);flex-shrink:0;}
 
   .back-link-wrap{text-align:center;padding:60px 6%;}
-  .back-link{
-    display:inline-block;
-    border:1px solid var(--rose-deep);
-    color:var(--rose-deep);
-    padding:15px 34px;
-    font-size:13.5px;
-    letter-spacing:1px;
-    border-radius:2px;
-    transition:all .25s;
-  }
+  .back-link{display:inline-block;border:1px solid var(--rose-deep);color:var(--rose-deep);padding:15px 34px;font-size:13.5px;letter-spacing:1px;border-radius:2px;transition:all .25s;}
   .back-link:hover{background:var(--rose-deep);color:var(--white);}
 
   /* ---------- Gallery ---------- */
   .gallery{background:var(--cream);}
-  .gallery-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    grid-template-rows:repeat(2,280px);
-    gap:14px;
-  }
-  .gallery-item{
-    position:relative;
-    overflow:hidden;
-    border-radius:2px;
-    cursor:pointer;
-    background:var(--rose-soft);
-  }
+  .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,280px);gap:14px;}
+  .gallery-item{position:relative;overflow:hidden;border-radius:2px;cursor:pointer;background:var(--rose-soft);}
   .gallery-item img{transition:transform .6s cubic-bezier(.2,.8,.2,1);cursor:zoom-in;}
   .gallery-item:hover img{transform:scale(1.07);}
   .gallery-item.big{grid-row:span 2;}
 
   /* ---------- Footer ---------- */
-  footer{
-    background:var(--ink);
-    color:#B7AEAF;
-    padding:60px 6% 36px;
-    font-size:13px;
-  }
-  .footer-inner{
-    max-width:1180px;
-    margin:0 auto;
-    display:flex;
-    justify-content:space-between;
-    flex-wrap:wrap;
-    gap:30px;
-    padding-bottom:30px;
-    border-bottom:1px solid rgba(255,255,255,0.12);
-    margin-bottom:24px;
-  }
+  footer{background:var(--ink);color:#B7AEAF;padding:60px 6% 36px;font-size:13px;}
+  .footer-inner{max-width:1180px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:30px;padding-bottom:30px;border-bottom:1px solid rgba(255,255,255,0.12);margin-bottom:24px;}
   .footer-logo{font-family:'Noto Serif KR',serif;font-size:18px;color:var(--white);margin-bottom:10px;}
   .footer-logo span{color:var(--rose);}
   .footer-cols{display:flex;gap:60px;}
   .footer-col h4{color:var(--white);font-size:13px;letter-spacing:1px;margin-bottom:14px;font-weight:500;}
   .footer-col p, .footer-col a{color:#9C9293;line-height:2;display:block;}
-  .footer-bottom{
-    display:flex;
-    justify-content:space-between;
-    flex-wrap:wrap;
-    gap:10px;
-    font-size:12px;
-    color:#776F70;
-  }
+  .footer-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:12px;color:#776F70;}
 
   /* ---------- Lightbox ---------- */
-  .lightbox{
-    position:fixed;inset:0;
-    background:rgba(20,16,17,0.92);
-    display:none;
-    align-items:center;
-    justify-content:center;
-    z-index:1000;
-    padding:40px;
-  }
+  .lightbox{position:fixed;inset:0;background:rgba(20,16,17,0.92);display:none;align-items:center;justify-content:center;z-index:1000;padding:40px;}
   .lightbox.active{display:flex;}
   .lightbox img{max-width:90vw;max-height:85vh;width:auto;height:auto;object-fit:contain;border-radius:2px;}
   .lightbox-close{position:absolute;top:30px;right:40px;color:var(--white);font-size:28px;cursor:pointer;font-weight:300;}
@@ -315,15 +143,15 @@
   <div class="logo">블랙라벨 <span>더논현</span></div>
   <nav>
     <ul>
-      <li><a href="index.html#message">소개</a></li>
-      <li><a href="index.html#why">차이점</a></li>
-      <li><a href="index.html#gallery">모임 사진</a></li>
-      <li><a href="index.html#process">진행 절차</a></li>
-      <li><a href="past.html" class="active">지난 모임</a></li>
-      <li><a href="index.html">메인으로</a></li>
+      <li><a href='/#message'>소개</a></li>
+      <li><a href='/#why'>차이점</a></li>
+      <li><a href='/#gallery'>모임 사진</a></li>
+      <li><a href='/#process'>진행 절차</a></li>
+      <li><a class='active' href='/past'>지난 모임</a></li>
+      <li><a href='/'>메인으로</a></li>
     </ul>
   </nav>
-  <a href="index.html" class="nav-cta">메인으로</a>
+  <a class='nav-cta' href='/'>메인으로</a>
   <div class="menu-toggle"><span></span><span></span><span></span></div>
 </header>
 
@@ -332,6 +160,79 @@
   <div class="eyebrow" style="justify-content:center;">PAST MEETING</div>
   <h1 class="serif">지난 모임 <strong>참가자 보기</strong></h1>
   <p>블랙라벨 더논현에 실제로 참여했던 회원분들의 프로필을 소개합니다.</p>
+</section>
+
+<!-- ================= CURRENT LIST (이번 모임) ================= -->
+<section class="promise reveal">
+  <div class="date-tag-wrap">
+    <span class="date-tag serif" id="cms-past_date">2026년 9월 27일 (일)</span>
+  </div>
+
+  <div class="mini-photo-grid" id="currentGalleryGrid">
+    <div class="mini-photo-item" data-slot="1"><img alt="이번 모임 사진 1" data-cms-img="current_gallery_1"></div>
+    <div class="mini-photo-item" data-slot="2"><img alt="이번 모임 사진 2" data-cms-img="current_gallery_2"></div>
+    <div class="mini-photo-item" data-slot="3"><img alt="이번 모임 사진 3" data-cms-img="current_gallery_3"></div>
+    <div class="mini-photo-item" data-slot="4"><img alt="이번 모임 사진 4" data-cms-img="current_gallery_4"></div>
+    <div class="mini-photo-item" data-slot="5"><img alt="이번 모임 사진 5" data-cms-img="current_gallery_5"></div>
+    <div class="mini-photo-item" data-slot="6"><img alt="이번 모임 사진 6" data-cms-img="current_gallery_6"></div>
+  </div>
+
+  <div class="promise-grid">
+    <div class="promise-col">
+      <span class="tag">FOR MEN</span>
+      <h3 class="serif">인성과 능력을<br>보장합니다</h3>
+      <ul>
+        <li>남자1호. 97년생 / 키178 / 제조무역사업 / 아방가르드한 꽃돌이</li>
+        <li>남자2호. 98년생 / 키174 / 삼성물산 / 영앤리치 순수두부상</li>
+        <li>남자3호. 92년생 / 키174 / 의사 / 서글서글 듬직한 곰상</li>
+        <li>남자4호. 84년생 / 키177 / 변호사 / 매끈피부 슈트핏 킹스맨</li>
+        <li>남자5호. 86년생 / 키186 / 은행원 / 훤칠하고 모델핏 잘생남</li>
+        <li>남자6호. 90년생 / 키176 / 사업가 / 성실다정한 핸섬 사업가</li>
+        <li>남자7호. 83년생 / 키183 / SK하이닉스 / 훈훈한 영국신사</li>
+        <li>남자8호. 83년생 / 키183 / 공기업 / 남자다운 머슴상</li>
+        <li>남자9호. 93년생 / 키174 / 에너지회사원 / 아기아기한 순수 댕댕남</li>
+        <li>남자10호. 90년생 / 키180 / 연구원 / 훤칠한 스윗 댕댕이</li>
+        <li>남자11호. 85년생 / 키185 / 투자자 / 말끔 자상 순애남</li>
+        <li>남자12호. 90년생 / 키175 / 전시기획자 / 운동으로 다져진 다정남</li>
+        <li>남자13호. 82년생 / 키177 / 금융영업직 / 선한 교회 청년상</li>
+        <li>남자14호. 85년생 / 키175 / 컴퓨터설비사업+광고대행사업 / 영동발발 테토남</li>
+        <li>남자15호. 83년생 / 키185 / 대기업 차장 / 차분한 신비남</li>
+        <li>남자16호. 85년생 / 키181 / 투자자 / 다정다감 따뜻한 훈남</li>
+        <li>남자17호. 84년생 / 키182 / 구글코리아+법인사업체 / 훈훈젠틀 킹스맨</li>
+        <li>남자18호. 86년생 / 키173 / 치과의사 / 까리한 정석미남</li>
+        <li>남자19호. 94년생 / 키175 / 의사 / 어깨넓은 몸짱 의사</li>
+        <li>남자20호. 92년생 / 키175 / 계리사 / 지창욱닮은 스윗핸섬</li>
+        <li>남자21호. 90년생 / 키186 / 사업가 / 엄친아 존잘남</li>
+      </ul>
+    </div>
+    <div class="promise-col">
+      <span class="tag">FOR WOMEN</span>
+      <h3 class="serif">인성과 미모를<br>보장합니다</h3>
+      <ul>
+        <li>여자1호. 98년생 / 키162 / 바이올리니스트 / 슬렌더 음대 여신</li>
+        <li>여자2호. 96년생 / 키160 / 한의사 / 미소가 아름다운 따뜻한 여자</li>
+        <li>여자3호. 95년생 / 키158 / 공기업 사무직 / 늘씬한 명랑 소녀</li>
+        <li>여자4호. 94년생 / 키163 / 금융권 / 바른생활 섹시 야망걸</li>
+        <li>여자5호. 94년생 / 키161 / 유아영어강사 / 남자들의 이상형 존예</li>
+        <li>여자6호. 94년생 / 키160 / 간호사 / 큐티섹시 끌림상 몰표녀</li>
+        <li>여자7호. 94년생 / 키166 / 치과위생사 / 볼수록 귀여운 여자</li>
+        <li>여자8호. 92년생 / 키161 / 온라인 영어강사 / 긴생머리 외유내강</li>
+        <li>여자9호. 91년생 / 키160 / 중장비회사원 / 슬렌더 중국 미인상</li>
+        <li>여자10호. 90년생 / 키168 / 학원운영 / 여리예쁨 초고액사업가</li>
+        <li>여자11호. 89년생 / 키165 / 승무원 / 참한 맏며느리상</li>
+        <li>여자12호. 88년생 / 키166 / 카페점장 / 부드러운 매력녀</li>
+        <li>여자13호. 88년생 / 키159 / 은행원 / 깨끗한 모찌모찌 프리티</li>
+        <li>여자14호. 87년생 / 키155 / 대치동영어강사 / 상냥한 엔젤녀</li>
+        <li>여자15호. 96년생 / 키163 / 광고기획자 / 가냘픈 밤비 사슴상</li>
+        <li>여자16호. 82년생 / 키160 / 데이터분석가 / 단아한 한국여성상</li>
+        <li>여자17호. 93년생 / 키165 / 상담실장 / 활발한 바비인형</li>
+        <li>여자18호. 87년생 / 키166 / 뷰티샵운영 / 한채아닮은 도시녀</li>
+        <li>여자19호. 88년생 / 키167 / 회계법인 / 청순과 발랄의 공존</li>
+        <li>여자20호. 90년생 / 키167 / 상담실장 / 경성시대의 단아함</li>
+        <li>여자21호. 91년생 / 키158 / 서비스유통업 / 깨발랄 비글소녀</li>
+      </ul>
+    </div>
+  </div>
 </section>
 
 <!-- ================= LATEST LIST (26년8월30일) ================= -->
@@ -397,10 +298,10 @@
   </div>
 </section>
 
-<!-- ================= OLDER LIST (지난 모임 날짜) ================= -->
+<!-- ================= OLDER LIST (7월 18일) ================= -->
 <section class="promise reveal" style="background:#221D1E;">
   <div class="date-tag-wrap">
-    <span class="date-tag serif" id="cms-past_date">2026년 7월 18일 (토)</span>
+    <span class="date-tag serif">2026년 7월 18일 (토)</span>
   </div>
 
   <div class="mini-photo-grid" id="olderGalleryGrid">
@@ -466,7 +367,7 @@
 </section>
 
 <div class="back-link-wrap reveal">
-  <a href="index.html" class="back-link">← 메인 페이지로 돌아가기</a>
+  <a class='back-link' href='/'>← 메인 페이지로 돌아가기</a>
 </div>
 
 <!-- ================= GALLERY ================= -->
@@ -501,9 +402,9 @@
     <div class="footer-cols">
       <div class="footer-col">
         <h4>BLACK LABEL</h4>
-        <a href="index.html#message">장소</a>
-        <a href="index.html#why">문의</a>
-        <a href="index.html#process">진행 절차</a>
+        <a href='/#message'>장소</a>
+        <a href='/#why'>문의</a>
+        <a href='/#process'>진행 절차</a>
       </div>
       <div class="footer-col">
         <h4>CONTACT</h4>
@@ -570,6 +471,7 @@
   const imgDocRef = (key) => doc(db, "site_images", key);
 
   const IMG_KEYS = [
+    'current_gallery_1','current_gallery_2','current_gallery_3','current_gallery_4','current_gallery_5','current_gallery_6',
     'latest_gallery_1','latest_gallery_2','latest_gallery_3','latest_gallery_4','latest_gallery_5','latest_gallery_6',
     'older_gallery_1','older_gallery_2','older_gallery_3','older_gallery_4','older_gallery_5','older_gallery_6',
     'past_gallery_1','past_gallery_2','past_gallery_3','past_gallery_4','past_gallery_5','past_gallery_6'
@@ -589,7 +491,7 @@
         if (data.texts && data.texts.contact_hours) document.getElementById('cms-contact_hours').textContent = data.texts.contact_hours;
       }
 
-      // 모든 이미지를 먼저 다 받아온 뒤 한 번에 화면에 적용 (하나씩 순차적으로 뜨는 현상 방지)
+      // 모든 이미지를 먼저 다 받아온 뒤 한 번에 화면에 적용
       const imgResults = await Promise.all(IMG_KEYS.map(async (key) => {
         try {
           const imgSnap = await getDoc(imgDocRef(key));
