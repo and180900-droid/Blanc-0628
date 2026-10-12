@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -24,8 +25,8 @@
   html{scroll-behavior:smooth;}
   body{
     font-family:'Pretendard','Noto Serif KR',serif;
-    color:var(--ink);
-    background:var(--white);
+    color:#F2ECEC;
+    background:#2B2526;
     line-height:1.7;
     overflow-x:hidden;
   }
@@ -43,7 +44,7 @@
     align-items:center;
     justify-content:space-between;
     padding:22px 6%;
-    background:rgba(255,255,255,0.88);
+    background:rgba(43,37,38,0.94);
     backdrop-filter:blur(10px);
     border-bottom:1px solid transparent;
     transition:border-color .3s;
@@ -54,21 +55,21 @@
     font-weight:600;
     font-size:19px;
     letter-spacing:0.5px;
-    color:var(--ink);
+    color:#F7F1F1;
   }
-  .logo span{color:var(--rose-deep);}
+  .logo span{color:var(--rose);}
   nav ul{display:flex;gap:36px;list-style:none;}
   nav a{
     font-size:13.5px;
     letter-spacing:0.5px;
-    color:var(--ink-soft);
+    color:#C9BFC0;
     transition:color .25s;
   }
   nav a:hover{color:var(--rose-deep);}
   nav a.active{color:var(--rose-deep);}
   .nav-cta{
     border:1px solid var(--rose);
-    color:var(--rose-deep) !important;
+    color:var(--rose) !important;
     padding:9px 22px;
     border-radius:2px;
     font-size:13px;
@@ -93,10 +94,10 @@
     font-weight:400;
     font-size:clamp(26px,3.4vw,38px);
     line-height:1.45;
-    color:var(--ink);
+    color:#F7F1F1;
   }
-  .section-head h2 strong{color:var(--rose-deep);font-weight:700;}
-  .section-head p{margin-top:18px;color:var(--ink-soft);font-size:15px;}
+  .section-head h2 strong{color:var(--rose);font-weight:700;}
+  .section-head p{margin-top:18px;color:#BDB2B3;font-size:15px;}
 
   .eyebrow{
     display:inline-flex;
@@ -117,11 +118,11 @@
     font-family:'Noto Serif KR',serif;
     font-weight:400;
     font-size:clamp(28px,3.8vw,42px);
-    color:var(--ink);
+    color:#F7F1F1;
     margin-bottom:18px;
   }
   .past-intro h1 strong{color:var(--rose-deep);font-weight:700;}
-  .past-intro p{color:var(--ink-soft);font-size:15px;}
+  .past-intro p{color:#BDB2B3;font-size:15px;}
 
   /* ---------- Promise-style dated blocks ---------- */
   .promise{
@@ -205,18 +206,18 @@
   .back-link-wrap{text-align:center;padding:60px 6%;}
   .back-link{
     display:inline-block;
-    border:1px solid var(--rose-deep);
-    color:var(--rose-deep);
+    border:1px solid var(--rose);
+    color:var(--rose);
     padding:15px 34px;
     font-size:13.5px;
     letter-spacing:1px;
     border-radius:2px;
     transition:all .25s;
   }
-  .back-link:hover{background:var(--rose-deep);color:var(--white);}
+  .back-link:hover{background:var(--rose);color:#2B2526;}
 
   /* ---------- Gallery ---------- */
-  .gallery{background:var(--cream);}
+  .gallery{background:#2B2526;}
   .gallery-grid{
     display:grid;
     grid-template-columns:repeat(3,1fr);
