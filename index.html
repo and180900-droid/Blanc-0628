@@ -1,6 +1,7 @@
 
 
 
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -1676,8 +1677,8 @@
     if (e.target === admLoginModal) admLoginModal.classList.remove('adm-open');
   });
 
-  // 비밀번호는 평문으로 저장하지 않고 SHA-256 해시값만 비교합니다.
-  // (해시값: "cc2266"의 SHA-256) — 페이지 소스를 봐도 실제 비밀번호는 노출되지 않습니다.
+  // 클라이언트 측 비밀번호 검증용 SHA-256 해시입니다.
+  // 실제 보안이 필요한 관리자 인증은 서버 측 인증으로 처리해야 합니다.
   const ADM_PW_HASH = 'a027f3282f5aa4b3076e6e9c1638c49d05a0004a8767185e6eebd1ee92e6d77f';
 
   async function admHashText(text) {
