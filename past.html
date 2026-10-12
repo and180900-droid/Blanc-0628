@@ -477,6 +477,18 @@
     'past_gallery_1','past_gallery_2','past_gallery_3','past_gallery_4','past_gallery_5','past_gallery_6'
   ];
 
+  // 관리자 날짜가 "9월 27"처럼 짧아도 "2026년 9월 27일 (일)" 형태로 자동 변환
+  function fmtPastDate(raw){
+    const t = String(raw || '').replace(/<[^>]*>/g, '').trim();
+    const m = t.match(/(?:(\d{2,4})\s*년)?\s*(\d{1,2})\s*월\s*(\d{1,2})/);
+    if (!m) return t;
+    let y = m[1] ? parseInt(m[1], 10) : new Date().getFullYear();
+    if (y < 100) y += 2000;
+    const mo = parseInt(m[2], 10), d = parseInt(m[3], 10);
+    const w = '일월화수목금토'[new Date(y, mo - 1, d).getDay()];
+    return `${y}년 ${mo}월 ${d}일 (${w})`;
+  }
+
   async function loadPastContent() {
     try {
       const snap = await getDoc(DOC_REF);
@@ -484,7 +496,7 @@
         const data = snap.data();
         if (data.texts && data.texts.past_date) {
           const el = document.getElementById('cms-past_date');
-          if (el) el.textContent = data.texts.past_date;
+          if (el) el.textContent = fmtPastDate(data.texts.past_date);
         }
         if (data.texts && data.texts.contact_address) document.getElementById('cms-contact_address').textContent = data.texts.contact_address;
         if (data.texts && data.texts.contact_phone) document.getElementById('cms-contact_phone').textContent = data.texts.contact_phone;
