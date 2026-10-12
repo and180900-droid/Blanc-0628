@@ -4,7 +4,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>지난 모임 참가자 | 블랙라벨 더논현</title>
+<meta name="naver-site-verification" content="d4cb4f204375193f9cbbde423c092e7707dca02c" />
+<title>블랙라벨 더논현 | 15:15 프리미엄 소개팅</title>
+<link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500;600;700&family=Pretendard:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -36,12 +40,8 @@
 
   /* ---------- Nav ---------- */
   header{
-    position:fixed;
-    top:0;left:0;right:0;
-    z-index:100;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    display:flex;align-items:center;justify-content:space-between;
     padding:22px 6%;
     background:rgba(255,255,255,0.88);
     backdrop-filter:blur(10px);
@@ -49,233 +49,139 @@
     transition:border-color .3s;
   }
   header.scrolled{border-color:var(--line);}
-  .logo{
-    font-family:'Noto Serif KR',serif;
-    font-weight:600;
-    font-size:19px;
-    letter-spacing:0.5px;
-    color:var(--ink);
-  }
+  .logo{font-family:'Noto Serif KR',serif;font-weight:600;font-size:19px;letter-spacing:0.5px;color:var(--ink);}
   .logo span{color:var(--rose-deep);}
   nav ul{display:flex;gap:36px;list-style:none;}
-  nav a{
-    font-size:13.5px;
-    letter-spacing:0.5px;
-    color:var(--ink-soft);
-    transition:color .25s;
-  }
+  nav a{font-size:13.5px;letter-spacing:0.5px;color:var(--ink-soft);transition:color .25s;position:relative;}
   nav a:hover{color:var(--rose-deep);}
-  nav a.active{color:var(--rose-deep);}
-  .nav-cta{
-    border:1px solid var(--rose);
-    color:var(--rose-deep) !important;
-    padding:9px 22px;
-    border-radius:2px;
-    font-size:13px;
-    letter-spacing:1px;
-  }
+  .nav-cta{border:1px solid var(--rose);color:var(--rose-deep) !important;padding:9px 22px;border-radius:2px;font-size:13px;letter-spacing:1px;}
   .nav-cta:hover{background:var(--rose);color:var(--white) !important;}
   .menu-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;}
   .menu-toggle span{width:24px;height:1.5px;background:var(--ink);}
 
+  /* ---------- Hero ---------- */
+  .hero{position:relative;min-height:100vh;display:flex;align-items:center;padding:140px 6% 80px;overflow:hidden;}
+  .hero-bg-line{position:absolute;top:0;bottom:0;left:50%;width:1px;background:linear-gradient(to bottom, transparent, var(--line) 15%, var(--line) 85%, transparent);}
+  .hero-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:60px;width:100%;align-items:center;position:relative;z-index:2;}
+  .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:12.5px;letter-spacing:2.5px;color:var(--rose-deep);margin-bottom:28px;}
+  .eyebrow::before{content:'';width:28px;height:1px;background:var(--rose);}
+  .hero h1{font-family:'Noto Serif KR',serif;font-weight:300;font-size:clamp(34px,5vw,58px);line-height:1.28;color:var(--ink);margin-bottom:26px;letter-spacing:-0.5px;}
+  .hero h1 strong{font-weight:700;color:var(--rose-deep);}
+  .hero p.lead{font-size:16px;color:var(--ink-soft);max-width:440px;margin-bottom:42px;}
+  .hero-ratio{display:flex;align-items:baseline;gap:14px;margin-bottom:40px;}
+  .hero-ratio .num{font-family:'Noto Serif KR',serif;font-weight:200;font-size:64px;color:var(--ink);letter-spacing:-2px;}
+  .hero-ratio .num.accent{color:var(--rose);}
+  .hero-ratio .colon{font-size:30px;color:var(--line);font-weight:300;}
+  .hero-ratio .cap{font-size:12px;letter-spacing:1.5px;color:var(--ink-soft);align-self:center;border-left:1px solid var(--line);padding-left:16px;line-height:1.6;}
+  .btn-primary{display:inline-block;background:var(--rose-deep);color:var(--white);padding:17px 38px;font-size:13.5px;letter-spacing:1.5px;border-radius:2px;transition:background .25s, transform .25s;}
+  .btn-primary:hover{background:var(--ink);transform:translateY(-2px);}
+  .hero-visual{position:relative;aspect-ratio:3/4;border-radius:2px;overflow:hidden;box-shadow:0 40px 80px -30px rgba(139,74,86,0.35);}
+  .hero-visual img{filter:grayscale(8%) contrast(1.02);}
+  .hero-visual::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(43,37,38,0.45) 100%);}
+  .hero-visual-tag{position:absolute;bottom:24px;left:24px;color:var(--white);font-size:12px;letter-spacing:1.5px;z-index:3;}
+  .hero-visual-frame{position:absolute;top:-16px;right:-16px;width:90%;height:90%;border:1px solid var(--rose);z-index:-1;}
+
   /* ---------- Section generic ---------- */
-  section{padding:100px 6%;}
+  section{padding:120px 6%;}
   .section-inner{max-width:1180px;margin:0 auto;}
-  .section-head{
-    text-align:center;
-    max-width:640px;
-    margin:0 auto 60px;
-  }
+  .section-head{text-align:center;max-width:640px;margin:0 auto 70px;}
   .section-head .eyebrow{justify-content:center;}
   .section-head .eyebrow::before{display:none;}
-  .section-head h2{
-    font-family:'Noto Serif KR',serif;
-    font-weight:400;
-    font-size:clamp(26px,3.4vw,38px);
-    line-height:1.45;
-    color:var(--ink);
-  }
+  .section-head h2{font-family:'Noto Serif KR',serif;font-weight:400;font-size:clamp(26px,3.4vw,38px);line-height:1.45;color:var(--ink);}
   .section-head h2 strong{color:var(--rose-deep);font-weight:700;}
   .section-head p{margin-top:18px;color:var(--ink-soft);font-size:15px;}
 
-  .eyebrow{
-    display:inline-flex;
-    align-items:center;
-    gap:10px;
-    font-size:12.5px;
-    letter-spacing:2.5px;
-    color:var(--rose-deep);
-    margin-bottom:20px;
+  /* ---------- Message ---------- */
+  .message{background:var(--cream);}
+  .message-inner{max-width:780px;margin:0 auto;text-align:center;}
+  .message blockquote{font-family:'Noto Serif KR',serif;font-size:clamp(20px,2.6vw,27px);line-height:1.85;font-weight:300;color:var(--ink);margin-bottom:36px;}
+  .message blockquote strong{font-weight:600;color:var(--rose-deep);}
+  .message .quote-mark{font-size:50px;color:var(--rose);font-family:'Noto Serif KR',serif;line-height:1;margin-bottom:10px;opacity:0.7;}
+  .message .sign{font-size:13px;letter-spacing:1.5px;color:var(--ink-soft);}
+  .message .sign::before{content:'';display:block;width:1px;height:40px;background:var(--rose);margin:0 auto 20px;}
+
+  /* ---------- Why ---------- */
+  .why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+  .why-item{background:var(--white);padding:46px 30px;text-align:center;transition:background .3s;}
+  .why-item:hover{background:var(--cream);}
+  .why-item .icon{width:46px;height:46px;margin:0 auto 22px;border:1px solid var(--rose);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--rose-deep);font-size:18px;font-family:'Noto Serif KR',serif;}
+  .why-item h3{font-size:15.5px;font-weight:600;margin-bottom:10px;color:var(--ink);}
+  .why-item p{font-size:13.5px;color:var(--ink-soft);line-height:1.75;}
+
+  /* ---------- Video ---------- */
+  .video-showcase{padding:70px 6% 100px;background:var(--white);text-align:center;}
+  .video-showcase-frame{position:relative;width:min(480px, 78vw);aspect-ratio:9/16;margin:0 auto;border-radius:6px;overflow:hidden;box-shadow:0 40px 80px -30px rgba(139,74,86,0.35);background:var(--ink);}
+  .video-showcase-frame::after{content:'';position:absolute;top:-14px;right:-14px;width:90%;height:90%;border:1px solid var(--rose);z-index:-1;}
+  .video-showcase video{width:100%;height:100%;object-fit:cover;display:block;background:var(--ink);}
+  .video-showcase-cap{margin-top:20px;font-size:12px;letter-spacing:1.5px;color:var(--ink-soft);}
+  @media (max-width:600px){.video-showcase{padding:50px 6% 70px;}}
+
+  /* ---------- index 신청자 리스트 날짜 ---------- */
+  .index-past-date-wrap{text-align:center;margin:-28px auto 38px;}
+  .index-past-date-link{display:inline-block;font-family:'Noto Serif KR',serif;font-size:14px;font-weight:400;line-height:1.6;letter-spacing:.2px;color:#C9B9BA;text-decoration:none;transition:color .25s, opacity .25s, text-shadow .25s;}
+  .index-past-date-link:hover{opacity:.95;}
+  @media(max-width:600px){
+    .index-past-date-wrap{margin:-18px auto 30px;}
+    .index-past-date-link{font-size:13px;}
   }
 
-  /* ---------- Intro ---------- */
-  .past-intro{
-    padding:160px 6% 40px;
-    text-align:center;
-  }
-  .past-intro h1{
-    font-family:'Noto Serif KR',serif;
-    font-weight:400;
-    font-size:clamp(28px,3.8vw,42px);
-    color:var(--ink);
-    margin-bottom:18px;
-  }
-  .past-intro h1 strong{color:var(--rose-deep);font-weight:700;}
-  .past-intro p{color:var(--ink-soft);font-size:15px;}
-
-  /* ---------- Promise-style dated blocks ---------- */
-  .promise{
-    background:var(--ink);
-    color:var(--white);
-    padding:90px 6%;
-  }
-  .promise + .promise{padding-top:70px;}
-  .promise .date-tag{
-    display:inline-block;
-    border:1px solid var(--rose);
-    color:var(--rose);
-    font-size:13px;
-    letter-spacing:1.5px;
-    padding:10px 26px;
-    border-radius:999px;
-    margin-bottom:46px;
-  }
-  .promise .date-tag-wrap{text-align:center;}
-
-  .mini-photo-grid{
-    display:grid;
-    grid-template-columns:repeat(6,1fr);
-    gap:10px;
-    max-width:1180px;
-    margin:0 auto 50px;
-  }
-  .mini-photo-item{
-    aspect-ratio:1/1;
-    border-radius:3px;
-    overflow:hidden;
-    border:1px solid rgba(255,255,255,0.15);
-    background:rgba(255,255,255,0.04);
-    cursor:pointer;
-  }
-  .mini-photo-item img{transition:transform .5s ease;cursor:zoom-in;}
-  .mini-photo-item:hover img{transform:scale(1.06);}
-
-  .promise-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:0;
-    border:1px solid rgba(255,255,255,0.15);
-    max-width:1180px;
-    margin:0 auto;
-  }
+  /* ---------- Promise ---------- */
+  .promise{background:var(--ink);color:var(--white);position:relative;}
+  .promise .section-head h2{color:var(--white);}
+  .promise .section-head p{color:#C9BFC0;}
+  .promise-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid rgba(255,255,255,0.15);}
   .promise-col{padding:56px 50px;position:relative;}
   .promise-col:first-child{border-right:1px solid rgba(255,255,255,0.15);}
-  .promise-col .tag{
-    font-size:12px;
-    letter-spacing:2px;
-    color:var(--rose);
-    margin-bottom:18px;
-    display:block;
-  }
-  .promise-col h3{
-    font-family:'Noto Serif KR',serif;
-    font-size:25px;
-    font-weight:400;
-    margin-bottom:26px;
-  }
+  .promise-col .tag{font-size:12px;letter-spacing:2px;color:var(--rose);margin-bottom:18px;display:block;}
+  .promise-col h3{font-family:'Noto Serif KR',serif;font-size:25px;font-weight:400;margin-bottom:26px;}
   .promise-col ul{list-style:none;}
-  .promise-col li{
-    font-size:14px;
-    color:#D8D0D1;
-    padding:12px 0;
-    border-top:1px solid rgba(255,255,255,0.1);
-    display:flex;
-    align-items:baseline;
-    gap:10px;
-  }
+  .promise-col li{font-size:14.5px;color:#D8D0D1;padding:13px 0;border-top:1px solid rgba(255,255,255,0.1);display:flex;align-items:baseline;gap:10px;}
   .promise-col li:first-of-type{border-top:none;}
-  .promise-col li::before{
-    content:'';
-    width:5px;height:5px;
-    border-radius:50%;
-    background:var(--rose);
-    flex-shrink:0;
-  }
-
-  .back-link-wrap{text-align:center;padding:60px 6%;}
-  .back-link{
-    display:inline-block;
-    border:1px solid var(--rose-deep);
-    color:var(--rose-deep);
-    padding:15px 34px;
-    font-size:13.5px;
-    letter-spacing:1px;
-    border-radius:2px;
-    transition:all .25s;
-  }
-  .back-link:hover{background:var(--rose-deep);color:var(--white);}
+  .promise-col li::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--rose);flex-shrink:0;}
 
   /* ---------- Gallery ---------- */
   .gallery{background:var(--cream);}
-  .gallery-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    grid-template-rows:repeat(2,280px);
-    gap:14px;
-  }
-  .gallery-item{
-    position:relative;
-    overflow:hidden;
-    border-radius:2px;
-    cursor:pointer;
-    background:var(--rose-soft);
-  }
+  .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,280px);gap:14px;}
+  .gallery-item{position:relative;overflow:hidden;border-radius:2px;cursor:pointer;background:var(--rose-soft);}
   .gallery-item img{transition:transform .6s cubic-bezier(.2,.8,.2,1);cursor:zoom-in;}
   .gallery-item:hover img{transform:scale(1.07);}
+  .gallery-item::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg, transparent 55%, rgba(43,37,38,0.55) 100%);opacity:0;transition:opacity .4s;}
+  .gallery-item:hover::after{opacity:1;}
+  .gallery-item .gcap{position:absolute;bottom:18px;left:20px;color:var(--white);font-size:13px;letter-spacing:0.5px;opacity:0;transform:translateY(8px);transition:all .4s;z-index:2;}
+  .gallery-item:hover .gcap{opacity:1;transform:translateY(0);}
   .gallery-item.big{grid-row:span 2;}
 
+  /* ---------- Process ---------- */
+  .process-list{display:flex;flex-direction:column;}
+  .process-row{display:grid;grid-template-columns:90px 1fr 1.4fr;gap:40px;align-items:center;padding:36px 0;border-top:1px solid var(--line);}
+  .process-row:last-child{border-bottom:1px solid var(--line);}
+  .process-row .pnum{font-family:'Noto Serif KR',serif;font-size:34px;font-weight:300;color:var(--rose);}
+  .process-row h3{font-size:17px;font-weight:600;color:var(--ink);}
+  .process-row p{font-size:14px;color:var(--ink-soft);}
+
+  /* ---------- CTA ---------- */
+  .cta-section{background:linear-gradient(135deg, var(--rose-soft) 0%, var(--cream) 100%);text-align:center;}
+  .cta-section h2{font-family:'Noto Serif KR',serif;font-size:clamp(26px,3.6vw,40px);font-weight:400;margin-bottom:20px;color:var(--ink);}
+  .cta-section h2 strong{color:var(--rose-deep);font-weight:700;}
+  .cta-section p{color:var(--ink-soft);margin-bottom:42px;font-size:15.5px;}
+  .cta-buttons{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;}
+  .btn-outline{display:inline-block;border:1px solid var(--rose-deep);color:var(--rose-deep);padding:16px 36px;font-size:13.5px;letter-spacing:1.5px;border-radius:2px;transition:all .25s;}
+  .btn-outline:hover{background:var(--rose-deep);color:var(--white);}
+
   /* ---------- Footer ---------- */
-  footer{
-    background:var(--ink);
-    color:#B7AEAF;
-    padding:60px 6% 36px;
-    font-size:13px;
-  }
-  .footer-inner{
-    max-width:1180px;
-    margin:0 auto;
-    display:flex;
-    justify-content:space-between;
-    flex-wrap:wrap;
-    gap:30px;
-    padding-bottom:30px;
-    border-bottom:1px solid rgba(255,255,255,0.12);
-    margin-bottom:24px;
-  }
+  footer{background:var(--ink);color:#B7AEAF;padding:60px 6% 36px;font-size:13px;}
+  .footer-inner{max-width:1180px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:30px;padding-bottom:30px;border-bottom:1px solid rgba(255,255,255,0.12);margin-bottom:24px;}
   .footer-logo{font-family:'Noto Serif KR',serif;font-size:18px;color:var(--white);margin-bottom:10px;}
   .footer-logo span{color:var(--rose);}
   .footer-cols{display:flex;gap:60px;}
   .footer-col h4{color:var(--white);font-size:13px;letter-spacing:1px;margin-bottom:14px;font-weight:500;}
   .footer-col p, .footer-col a{color:#9C9293;line-height:2;display:block;}
-  .footer-bottom{
-    display:flex;
-    justify-content:space-between;
-    flex-wrap:wrap;
-    gap:10px;
-    font-size:12px;
-    color:#776F70;
-  }
+  .footer-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:12px;color:#776F70;}
+  .admin-dot{display:inline-block;width:10px;height:10px;margin-left:8px;background:#FFFFFF;opacity:0.06;border-radius:1px;cursor:pointer;vertical-align:middle;transition:opacity .2s;}
+  .admin-dot:hover{opacity:0.18;}
 
   /* ---------- Lightbox ---------- */
-  .lightbox{
-    position:fixed;inset:0;
-    background:rgba(20,16,17,0.92);
-    display:none;
-    align-items:center;
-    justify-content:center;
-    z-index:1000;
-    padding:40px;
-  }
+  .lightbox{position:fixed;inset:0;background:rgba(20,16,17,0.92);display:none;align-items:center;justify-content:center;z-index:1000;padding:40px;}
   .lightbox.active{display:flex;}
   .lightbox img{max-width:90vw;max-height:85vh;width:auto;height:auto;object-fit:contain;border-radius:2px;}
   .lightbox-close{position:absolute;top:30px;right:40px;color:var(--white);font-size:28px;cursor:pointer;font-weight:300;}
@@ -292,20 +198,117 @@
   @media (max-width:980px){
     nav, .nav-cta{display:none;}
     .menu-toggle{display:flex;}
+    .hero-bg-line{display:none;}
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-visual{max-width:420px;margin:0 auto;order:-1;}
+    .why-grid{grid-template-columns:repeat(2,1fr);}
     .promise-grid{grid-template-columns:1fr;}
     .promise-col:first-child{border-right:none;border-bottom:1px solid rgba(255,255,255,0.15);}
-    .mini-photo-grid{grid-template-columns:repeat(3,1fr);}
     .gallery-grid{grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(3,220px);}
     .gallery-item.big{grid-row:span 1;}
+    .process-row{grid-template-columns:50px 1fr;grid-template-areas:"num title" "num desc";}
+    .process-row .pnum{grid-area:num;}
+    .process-row h3{grid-area:title;}
+    .process-row p{grid-area:desc;}
   }
   @media (max-width:600px){
-    section{padding:70px 6%;}
-    .past-intro{padding:130px 6% 30px;}
-    .promise{padding:60px 6%;}
+    section{padding:80px 6%;}
+    .hero{padding:120px 6% 60px;}
+    .hero-ratio .num{font-size:46px;}
+    .why-grid{grid-template-columns:1fr;}
     .gallery-grid{grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(3,180px);}
     .footer-inner{flex-direction:column;}
     .footer-cols{gap:36px;}
   }
+
+  /* ===== ADMIN LOGIN MODAL ===== */
+  .adm-login-overlay{position:fixed;inset:0;background:rgba(43,37,38,0.55);z-index:2500;display:none;align-items:center;justify-content:center;padding:24px;font-family:'Pretendard',sans-serif;}
+  .adm-login-overlay.adm-open{display:flex;}
+  .adm-login-box{background:var(--white);border-radius:6px;padding:44px 38px;max-width:360px;width:100%;text-align:center;box-shadow:0 30px 60px -20px rgba(43,37,38,0.4);}
+  .adm-login-mark{font-size:13px;letter-spacing:1.5px;color:var(--rose-deep);margin-bottom:18px;}
+  .adm-login-box h2{font-size:19px;font-weight:500;color:var(--ink);margin:0 0 8px;}
+  .adm-login-box p{font-size:13px;color:var(--ink-soft);margin:0 0 26px;}
+  .adm-login-input{width:100%;padding:13px 15px;border:1px solid var(--line);border-radius:2px;font-size:14px;font-family:inherit;color:var(--ink);outline:none;text-align:center;letter-spacing:2px;}
+  .adm-login-input:focus{border-color:var(--rose);}
+  .adm-login-error{color:#b3413f;font-size:12.5px;min-height:18px;margin-top:10px;}
+  .adm-login-actions{display:flex;gap:10px;margin-top:18px;}
+  .adm-login-actions .adm-btn{flex:1;}
+
+  /* ===== ADMIN PANEL ===== */
+  .adm-panel{position:fixed;inset:0;background:var(--cream);z-index:2000;overflow-y:auto;display:none;font-family:'Pretendard',sans-serif;color:var(--ink);}
+  .adm-panel.adm-open{display:block;}
+  .adm-serif{font-family:'Noto Serif KR',serif;}
+  .adm-header{background:var(--white);border-bottom:1px solid var(--line);padding:18px 5%;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;}
+  .adm-header h1{font-size:17px;margin:0;font-weight:600;}
+  .adm-header h1 span{color:var(--rose-deep);}
+  .adm-header-actions{display:flex;gap:10px;}
+  .adm-btn{padding:10px 20px;border-radius:2px;font-size:13px;border:1px solid var(--rose-deep);background:var(--white);color:var(--rose-deep);cursor:pointer;letter-spacing:0.3px;font-family:inherit;}
+  .adm-btn.adm-primary{background:var(--rose-deep);color:#fff;border-color:var(--rose-deep);}
+  .adm-btn.adm-primary:hover{background:var(--ink);border-color:var(--ink);}
+  .adm-btn:hover{background:var(--rose-soft);}
+  .adm-btn:disabled{opacity:0.5;cursor:not-allowed;}
+  .adm-body{max-width:920px;margin:0 auto;padding:40px 5% 100px;}
+  .adm-save-banner{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:14px 28px;border-radius:14px;font-size:13.5px;line-height:1.5;max-width:min(92vw, 480px);text-align:center;opacity:0;pointer-events:none;transition:all .3s;z-index:2100;}
+  .adm-save-banner.adm-show{opacity:1;transform:translateX(-50%) translateY(0);}
+  .adm-card{background:var(--white);border:1px solid var(--line);border-radius:4px;padding:28px 30px;margin-bottom:24px;}
+  .adm-card h2{font-size:15.5px;margin:0 0 4px;color:var(--rose-deep);font-weight:600;}
+  .adm-card .adm-desc{font-size:12.5px;color:var(--ink-soft);margin:0 0 20px;}
+  .adm-field{margin-bottom:18px;}
+  .adm-field:last-child{margin-bottom:0;}
+  .adm-field label{display:block;font-size:12.5px;color:var(--ink-soft);margin-bottom:6px;letter-spacing:0.3px;}
+  .adm-field input[type="text"], .adm-field textarea{width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:2px;font-size:14px;font-family:inherit;color:var(--ink);outline:none;resize:vertical;}
+  .adm-field input[type="text"]:focus, .adm-field textarea:focus{border-color:var(--rose);}
+  .adm-hint{font-size:11px;color:#9C9293;margin-top:4px;}
+  .adm-row2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .adm-img-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+  .adm-img-slot{position:relative;aspect-ratio:1/1;border:1px dashed var(--line);border-radius:3px;overflow:hidden;cursor:pointer;background:var(--cream);display:flex;align-items:center;justify-content:center;}
+  .adm-img-slot img{width:100%;height:100%;object-fit:cover;display:none;}
+  .adm-img-slot.adm-has-img img{display:block;}
+  .adm-img-slot.adm-has-img .adm-placeholder{display:none;}
+  .adm-img-slot .adm-placeholder{font-size:12px;color:#9C9293;text-align:center;padding:10px;}
+  .adm-img-slot .adm-label-tag{position:absolute;top:6px;left:6px;background:rgba(43,37,38,0.65);color:#fff;font-size:10.5px;padding:3px 7px;border-radius:2px;z-index:2;}
+  .adm-img-slot input[type="file"]{display:none;}
+  .adm-img-slot .adm-uploading-badge{position:absolute;inset:0;background:rgba(255,255,255,0.85);display:none;align-items:center;justify-content:center;font-size:11.5px;color:var(--rose-deep);}
+  .adm-img-slot.adm-uploading .adm-uploading-badge{display:flex;}
+  .adm-hero-slot{grid-column:span 3;aspect-ratio:16/9;}
+  .adm-footer-bar{display:flex;justify-content:flex-end;gap:10px;margin-top:8px;}
+  @media (max-width:700px){
+    .adm-row2{grid-template-columns:1fr;}
+    .adm-img-grid{grid-template-columns:repeat(2,1fr);}
+    .adm-hero-slot{grid-column:span 2;}
+  }
+
+  /* 지난 모임 참가자 버튼 - 네온 */
+  .past-link-btn{
+    display:inline-block;border:2px solid #ff6ec7;color:#ffe9f5;padding:22px 64px;border-radius:999px;font-size:19px;font-weight:600;letter-spacing:2px;text-decoration:none;transition:transform .25s;font-family:'Pretendard',sans-serif;
+    text-shadow:0 0 6px #fff,0 0 14px #ff6ec7,0 0 26px #ff6ec7,0 0 44px #ff2fb0,0 0 3px #7ef9ff;
+    box-shadow:0 0 10px #ff6ec7,0 0 26px #ff2fb0,0 0 46px rgba(255,110,199,0.6),0 0 70px rgba(126,249,255,0.35),inset 0 0 16px rgba(255,110,199,0.4);
+    background:rgba(255,110,199,0.06);
+    animation:neonFlicker 3.2s linear infinite, neonColorCycle 6s linear infinite;
+  }
+  .past-link-btn:hover{transform:scale(1.05);}
+  @keyframes neonColorCycle{
+    0%{border-color:#ff6ec7;text-shadow:0 0 6px #fff,0 0 14px #ff6ec7,0 0 26px #ff6ec7,0 0 44px #ff2fb0,0 0 3px #7ef9ff;box-shadow:0 0 10px #ff6ec7,0 0 26px #ff2fb0,0 0 46px rgba(255,110,199,0.6),0 0 70px rgba(126,249,255,0.35),inset 0 0 16px rgba(255,110,199,0.4);}
+    33%{border-color:#7ef9ff;text-shadow:0 0 6px #fff,0 0 14px #7ef9ff,0 0 26px #7ef9ff,0 0 44px #2fd8ff,0 0 3px #ff6ec7;box-shadow:0 0 10px #7ef9ff,0 0 26px #2fd8ff,0 0 46px rgba(126,249,255,0.6),0 0 70px rgba(255,110,199,0.35),inset 0 0 16px rgba(126,249,255,0.4);}
+    66%{border-color:#ffd76e;text-shadow:0 0 6px #fff,0 0 14px #ffd76e,0 0 26px #ffd76e,0 0 44px #ff9f2f,0 0 3px #ff6ec7;box-shadow:0 0 10px #ffd76e,0 0 26px #ff9f2f,0 0 46px rgba(255,215,110,0.6),0 0 70px rgba(255,110,199,0.35),inset 0 0 16px rgba(255,215,110,0.4);}
+    100%{border-color:#ff6ec7;text-shadow:0 0 6px #fff,0 0 14px #ff6ec7,0 0 26px #ff6ec7,0 0 44px #ff2fb0,0 0 3px #7ef9ff;box-shadow:0 0 10px #ff6ec7,0 0 26px #ff2fb0,0 0 46px rgba(255,110,199,0.6),0 0 70px rgba(126,249,255,0.35),inset 0 0 16px rgba(255,110,199,0.4);}
+  }
+  @keyframes neonFlicker{0%,3%,6%,7%,9%,72%,74%,100%{opacity:1;}4%,5%,8%,73%{opacity:0.35;}}
+  @media (max-width:600px){.past-link-btn{padding:18px 40px;font-size:16px;letter-spacing:1.2px;}}
+  @media (prefers-reduced-motion: reduce){.past-link-btn{animation:none;}}
+
+  /* ===== 신청자 리스트 날짜 미리보기 (관리자) ===== */
+  .adm-past-date-preview{margin-top:18px;padding:28px 20px 30px;border:1px solid rgba(201,123,134,.45);border-radius:14px;background:linear-gradient(145deg,#30292a,#241f20);text-align:center;overflow:hidden;position:relative;}
+  .adm-past-date-preview:before,
+  .adm-past-date-preview:after{content:"";position:absolute;top:50%;width:18%;height:1px;background:linear-gradient(90deg,transparent,#C97B86);}
+  .adm-past-date-preview:before{left:0}
+  .adm-past-date-preview:after{right:0;transform:scaleX(-1)}
+  .adm-past-date-preview .past-date-demo{display:inline-block;color:#F7DDE0;font-family:'Noto Serif KR',serif;font-size:28px;font-weight:600;letter-spacing:1.2px;line-height:1.45;text-shadow:0 0 5px rgba(255,235,238,.85),0 0 16px rgba(201,123,134,.75),0 0 30px rgba(201,123,134,.35);position:relative;z-index:1;}
+  .adm-past-date-preview .past-date-caption{display:block;margin-top:9px;font-size:11px;color:#C9B9BA;letter-spacing:1px;}
+  .adm-field select[data-key], .adm-field input[type="number"][data-key]{min-height:48px;padding:11px 14px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);font:inherit;}
+  .adm-field input[type="color"][data-key]{width:100%;height:50px;padding:4px;border:1px solid var(--line);border-radius:8px;background:#fff;}
+  .adm-past-date-settings{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;}
+  @media(max-width:700px){.adm-past-date-settings{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -315,176 +318,233 @@
   <div class="logo">블랙라벨 <span>더논현</span></div>
   <nav>
     <ul>
-      <li><a href="index.html#message">소개</a></li>
-      <li><a href="index.html#why">차이점</a></li>
-      <li><a href="index.html#gallery">모임 사진</a></li>
-      <li><a href="index.html#process">진행 절차</a></li>
-      <li><a href="past.html" class="active">지난 모임</a></li>
-      <li><a href="index.html">메인으로</a></li>
+      <li><a href="#message">소개</a></li>
+      <li><a href="#why">차이점</a></li>
+      <li><a href="#gallery">모임 사진</a></li>
+      <li><a href="#process">진행 절차</a></li>
+      <li><a href='/past'>지난 모임</a></li>
+      <li><a href="https://forms.gle/임시링크입니다" data-cms-link="apply_url" target="_blank" rel="noopener">신청하기</a></li>
     </ul>
   </nav>
-  <a href="index.html" class="nav-cta">메인으로</a>
+  <a href="https://forms.gle/임시링크입니다" data-cms-link="apply_url" target="_blank" rel="noopener" class="nav-cta">신청 문의</a>
   <div class="menu-toggle"><span></span><span></span><span></span></div>
 </header>
 
-<!-- ================= INTRO ================= -->
-<section class="past-intro reveal">
-  <div class="eyebrow" style="justify-content:center;">PAST MEETING</div>
-  <h1 class="serif">지난 모임 <strong>참가자 보기</strong></h1>
-  <p>블랙라벨 더논현에 실제로 참여했던 회원분들의 프로필을 소개합니다.</p>
-</section>
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="hero-bg-line"></div>
+  <div class="hero-grid">
+    <div class="hero-copy">
+      <div class="eyebrow">BLACK LABEL THE NON-HYUN</div>
+      <h1 class="serif" id="cms-hero_title">잘나가는 그들의<br><strong>15 대 15</strong> 소개팅</h1>
+      <p class="lead" id="cms-hero_lead">너무 귀하고 소중한 당신은, 아무 데서나 사람을 만날 수 없습니다.<br>한 달에 딱 한 번, 소수정예로 열리는 모임에서<br>내 수준에 맞는 진짜 인연을 만나보세요.</p>
 
-<!-- ================= LATEST LIST (26년8월30일) ================= -->
-<section class="promise reveal">
-  <div class="date-tag-wrap">
-    <span class="date-tag serif">2026년 8월 30일 (일)</span>
-  </div>
+      <div class="hero-ratio">
+        <span class="num">15</span>
+        <span class="colon">:</span>
+        <span class="num accent">15</span>
+        <span class="cap">월 1회 개최<br>소수정예 매칭</span>
+      </div>
 
-  <div class="mini-photo-grid" id="latestGalleryGrid">
-    <div class="mini-photo-item" data-slot="1"><img alt="8월 30일 모임 사진 1" data-cms-img="latest_gallery_1"></div>
-    <div class="mini-photo-item" data-slot="2"><img alt="8월 30일 모임 사진 2" data-cms-img="latest_gallery_2"></div>
-    <div class="mini-photo-item" data-slot="3"><img alt="8월 30일 모임 사진 3" data-cms-img="latest_gallery_3"></div>
-    <div class="mini-photo-item" data-slot="4"><img alt="8월 30일 모임 사진 4" data-cms-img="latest_gallery_4"></div>
-    <div class="mini-photo-item" data-slot="5"><img alt="8월 30일 모임 사진 5" data-cms-img="latest_gallery_5"></div>
-    <div class="mini-photo-item" data-slot="6"><img alt="8월 30일 모임 사진 6" data-cms-img="latest_gallery_6"></div>
-  </div>
-
-  <div class="promise-grid">
-    <div class="promise-col">
-      <span class="tag">FOR MEN</span>
-      <h3 class="serif">인성과 능력을<br>보장합니다</h3>
-      <ul>
-        <li>남자1호. 85년생 / 투자자 / 키183 / 멀끔한자상순애남 스타일</li>
-        <li>남자2호. 93년생 / 중소기업대표 / 키180 / 유쾌한너드남 스타일</li>
-        <li>남자3호. 83년생 / 공기업 / 키183 / 남자다운머슴상 스타일</li>
-        <li>남자4호. 91년생 / 애국사업가 / 키178 / 훈훈청년사업가 스타일</li>
-        <li>남자5호. 83년생 / AI개발회사경영 / 키173 / 상냥친절에겐 스타일</li>
-        <li>남자6호. 96년생 / 제조업가업승계 / 키181 / 잘생슬렌더최산 스타일</li>
-        <li>남자7호. 84년생 / 변호사 / 키177 / 최강동안킹스맨 스타일</li>
-        <li>남자8호. 95년생 / 헬스장&필라테스샵 대표 / 키177 / 박보검st몸짱얼짱</li>
-        <li>남자9호. 86년생 / 공방운영 / 키177 / 깔끔단정한 스타일</li>
-        <li>남자10호. 84년생 / 외국계해외영업 / 키179 / 피부좋은정석미남 스타일</li>
-        <li>남자11호. 91년생 / 헬스장대표 / 키178 / 솔로지옥재질훈훈 스타일</li>
-        <li>남자12호. 92년생 / 경찰청정보관 / 키184 / 순둥하고지적인 스타일</li>
-        <li>남자13호. 89년생 / 계리사 / 키175 / 듬직한훈남 스타일</li>
-        <li>남자14호. 84년생 / 건축설계대기업이사 / 키180 / 도베르만상미남 스타일</li>
-        <li>남자15호. 86년생 / 임대업 / 키180 / 초동안어린왕자상 스타일</li>
-        <li>남자16호. 92년생 / 대기업데이터전문가 / 키181 / 오딧세이맷데이먼 스타일</li>
-      </ul>
+      <a href="https://forms.gle/임시링크입니다" data-cms-link="apply_url" target="_blank" rel="noopener" class="btn-primary">참가 신청하기</a>
     </div>
-    <div class="promise-col">
-      <span class="tag">FOR WOMEN</span>
-      <h3 class="serif">인성과 미모를<br>보장합니다</h3>
-      <ul>
-        <li>여자1호. 90년생 / 대기업 / 키168 / 단아한섹시녀 스타일</li>
-        <li>여자2호. 01년생 / 아리랑뮤지컬단원 / 키173 / 포슬포슬단아한 스타일</li>
-        <li>여자3호. 93년생 / 간호사 / 키166 / 청순여성스러운 스타일</li>
-        <li>여자4호. 90년생 / 간호사 / 키171 / 맏며느리상 스타일</li>
-        <li>여자5호. 87년생 / 대치동영어강사 / 키155 / 상냥한에겐녀 스타일</li>
-        <li>여자6호. 95년생 / 방송국PD / 키167 / 쾌활한매력둥이 스타일</li>
-        <li>여자7호. 99년생 / 대기업 / 키165 / 따뜻다정한 스타일</li>
-        <li>여자8호. 88년생 / 승무원 / 키167 / 단아우아한존예 스타일</li>
-        <li>여자9호. 90년생 / 전문건설회사원 / 키160 / 청초외모상큼성격 스타일</li>
-        <li>여자10호. 91년생 / 공간디자이너 / 키160 / 캐쥬얼하고편안한 스타일</li>
-        <li>여자11호. 91년생 / 패션브랜드마케팅 / 키157 / 에겐커리어우먼 스타일</li>
-        <li>여자12호. 90년생 / 학원운영 / 키168 / 여리예쁨초고액사업가 스타일</li>
-        <li>여자13호. 99년생 / 회사원 / 키161 / 첫사랑재질청초존예 스타일</li>
-        <li>여자14호. 94년생 / 유아영어교사 / 키161 / 남자들의이상형존예 스타일</li>
-        <li>여자15호. 89년생 / 주한외국대사관 / 키158 / 상견례프리패스상 스타일</li>
-        <li>여자16호. 94년생 / 제약회사 / 키165 / 참한인상 스타일</li>
-      </ul>
+
+    <div class="hero-visual-wrap" style="position:relative;">
+      <div class="hero-visual-frame"></div>
+      <div class="hero-visual" id="heroVisual">
+        <img id="heroImg" data-cms-img="hero_image" src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=1200&auto=format&fit=crop" alt="블랙라벨 더논현 모임 분위기">
+        <div class="hero-visual-tag serif">Blande the Nonhyeon — 2026</div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ================= OLDER LIST (지난 모임 날짜) ================= -->
-<section class="promise reveal" style="background:#221D1E;">
-  <div class="date-tag-wrap">
-    <span class="date-tag serif" id="cms-past_date">2026년 7월 18일 (토)</span>
+<!-- ================= MESSAGE ================= -->
+<section class="message" id="message">
+  <div class="message-inner reveal">
+    <div class="quote-mark serif">“</div>
+    <blockquote class="serif" id="cms-message_quote">
+      로테이션 소개팅, 파티, 지인 소개,<br class="br-mobile">앱, 결정사까지<br>
+      다양한 경로를 쉽게 접할 수 있지만<br>
+      어딜 나가도 <strong>괜찮은 사람</strong>은 없고<br>
+      시간만 낭비하셨다면,
+    </blockquote>
+    <p style="font-size:15.5px;color:var(--ink-soft);margin-bottom:30px;" id="cms-message_sub">
+      한 달에 딱 한 번 열리는 소수정예의 우리 모임에서<br>
+      내 수준에 맞는 진짜 인연을 찾아보세요.
+    </p>
+    <div class="sign serif">BLACK LABEL THE NON-HYUN</div>
   </div>
+</section>
 
-  <div class="mini-photo-grid" id="olderGalleryGrid">
-    <div class="mini-photo-item" data-slot="1"><img alt="7월 모임 사진 1" data-cms-img="older_gallery_1"></div>
-    <div class="mini-photo-item" data-slot="2"><img alt="7월 모임 사진 2" data-cms-img="older_gallery_2"></div>
-    <div class="mini-photo-item" data-slot="3"><img alt="7월 모임 사진 3" data-cms-img="older_gallery_3"></div>
-    <div class="mini-photo-item" data-slot="4"><img alt="7월 모임 사진 4" data-cms-img="older_gallery_4"></div>
-    <div class="mini-photo-item" data-slot="5"><img alt="7월 모임 사진 5" data-cms-img="older_gallery_5"></div>
-    <div class="mini-photo-item" data-slot="6"><img alt="7월 모임 사진 6" data-cms-img="older_gallery_6"></div>
-  </div>
-
-  <div class="promise-grid">
-    <div class="promise-col">
-      <span class="tag">FOR MEN</span>
-      <h3 class="serif">인성과 능력을<br>보장합니다</h3>
-      <ul>
-        <li>남자1호. 92년생 / 공무원 / 키175 / 순박단정한선비몸매 스타일</li>
-        <li>남자2호. 92년생 / 공무원 / 키184 / 순둥하고 지적인 스타일</li>
-        <li>남자3호. 85년생 / 투자자 / 키183 / 엄친아 자상예남 스타일</li>
-        <li>남자4호. 90년생 / IT엔지니어 / 키176 / 청순하고 섬세한능력남 스타일</li>
-        <li>남자5호. 87년생 / 개발자 / 키177 / 깔끔한 상남자 스타일</li>
-        <li>남자6호. 91년생 / 의사 / 키175 / 단정하고 순둥한의사 스타일</li>
-        <li>남자7호. 83년생 / 공기업 / 키184 / 남자다운 며느리상 스타일</li>
-        <li>남자8호. 86년생 / 금융보험관리직 / 키177 / 부드러운 존잘 스타일</li>
-        <li>남자9호. 88년생 / 금융보험관리직 / 키181 / 주진모닮은 테토미남 스타일</li>
-        <li>남자10호. 84년생 / 건축업이사 / 키180 / 멀끔한 미존잘 스타일</li>
-        <li>남자11호. 83년생 / AI개발회사경영 / 키174 / 훈훈상냥한 에겐 스타일</li>
-        <li>남자12호. 89년생 / 의류회사팀장 / 키177 / 귀엽고 듬직한곰 스타일</li>
-        <li>남자13호. 96년생 / 대기업영업직 / 키178 / 훈내진동 강아지 스타일</li>
-        <li>남자14호. 81년생 / 계조도매업체대표 / 키177 / 차분한 신사 스타일</li>
-        <li>남자15호. 83년생 / 4급공무원 / 키179 / 지니어스 귀공자 스타일</li>
-        <li>남자16호. 83년생 / SK하이닉스 / 키183 / 훈훈한 영국신사 스타일</li>
-        <li>남자17호. 95년생 / 의사 / 키180 / 훈훈잘생긴 의사 스타일</li>
-        <li>남자18호. 87년생 / 화학대기업 / 키180 / 젠틀깔끔한 스타일</li>
-      </ul>
+<!-- ================= WHY ================= -->
+<section id="why">
+  <div class="section-inner">
+    <div class="section-head reveal">
+      <span class="eyebrow">WHY BLACK LABEL</span>
+      <h2 class="serif" id="cms-why_title">아무나 만날 수 없는,<br class="br-mobile"> <strong>당신만을 위한 공간</strong></h2>
+      <p id="cms-why_sub">소중한 당신인 만큼,<br class="br-mobile"> 우리는 입장부터<br class="br-mobile"> 다르게 시작합니다.</p>
     </div>
-    <div class="promise-col">
-      <span class="tag">FOR WOMEN</span>
-      <h3 class="serif">인성과 미모를<br>보장합니다</h3>
-      <ul>
-        <li>여자1호. 93년생 / 간호사 / 청순여성스러운 스타일</li>
-        <li>여자2호. 95년생 / 서비스직 / 귀엽고 친한 이목구비 스타일</li>
-        <li>여자3호. 90년생 / 패션회사디렉터 / 여리여리한 도시미녀 스타일</li>
-        <li>여자4호. 89년생 / 뷰티샵운영 / 건강미넘치는 섹시녀 스타일</li>
-        <li>여자5호. 93년생 / 대기업 / 김태리닮은 은은한 청순 스타일</li>
-        <li>여자6호. 94년생 / 취업준비생 / 꾸밈없이 편안한 스타일</li>
-        <li>여자7호. 95년생 / 사무직 / 꾸밈없는 긴생머리 스타일</li>
-        <li>여자8호. 83년생 / 경영기획 / 도도한듯 청순한 스타일</li>
-        <li>여자9호. 95년생 / 공무원 / 청순단아한 결정체 스타일</li>
-        <li>여자10호. 94년생 / 유통회사원 / 다정상냥 청순귀염 스타일</li>
-        <li>여자11호. 87년생 / 언론인 / 발랄상큼 지적인 스타일</li>
-        <li>여자12호. 90년생 / IT회사원 / 청순한 미녀 스타일</li>
-        <li>여자13호. 99년생 / 간호사 / 존예 청순발랄 MZ 스타일</li>
-        <li>여자14호. 03년생 / 대학생 / 카리나닮은 존예 스타일</li>
-        <li>여자15호. 88년생 / 승무원 / 단아&우아한 존예 스타일</li>
-        <li>여자16호. 82년생 / 데이터분석가 / 분위기미인 스타일</li>
-        <li>여자17호. 90년생 / 은행원 / 첫사랑재질 존예걸 스타일</li>
-        <li>여자18호. 99년생 / 행정사무직 / 귀엽고발랄한 스타일</li>
-        <li>여자19호. 89년생 / 미디어 / 매력있는 댕댕미 스타일</li>
-      </ul>
+
+    <div class="why-grid reveal">
+      <div class="why-item">
+        <div class="icon serif">男</div>
+        <h3 id="cms-why_1_title">남성 — 인성과 능력</h3>
+        <p id="cms-why_1_body">경제력과 매너를 모두 갖춘<br>품격 있는 남성만을 엄선합니다.</p>
+      </div>
+      <div class="why-item">
+        <div class="icon serif">女</div>
+        <h3 id="cms-why_2_title">여성 — 인성과 미모</h3>
+        <p id="cms-why_2_body">내면과 외면의 균형을 갖춘<br>여성분만을 신중히 모십니다.</p>
+      </div>
+      <div class="why-item">
+        <div class="icon serif">月</div>
+        <h3 id="cms-why_3_title">월 1회, 소수정예</h3>
+        <p id="cms-why_3_body">많이 만나는 것이 아니라<br>제대로 만나는 모임입니다.</p>
+      </div>
+      <div class="why-item">
+        <div class="icon serif">緣</div>
+        <h3 id="cms-why_4_title">평생을 함께할 반려</h3>
+        <p id="cms-why_4_body">가벼운 만남이 아닌<br>진지한 인연을 위한 자리입니다.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<div class="back-link-wrap reveal">
-  <a href="index.html" class="back-link">← 메인 페이지로 돌아가기</a>
-</div>
+<!-- ================= VIDEO SHOWCASE ================= -->
+<section class="video-showcase reveal" id="videoShowcase">
+  <div class="video-showcase-frame">
+    <video id="showcaseVideo" src="video.mp4" muted loop playsinline autoplay preload="auto" poster="https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=800&auto=format&fit=crop"></video>
+  </div>
+  <div class="video-showcase-cap serif">Blande the Nonhyeon — Highlight</div>
+</section>
+
+<!-- ================= PROMISE ================= -->
+<section class="promise">
+  <div class="section-inner">
+    <div class="section-head reveal">
+      <span class="eyebrow">OUR STANDARD</span>
+      <h2 class="serif" id="cms-promise_title">우리가 지키는 <strong>두 가지 기준</strong></h2>
+      <p id="cms-promise_sub">품격 있는 만남을 위해,<br class="br-mobile">블랙라벨은 양쪽 모두에게<br class="br-mobile"> 같은 기준을 적용합니다.</p>
+    </div>
+
+    <div class="index-past-date-wrap reveal">
+      <a class='index-past-date-link' data-index-past-date href='/past'>
+        ↓ 26년 9월 27일 (일) 신청자 리스트 ↓
+      </a>
+    </div>
+
+    <div class="promise-grid reveal">
+      <div class="promise-col">
+        <span class="tag">FOR MEN</span>
+        <h3 class="serif">인성과 능력을<br>보장합니다</h3>
+        <ul id="cms-men_list">
+          <li>안정적인 직업과 경제력 검증</li>
+          <li>매너와 대화 태도 사전 확인</li>
+          <li>진지한 만남 의사가 있는 분만 참여</li>
+          <li>외적인 자기관리 수준 확인</li>
+        </ul>
+      </div>
+      <div class="promise-col">
+        <span class="tag">FOR WOMEN</span>
+        <h3 class="serif">인성과 미모를<br>보장합니다</h3>
+        <ul id="cms-women_list">
+          <li>분위기와 이미지 사전 확인</li>
+          <li>따뜻한 인성과 배려심 검증</li>
+          <li>진지한 만남 의사가 있는 분만 참여</li>
+          <li>품격 있는 자리에 어울리는 매너</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="reveal" style="text-align:center;margin-top:52px;">
+      <a class='past-link-btn' href='/past'>
+        지난 모임 참가자 보기
+        <span style="margin-left:8px;opacity:0.7;">→</span>
+      </a>
+    </div>
+
+  </div>
+</section>
 
 <!-- ================= GALLERY ================= -->
 <section class="gallery" id="gallery">
   <div class="section-inner">
     <div class="section-head reveal">
       <span class="eyebrow">MOMENTS</span>
-      <h2 class="serif">그날의 <strong>모임 사진</strong></h2>
-      <p>지난 모임에서 담은 순간들입니다.</p>
+      <h2 class="serif" id="cms-gallery_title">블랙라벨 더논현의 <strong>모임 현장</strong></h2>
+      <p id="cms-gallery_sub">품격 있는 공간에서 진행되는<br class="br-mobile"> 실제 모임의 분위기를 소개합니다.</p>
     </div>
 
-    <div class="gallery-grid reveal" id="pastGalleryGrid">
-      <div class="gallery-item big" data-slot="1"><img alt="지난 모임 사진 1" data-cms-img="past_gallery_1"></div>
-      <div class="gallery-item" data-slot="2"><img alt="지난 모임 사진 2" data-cms-img="past_gallery_2"></div>
-      <div class="gallery-item" data-slot="3"><img alt="지난 모임 사진 3" data-cms-img="past_gallery_3"></div>
-      <div class="gallery-item" data-slot="4"><img alt="지난 모임 사진 4" data-cms-img="past_gallery_4"></div>
-      <div class="gallery-item" data-slot="5"><img alt="지난 모임 사진 5" data-cms-img="past_gallery_5"></div>
-      <div class="gallery-item" data-slot="6"><img alt="지난 모임 사진 6" data-cms-img="past_gallery_6"></div>
+    <div class="gallery-grid reveal" id="galleryGrid">
+      <div class="gallery-item big" data-slot="1">
+        <img alt="모임 사진 1" data-cms-img="gallery_1">
+        <span class="gcap serif">Scene 01 — 라운지</span>
+      </div>
+      <div class="gallery-item" data-slot="2">
+        <img alt="모임 사진 2" data-cms-img="gallery_2">
+        <span class="gcap serif">Scene 02 — 환영회</span>
+      </div>
+      <div class="gallery-item" data-slot="3">
+        <img alt="모임 사진 3" data-cms-img="gallery_3">
+        <span class="gcap serif">Scene 03 — 대화</span>
+      </div>
+      <div class="gallery-item" data-slot="4">
+        <img alt="모임 사진 4" data-cms-img="gallery_4">
+        <span class="gcap serif">Scene 04 — 테이블</span>
+      </div>
+      <div class="gallery-item" data-slot="5">
+        <img alt="모임 사진 5" data-cms-img="gallery_5">
+        <span class="gcap serif">Scene 05 — 마무리</span>
+      </div>
+      <div class="gallery-item" data-slot="6">
+        <img alt="모임 사진 6" data-cms-img="gallery_6">
+        <span class="gcap serif">Scene 06 — 공간</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROCESS ================= -->
+<section id="process">
+  <div class="section-inner">
+    <div class="section-head reveal">
+      <span class="eyebrow">PROCESS</span>
+      <h2 class="serif">신청부터 만남까지,<br class="br-mobile"> <strong>간결한 절차</strong></h2>
+    </div>
+
+    <div class="process-list reveal">
+      <div class="process-row">
+        <span class="pnum serif">01</span>
+        <h3 id="cms-process_1_title">신청 및 1차 상담</h3>
+        <p id="cms-process_1_body">간단한 프로필과 희망 조건을 남겨주시면, 담당자가 직접 연락드립니다.</p>
+      </div>
+      <div class="process-row">
+        <span class="pnum serif">02</span>
+        <h3 id="cms-process_2_title">매칭 심사</h3>
+        <p id="cms-process_2_body">인성, 능력, 이미지 등 기준에 따라 신중하게 검토 후 참여 여부를 안내드립니다.</p>
+      </div>
+      <div class="process-row">
+        <span class="pnum serif">03</span>
+        <h3 id="cms-process_3_title">월례 모임 참석</h3>
+        <p id="cms-process_3_body">매달 한 번, 정해진 날에 15대15 소수정예로 모임이 진행됩니다.</p>
+      </div>
+      <div class="process-row">
+        <span class="pnum serif">04</span>
+        <h3 id="cms-process_4_title">애프터 & 후속 관리</h3>
+        <p id="cms-process_4_body">마음에 맞는 인연이 있다면, 이후 만남까지 세심하게 이어드립니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CTA ================= -->
+<section class="cta-section" id="apply">
+  <div class="reveal">
+    <h2 class="serif" id="cms-cta_title">이제, <strong>진짜 인연</strong>을<br class="br-mobile"> 만날 시간입니다</h2>
+    <p id="cms-cta_sub">평생을 함께할 반려를 찾는 공간,<br class="br-mobile"> 블랙라벨 더논현이 함께합니다.</p>
+    <div class="cta-buttons">
+      <a href="https://forms.gle/임시링크입니다" data-cms-link="apply_url" target="_blank" rel="noopener" class="btn-primary">신청하기</a>
     </div>
   </div>
 </section>
@@ -501,9 +561,9 @@
     <div class="footer-cols">
       <div class="footer-col">
         <h4>BLACK LABEL</h4>
-        <a href="index.html#message">장소</a>
-        <a href="index.html#why">문의</a>
-        <a href="index.html#process">진행 절차</a>
+        <a href="#message">장소</a>
+        <a href="#why">문의</a>
+        <a href="#process">진행 절차</a>
       </div>
       <div class="footer-col">
         <h4>CONTACT</h4>
@@ -514,7 +574,7 @@
     </div>
   </div>
   <div class="footer-bottom">
-    <span>© 2026 BLACK LABEL THE NON-HYUN. All rights reserved.</span>
+    <span>© 2026 BLACK LABEL THE NON-HYUN. All rights reserved.<span class="admin-dot" id="adminDot" title=""></span></span>
     <span>이용약관 · 개인정보처리방침</span>
   </div>
 </footer>
@@ -525,35 +585,456 @@
   <img id="lightboxImg" src="" alt="확대 이미지">
 </div>
 
+<!-- ================= ADMIN LOGIN MODAL ================= -->
+<div id="admLoginModal" class="adm-login-overlay">
+  <div class="adm-login-box">
+    <div class="adm-login-mark serif">블랙라벨 더논현</div>
+    <h2 class="adm-serif">관리자 로그인</h2>
+    <p>비밀번호를 입력해주세요</p>
+    <form id="admLoginForm" autocomplete="off">
+      <input type="password" id="admLoginPw" class="adm-login-input" placeholder="비밀번호" autocomplete="new-password">
+      <div class="adm-login-error" id="admLoginErrorMsg"></div>
+      <div class="adm-login-actions">
+        <button type="button" class="adm-btn" id="admLoginCancel">취소</button>
+        <button type="submit" class="adm-btn adm-primary">확인</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ================= ADMIN PANEL ================= -->
+<div id="admPanel" class="adm-panel">
+  <div class="adm-header">
+    <h1 class="adm-serif">블랙라벨 더논현 <span>관리자</span></h1>
+    <div class="adm-header-actions">
+      <button class="adm-btn" id="admCloseBtn">닫기</button>
+      <button class="adm-btn adm-primary" id="admSaveAllBtn">전체 저장</button>
+    </div>
+  </div>
+
+  <div class="adm-body">
+
+    <div class="adm-card">
+      <h2>히어로 섹션</h2>
+      <p class="adm-desc">맨 위 첫 화면에 보이는 제목, 소개 문구, 대표 이미지입니다.</p>
+      <div class="adm-field">
+        <label>제목 (강조할 부분은 **양쪽 별표** 로 감싸주세요)</label>
+        <textarea data-key="hero_title" rows="2">잘나가는 그들의 **15 대 15** 소개팅</textarea>
+        <div class="adm-hint">강조하고 싶은 단어를 **별표**로 감싸면 진한 색으로 표시됩니다.</div>
+      </div>
+      <div class="adm-field">
+        <label>소개 문구</label>
+        <textarea data-key="hero_lead" rows="3">너무 귀하고 소중한 당신은, 아무 데서나 사람을 만날 수 없습니다.
+한 달에 딱 한 번, 소수정예로 열리는 모임에서
+내 수준에 맞는 진짜 인연을 만나보세요.</textarea>
+      </div>
+      <div class="adm-field">
+        <label>대표 이미지</label>
+        <div class="adm-img-grid">
+          <div class="adm-img-slot adm-hero-slot" data-img-key="hero_image">
+            <span class="adm-label-tag">대표 이미지</span>
+            <img>
+            <div class="adm-placeholder">클릭하여 이미지 업로드</div>
+            <div class="adm-uploading-badge">업로드 중...</div>
+            <input type="file" accept="image/*">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="adm-card">
+      <h2>메시지 섹션</h2>
+      <p class="adm-desc">화이트 배경의 인용구 섹션 문구입니다.</p>
+      <div class="adm-field">
+        <label>인용구 (강조: **이렇게**)</label>
+        <textarea data-key="message_quote" rows="4">로테이션 소개팅, 파티, 지인 소개, 앱, 결정사까지
+다양한 경로를 쉽게 접할 수 있지만
+어딜 나가도 **괜찮은 사람**은 없고
+시간만 낭비하셨다면,</textarea>
+      </div>
+      <div class="adm-field">
+        <label>부연 설명</label>
+        <textarea data-key="message_sub" rows="2">한 달에 딱 한 번 열리는 소수정예의 우리 모임에서
+내 수준에 맞는 진짜 인연을 찾아보세요.</textarea>
+      </div>
+    </div>
+
+    <div class="adm-card">
+      <h2>WHY BLACK LABEL 섹션</h2>
+      <p class="adm-desc">차이점을 설명하는 4개 카드 섹션입니다.</p>
+      <div class="adm-field">
+        <label>섹션 제목 (강조: **이렇게**)</label>
+        <textarea data-key="why_title" rows="2">아무나 만날 수 없는, **당신만을 위한 공간**</textarea>
+      </div>
+      <div class="adm-field">
+        <label>섹션 부제목</label>
+        <textarea data-key="why_sub" rows="2">소중한 당신인 만큼,
+우리는 입장부터
+다르게 시작합니다.</textarea>
+      </div>
+      <div class="adm-row2">
+        <div class="adm-field"><label>카드 1 제목</label><input type="text" data-key="why_1_title" value="남성 — 인성과 능력"></div>
+        <div class="adm-field"><label>카드 1 본문</label><input type="text" data-key="why_1_body" value="경제력과 매너를 모두 갖춘 품격 있는 남성만을 엄선합니다."></div>
+      </div>
+      <div class="adm-row2">
+        <div class="adm-field"><label>카드 2 제목</label><input type="text" data-key="why_2_title" value="여성 — 인성과 미모"></div>
+        <div class="adm-field"><label>카드 2 본문</label><input type="text" data-key="why_2_body" value="내면과 외면의 균형을 갖춘 여성분만을 신중히 모십니다."></div>
+      </div>
+      <div class="adm-row2">
+        <div class="adm-field"><label>카드 3 제목</label><input type="text" data-key="why_3_title" value="월 1회, 소수정예"></div>
+        <div class="adm-field"><label>카드 3 본문</label><input type="text" data-key="why_3_body" value="많이 만나는 것이 아니라 제대로 만나는 모임입니다."></div>
+      </div>
+      <div class="adm-row2">
+        <div class="adm-field"><label>카드 4 제목</label><input type="text" data-key="why_4_title" value="평생을 함께할 반려"></div>
+        <div class="adm-field"><label>카드 4 본문</label><input type="text" data-key="why_4_body" value="가벼운 만남이 아닌 진지한 인연을 위한 자리입니다."></div>
+      </div>
+    </div>
+
+    <div class="adm-card">
+      <h2>세로 비디오 섹션</h2>
+      <p class="adm-desc">"WHY BLACK LABEL" 섹션과 "OUR STANDARD" 섹션 사이에 표시되는 세로(9:16) 영상입니다. 영상 파일을 직접 올리는 대신, 이미 업로드된 영상의 재생 링크(mp4 주소 등)를 입력해주세요.</p>
+      <div class="adm-field">
+        <label>영상 링크 (mp4 URL)</label>
+        <input type="text" data-link-key="showcase_video_url" placeholder="https://.../video.mp4">
+        <div class="adm-hint">http:// 또는 https:// 없이 입력해도 자동으로 붙습니다. 유튜브 링크가 아닌, 재생 가능한 mp4/webm 파일 주소를 입력해야 정상 재생됩니다.</div>
+      </div>
+    </div>
+
+    <div class="adm-card">
+      <h2>OUR STANDARD 섹션 (다크 배경)</h2>
+      <p class="adm-desc">남성/여성 각각의 기준을 보여주는 섹션입니다.</p>
+      <div class="adm-field">
+        <label>섹션 제목 (강조: **이렇게**)</label>
+        <textarea data-key="promise_title" rows="2">우리가 지키는 **두 가지 기준**</textarea>
+      </div>
+      <div class="adm-field">
+        <label>섹션 부제목</label>
+        <textarea data-key="promise_sub" rows="2">품격 있는 만남을 위해,
+블랙라벨은 양쪽 모두에게
+같은 기준을 적용합니다.</textarea>
+      </div>
+      <div class="adm-field">
+        <label>남성 기준 (한 줄에 하나씩 입력)</label>
+        <textarea data-key="men_list" rows="4">안정적인 직업과 경제력 검증
+매너와 대화 태도 사전 확인
+진지한 만남 의사가 있는 분만 참여
+외적인 자기관리 수준 확인</textarea>
+      </div>
+      <div class="adm-field">
+        <label>여성 기준 (한 줄에 하나씩 입력)</label>
+        <textarea data-key="women_list" rows="4">분위기와 이미지 사전 확인
+따뜻한 인성과 배려심 검증
+진지한 만남 의사가 있는 분만 참여
+품격 있는 자리에 어울리는 매너</textarea>
+      </div>
+    </div>
+
+    <div class="adm-card">
+      <h2>모임 사진 갤러리</h2>
+      <p class="adm-desc">실제 모임 현장 사진 6장과 섹션 문구입니다. 칸을 클릭해 사진을 올리면 저장 시 반영됩니다.</p>
+      <div class="adm-field">
+        <label>섹션 제목 (강조: **이렇게**)</label>
+        <textarea data-key="gallery_title" rows="2">블랙라벨 더논현의 **모임 현장**</textarea>
+      </div>
+      <div class="adm-field">
+        <label>섹션 부제목</label>
+        <textarea data-key="gallery_sub" rows="2">품격 있는 공간에서 진행되는
+실제 모임의 분위기를 소개합니다.</textarea>
+      </div>
+      <div class="adm-field">
+        <label>갤러리 사진 (6장)</label>
+        <div class="adm-img-grid">
+          <div class="adm-img-slot" data-img-key="gallery_1"><span class="adm-label-tag">1</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
+          <div class="adm-img-slot" data-img-key="gallery_2"><span class="adm-label-tag">2</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
+          <div class="adm-img-slot" data-img-key="gallery_3"><span class="adm-label-tag">3</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
+          <div class="adm-img-slot" data-img-key="gallery_4"><span class="adm-label-tag">4</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
+          <div class="adm-img-slot" data-img-key="gallery_5"><span class="adm-label-tag">5</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
+          <div class="adm-img-slot" data-img-key="gallery_6"><span class="adm-label-tag">6</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="adm-card">
+      <h2>지난 모임 페이지 — 이번 모임(맨 위 리스트) 상단 사진</h2>
+      <p class="adm-desc">past 페이지 맨 위, 이번 모임 신청자 리스트 바로 위에 노출되는 사진 6장입니다. 날짜는 아래쪽 "신청자 리스트 문구" 칸의 날짜가 자동으로 표시됩니다.</p>
+      <div class="adm-field">
+        <label>이번 모임 상단 사진 (6장)</label>
+        <div class="adm-img-grid">
+          <div class="adm-img-slot" data-img-key="current_gallery_1"><span class="adm-label-tag">1</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
+          <div class="adm-img-slot" data-img-key="current_gallery_2"><span class="adm-label-tag">2</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
+          <div class="adm-img-slot" data-img-key="current_gallery_3"><span class="adm-label-tag">3</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
+          <div class="adm-img-slot" data-img-key="current_gallery_4"><span class="adm-label-tag">4</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
+          <div class="adm-img-slot" data-img-key="current_gallery_5"><span class="adm-label-tag">5</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
+          <div class="adm-img-slot" data-img-key="current_gallery_6"><span class="adm-label-tag">6</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="adm-card">
+      <h2>지난 모임 페이지 — 두 번째 리스트(8월 30일) 상단 사진</h2>
+      <p class="adm-desc">past 페이지에서 이번 모임 리스트 바로 아래, 두 번째로 보이는 신청자 리스트 위의 사진 6장입니다.</p>
+      <div class="adm-field">
+        <label>두 번째 리스트 상단 사진 (6장)</label>
+        <div class="adm-img-grid">
+          <div class="adm-img-slot" data-img-key="latest_gallery_1"><span class="adm-label-tag">1</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
+          <div class="adm-img-slot" data-img-key="latest_gallery_2"><span class="adm-label-tag">2</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
+          <div class="adm-img-slot" data-img-key="latest_gallery_3"><span class="adm-label-tag">3</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
+          <div class="adm-img-slot" data-img-key="latest_gallery_4"><span class="adm-label-tag">4</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
+          <div class="adm-img-slot" data-img-key="latest_gallery_5"><span class="adm-label-tag">5</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
+          <div class="adm-img-slot" data-img-key="latest_gallery_6"><span class="adm-label-tag">6</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="adm-card">
+      <h2>지난 모임 페이지 — 예전 리스트 상단 사진</h2>
+      <p class="adm-desc">past.html에서 아래쪽(예전) 신청자 리스트 바로 위에 노출되는 사진 6장입니다.</p>
+      <div class="adm-field">
+        <label>예전 리스트 상단 사진 (6장)</label>
+        <div class="adm-img-grid">
+          <div class="adm-img-slot" data-img-key="older_gallery_1"><span class="adm-label-tag">1</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
+          <div class="adm-img-slot" data-img-key="older_gallery_2"><span class="adm-label-tag">2</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
+          <div class="adm-img-slot" data-img-key="older_gallery_3"><span class="adm-label-tag">3</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
+          <div class="adm-img-slot" data-img-key="older_gallery_4"><span class="adm-label-tag">4</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
+          <div class="adm-img-slot" data-img-key="older_gallery_5"><span class="adm-label-tag">5</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
+          <div class="adm-img-slot" data-img-key="older_gallery_6"><span class="adm-label-tag">6</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="adm-card">
+      <h2>지난 모임 페이지 사진 (past.html 하단 "그날의 모임 사진")</h2>
+      <p class="adm-desc">지난 모임 참가자 페이지 맨 아래, "그날의 모임 사진" 섹션에 노출되는 사진 6장입니다. 칸을 클릭해 사진을 올리면 저장 시 past.html에 바로 반영됩니다.</p>
+      <div class="adm-field">
+        <label>신청자 리스트 문구 · 공개 페이지 상단 표시</label>
+        <input type="text" data-key="past_date" value="26년 9월 27일 (일)" style="font-size:20px;font-weight:600;">
+        <p class="adm-hint">이 문구와 아래 디자인 설정만 저장하여 공개 페이지의 신청자 리스트 표시를 변경합니다. (past 페이지 맨 위 이번 모임 날짜에도 같은 문구가 표시됩니다.)</p>
+      </div>
+
+      <div class="adm-field">
+        <label>신청자 리스트 날짜 디자인</label>
+        <div class="adm-past-date-settings">
+          <div>
+            <small style="display:block;margin-bottom:6px;color:var(--ink-soft);">글자 크기</small>
+            <select data-key="past_date_size">
+              <option value="24px">보통</option>
+              <option value="30px" selected>중간</option>
+              <option value="38px">크게</option>
+            </select>
+          </div>
+          <div>
+            <small style="display:block;margin-bottom:6px;color:var(--ink-soft);">굵기</small>
+            <select data-key="past_date_weight">
+              <option value="400">보통</option>
+              <option value="500" selected>중간</option>
+              <option value="700">크게</option>
+            </select>
+          </div>
+          <div>
+            <small style="display:block;margin-bottom:6px;color:var(--ink-soft);">글자 색상</small>
+            <input type="color" data-key="past_date_color" value="#F7DDE0">
+          </div>
+          <div>
+            <small style="display:block;margin-bottom:6px;color:var(--ink-soft);">효과</small>
+            <select data-key="past_date_effect">
+              <option value="luxury" selected>로즈골드 글로우</option><option value="soft">은은한 광택</option><option value="none">효과 없음</option>
+            </select>
+          </div>
+          <div>
+            <small style="display:block;margin-bottom:6px;color:var(--ink-soft);">화살표</small>
+            <select data-key="past_date_arrow">
+              <option value="both" selected>↓ 날짜 ↓</option><option value="left">↓ 날짜</option><option value="right">날짜 ↓</option><option value="none">날짜만</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="adm-past-date-preview">
+        <span class="past-date-demo" id="admPastDateDemo">↓ 26년 9월 27일 (일) ↓</span>
+        <span class="past-date-caption">공개 페이지 표시 미리보기</span>
+      </div>
+      <div class="adm-field">
+        <label>지난 모임 사진 (6장)</label>
+        <div class="adm-img-grid">
+          <div class="adm-img-slot" data-img-key="past_gallery_1"><span class="adm-label-tag">1</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
+          <div class="adm-img-slot" data-img-key="past_gallery_2"><span class="adm-label-tag">2</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
+          <div class="adm-img-slot" data-img-key="past_gallery_3"><span class="adm-label-tag">3</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
+          <div class="adm-img-slot" data-img-key="past_gallery_4"><span class="adm-label-tag">4</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
+          <div class="adm-img-slot" data-img-key="past_gallery_5"><span class="adm-label-tag">5</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
+          <div class="adm-img-slot" data-img-key="past_gallery_6"><span class="adm-label-tag">6</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="adm-card">
+      <h2>진행 절차 섹션</h2>
+      <div class="adm-row2">
+        <div class="adm-field"><label>01 제목</label><input type="text" data-key="process_1_title" value="신청 및 1차 상담"></div>
+        <div class="adm-field"><label>01 본문</label><input type="text" data-key="process_1_body" value="간단한 프로필과 희망 조건을 남겨주시면, 담당자가 직접 연락드립니다."></div>
+      </div>
+      <div class="adm-row2">
+        <div class="adm-field"><label>02 제목</label><input type="text" data-key="process_2_title" value="매칭 심사"></div>
+        <div class="adm-field"><label>02 본문</label><input type="text" data-key="process_2_body" value="인성, 능력, 이미지 등 기준에 따라 신중하게 검토 후 참여 여부를 안내드립니다."></div>
+      </div>
+      <div class="adm-row2">
+        <div class="adm-field"><label>03 제목</label><input type="text" data-key="process_3_title" value="월례 모임 참석"></div>
+        <div class="adm-field"><label>03 본문</label><input type="text" data-key="process_3_body" value="매달 한 번, 정해진 날에 15대15 소수정예로 모임이 진행됩니다."></div>
+      </div>
+      <div class="adm-row2">
+        <div class="adm-field"><label>04 제목</label><input type="text" data-key="process_4_title" value="애프터 & 후속 관리"></div>
+        <div class="adm-field"><label>04 본문</label><input type="text" data-key="process_4_body" value="마음에 맞는 인연이 있다면, 이후 만남까지 세심하게 이어드립니다."></div>
+      </div>
+    </div>
+
+    <div class="adm-card">
+      <h2>마지막 신청 안내 섹션</h2>
+      <div class="adm-field">
+        <label>제목 (강조: **이렇게**)</label>
+        <textarea data-key="cta_title" rows="2">이제, **진짜 인연**을 만날 시간입니다</textarea>
+      </div>
+      <div class="adm-field">
+        <label>부제목</label>
+        <textarea data-key="cta_sub" rows="2">평생을 함께할 반려를 찾는 공간,
+블랙라벨 더논현이 함께합니다.</textarea>
+      </div>
+    </div>
+
+    <div class="adm-card">
+      <h2>버튼 연결 링크</h2>
+      <p class="adm-desc">사이트 안의 "신청하기" / "신청 문의" / "참가 신청하기" 버튼 전체(상단 메뉴 + 히어로 + 하단)가 이 주소로 한꺼번에 연결됩니다. 구글폼, 카카오톡 채널, 네이버폼 등 원하는 링크로 바꿀 수 있습니다.</p>
+      <div class="adm-field">
+        <label>신청 링크</label>
+        <input type="text" data-link-key="apply_url" value="https://forms.gle/임시링크입니다" placeholder="https://forms.gle/...">
+        <div class="adm-hint">http:// 또는 https:// 없이 입력해도 자동으로 붙습니다. 저장 후 사이트의 모든 신청 버튼에 즉시 적용됩니다.</div>
+      </div>
+    </div>
+
+    <div class="adm-card">
+      <h2>연락처 정보 (하단 푸터)</h2>
+      <div class="adm-row2">
+        <div class="adm-field"><label>주소</label><input type="text" data-key="contact_address" value="서울 강남구 논현동"></div>
+        <div class="adm-field"><label>전화번호</label><input type="text" data-key="contact_phone" value="02-1234-5678"></div>
+      </div>
+      <div class="adm-field">
+        <label>운영시간</label>
+        <input type="text" data-key="contact_hours" value="매일 10:00 – 20:00">
+      </div>
+    </div>
+
+    <div class="adm-footer-bar">
+      <button class="adm-btn adm-primary" id="admSaveAllBtn2">전체 저장</button>
+    </div>
+  </div>
+</div>
+
+<div class="adm-save-banner" id="admSaveBanner">저장되었습니다</div>
+
 <script>
+  // 헤더 스크롤 효과
   const header = document.getElementById('header');
   window.addEventListener('scroll', () => {
     header.classList.toggle('scrolled', window.scrollY > 20);
   });
 
+  // 스크롤 reveal
   const revealEls = document.querySelectorAll('.reveal');
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
     });
-  }, { threshold: 0.1 });
+  }, { threshold: 0.15 });
   revealEls.forEach(el => io.observe(el));
 
+  // 갤러리 라이트박스
+  const galleryItems = document.querySelectorAll('.gallery-item');
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightboxImg');
-  document.querySelectorAll('.gallery-item img, .mini-photo-item img').forEach(img => {
+
+  galleryItems.forEach(item => {
+    const img = item.querySelector('img');
     img.addEventListener('click', () => {
-      if (img.src) { lightboxImg.src = img.src; lightbox.classList.add('active'); }
+      if (img.src) {
+        lightboxImg.src = img.src;
+        lightbox.classList.add('active');
+      }
     });
   });
-  document.getElementById('lightboxClose').addEventListener('click', () => lightbox.classList.remove('active'));
-  lightbox.addEventListener('click', (e) => { if (e.target === lightbox) lightbox.classList.remove('active'); });
+
+  document.getElementById('lightboxClose').addEventListener('click', () => {
+    lightbox.classList.remove('active');
+  });
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) lightbox.classList.remove('active');
+  });
+
+  // 어드민 패널 진입
+  const admLoginModal = document.getElementById('admLoginModal');
+  const admLoginForm = document.getElementById('admLoginForm');
+  const admLoginPw = document.getElementById('admLoginPw');
+  const admLoginErrorMsg = document.getElementById('admLoginErrorMsg');
+
+  document.getElementById('adminDot').addEventListener('click', () => {
+    admLoginErrorMsg.textContent = '';
+    admLoginPw.value = '';
+    admLoginModal.classList.add('adm-open');
+    setTimeout(() => admLoginPw.focus(), 50);
+  });
+
+  document.getElementById('admLoginCancel').addEventListener('click', () => {
+    admLoginModal.classList.remove('adm-open');
+  });
+
+  admLoginModal.addEventListener('click', (e) => {
+    if (e.target === admLoginModal) admLoginModal.classList.remove('adm-open');
+  });
+
+  // 비밀번호는 평문으로 저장하지 않고 SHA-256 해시값만 비교합니다.
+  const ADM_PW_HASH = 'a027f3282f5aa4b3076e6e9c1638c49d05a0004a8767185e6eebd1ee92e6d77f';
+
+  async function admHashText(text) {
+    const enc = new TextEncoder().encode(text);
+    const buf = await crypto.subtle.digest('SHA-256', enc);
+    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+  }
+
+  admLoginForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const submitBtn = admLoginForm.querySelector('button[type="submit"]');
+    submitBtn.disabled = true;
+    try {
+      const inputHash = await admHashText(admLoginPw.value);
+      if (inputHash === ADM_PW_HASH) {
+        admLoginModal.classList.remove('adm-open');
+        document.getElementById('admPanel').classList.add('adm-open');
+        document.body.style.overflow = 'hidden';
+        if (typeof admLoadExistingContent === 'function') admLoadExistingContent();
+      } else {
+        admLoginErrorMsg.textContent = '비밀번호가 올바르지 않습니다.';
+        admLoginPw.value = '';
+        admLoginPw.focus();
+      }
+    } catch (err) {
+      admLoginErrorMsg.textContent = '로그인 확인 중 오류가 발생했습니다.';
+    } finally {
+      submitBtn.disabled = false;
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    if (admLoginModal.classList.contains('adm-open')) {
+      admLoginModal.classList.remove('adm-open');
+    }
+  });
 </script>
 
-<!-- ================= FIREBASE: 콘텐츠 불러오기 (읽기 전용, 편집은 index.html 관리자 패널에서) ================= -->
+<!-- ================= FIREBASE ================= -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-  import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+  import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyA7ffOaPtbCnxDWpdkrAqDf1ierxIFriYc",
@@ -567,30 +1048,90 @@
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
   const DOC_REF = doc(db, "site", "content");
+  // 이미지는 각각 별도 문서에 Base64로 저장 (Firestore 문서당 1MB 제한 회피)
   const imgDocRef = (key) => doc(db, "site_images", key);
 
-  const IMG_KEYS = [
-    'latest_gallery_1','latest_gallery_2','latest_gallery_3','latest_gallery_4','latest_gallery_5','latest_gallery_6',
-    'older_gallery_1','older_gallery_2','older_gallery_3','older_gallery_4','older_gallery_5','older_gallery_6',
-    'past_gallery_1','past_gallery_2','past_gallery_3','past_gallery_4','past_gallery_5','past_gallery_6'
-  ];
+  /* ---------- 방문자 화면: 저장된 콘텐츠 불러와 표시 ---------- */
+  const ALL_IMG_KEYS = ['hero_image','gallery_1','gallery_2','gallery_3','gallery_4','gallery_5','gallery_6','past_gallery_1','past_gallery_2','past_gallery_3','past_gallery_4','past_gallery_5','past_gallery_6','latest_gallery_1','latest_gallery_2','latest_gallery_3','latest_gallery_4','latest_gallery_5','latest_gallery_6','older_gallery_1','older_gallery_2','older_gallery_3','older_gallery_4','older_gallery_5','older_gallery_6','current_gallery_1','current_gallery_2','current_gallery_3','current_gallery_4','current_gallery_5','current_gallery_6'];
 
-  async function loadPastContent() {
+  async function loadContent() {
     try {
       const snap = await getDoc(DOC_REF);
       if (snap.exists()) {
         const data = snap.data();
-        if (data.texts && data.texts.past_date) {
-          const el = document.getElementById('cms-past_date');
-          if (el) el.textContent = data.texts.past_date;
+
+        Object.keys(data.texts || {}).forEach(key => {
+          if (key === 'men_list' || key === 'women_list' || key === 'past_date') return;
+          const el = document.getElementById('cms-' + key);
+          if (el && data.texts[key]) el.innerHTML = data.texts[key];
+        });
+
+        const t = data.texts || {};
+        document.querySelectorAll('body *:not([data-index-past-date])').forEach(el => {
+          if (el.children.length === 0 && /신청자 리스트/.test(el.textContent || '')) {
+            el.style.display = 'none';
+          }
+        });
+
+        const indexDateEl = document.querySelector('[data-index-past-date]');
+        if (indexDateEl) {
+          const dateText = (t.past_date || '26년 9월 27일 (일)')
+            .replace(/<br\s*\/?>(\s*)/gi, ' ')
+            .replace(/<[^>]*>/g, '')
+            .trim();
+          const arrow = t.past_date_arrow || 'both';
+          const prefix = (arrow === 'both' || arrow === 'left') ? '↓ ' : '';
+          const suffix = (arrow === 'both' || arrow === 'right') ? ' ↓' : '';
+          indexDateEl.textContent = prefix + dateText + ' 신청자 리스트' + suffix;
+
+          const size = t.past_date_size || '';
+          const weight = t.past_date_weight || '';
+          const color = t.past_date_color || '';
+          const effect = t.past_date_effect || 'none';
+          if (size) indexDateEl.style.fontSize = size;
+          if (weight) indexDateEl.style.fontWeight = weight;
+          if (color) {
+            indexDateEl.style.color = color;
+            indexDateEl.style.textShadow = effect === 'luxury'
+              ? `0 0 5px ${color}, 0 0 16px ${color}, 0 0 30px rgba(201,123,134,.35)`
+              : effect === 'soft' ? `0 0 7px ${color}` : 'none';
+          }
         }
-        if (data.texts && data.texts.contact_address) document.getElementById('cms-contact_address').textContent = data.texts.contact_address;
-        if (data.texts && data.texts.contact_phone) document.getElementById('cms-contact_phone').textContent = data.texts.contact_phone;
-        if (data.texts && data.texts.contact_hours) document.getElementById('cms-contact_hours').textContent = data.texts.contact_hours;
+
+        ['men_list', 'women_list'].forEach(key => {
+          const el = document.getElementById('cms-' + key);
+          if (el && data.texts && data.texts[key]) {
+            const lines = data.texts[key].split('\n').map(s => s.trim()).filter(Boolean);
+            if (lines.length) el.innerHTML = lines.map(line => `<li>${line}</li>`).join('');
+          }
+        });
+
+        // 버튼 연결 링크 적용
+        Object.keys(data.links || {}).forEach(key => {
+          const url = data.links[key];
+          if (!url) return;
+          document.querySelectorAll(`[data-cms-link="${key}"]`).forEach(a => { a.href = url; });
+        });
+
+        // 세로 비디오 링크 적용
+        const linkedVideoUrl = data.links && data.links.showcase_video_url;
+        if (linkedVideoUrl) {
+          const showcaseVideoEl = document.getElementById('showcaseVideo');
+          if (showcaseVideoEl) {
+            showcaseVideoEl.src = linkedVideoUrl;
+            showcaseVideoEl.load();
+          }
+        }
       }
 
-      // 모든 이미지를 먼저 다 받아온 뒤 한 번에 화면에 적용 (하나씩 순차적으로 뜨는 현상 방지)
-      const imgResults = await Promise.all(IMG_KEYS.map(async (key) => {
+      const showcaseVideoEl = document.getElementById('showcaseVideo');
+      if (showcaseVideoEl) {
+        showcaseVideoEl.muted = true;
+        showcaseVideoEl.play().catch(() => {});
+      }
+
+      // 모든 이미지를 먼저 다 받아온 뒤 한 번에 화면에 적용
+      const imgResults = await Promise.all(ALL_IMG_KEYS.map(async (key) => {
         try {
           const imgSnap = await getDoc(imgDocRef(key));
           if (imgSnap.exists() && imgSnap.data().url) {
@@ -610,7 +1151,211 @@
       console.error('콘텐츠 로딩 실패:', err);
     }
   }
-  loadPastContent();
+  loadContent();
+
+  /* ---------- 어드민 패널: 기존 콘텐츠를 폼에 채우기 ---------- */
+  let admPendingImages = {};
+
+  window.admLoadExistingContent = async function () {
+    try {
+      const snap = await getDoc(DOC_REF);
+      if (snap.exists()) {
+        const data = snap.data();
+        document.querySelectorAll('#admPanel [data-key]').forEach(el => {
+          const key = el.getAttribute('data-key');
+          if (data.texts && data.texts[key] !== undefined) el.value = data.texts[key];
+        });
+        document.querySelectorAll('#admPanel [data-link-key]').forEach(el => {
+          const key = el.getAttribute('data-link-key');
+          if (data.links && data.links[key]) el.value = data.links[key];
+        });
+      }
+
+      await Promise.all(ALL_IMG_KEYS.map(async (key) => {
+        try {
+          const imgSnap = await getDoc(imgDocRef(key));
+          if (imgSnap.exists() && imgSnap.data().url) {
+            const slot = document.querySelector(`#admPanel .adm-img-slot[data-img-key="${key}"]`);
+            if (slot) {
+              slot.querySelector('img').src = imgSnap.data().url;
+              slot.classList.add('adm-has-img');
+            }
+          }
+        } catch (e) {
+          console.error('어드민 이미지 로딩 실패:', key, e);
+        }
+      }));
+    } catch (err) {
+      console.error('어드민 콘텐츠 로딩 실패:', err);
+    }
+  };
+
+  /* ---------- 이미지 압축 ---------- */
+  function admCompressImage(file, maxDim, quality) {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      const reader = new FileReader();
+      reader.onload = (ev) => { img.src = ev.target.result; };
+      reader.onerror = reject;
+      img.onload = () => {
+        let { width, height } = img;
+        if (width > height && width > maxDim) {
+          height = Math.round(height * (maxDim / width));
+          width = maxDim;
+        } else if (height > maxDim) {
+          width = Math.round(width * (maxDim / height));
+          height = maxDim;
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+        resolve(canvas.toDataURL('image/jpeg', quality));
+      };
+      img.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
+  /* ---------- 어드민 패널: 이미지 업로드 ---------- */
+  document.querySelectorAll('#admPanel .adm-img-slot').forEach(slot => {
+    const fileInput = slot.querySelector('input[type="file"]');
+    const imgTag = slot.querySelector('img');
+    const key = slot.getAttribute('data-img-key');
+
+    slot.addEventListener('click', () => fileInput.click());
+
+    fileInput.addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      try {
+        slot.classList.add('adm-uploading');
+        const compressed = await admCompressImage(file, 1280, 0.75);
+        imgTag.src = compressed;
+        slot.classList.add('adm-has-img');
+        admPendingImages[key] = compressed;
+      } catch (err) {
+        console.error('이미지 압축 실패:', err);
+        alert('이미지를 처리하지 못했습니다. 다른 사진으로 시도해주세요.');
+      } finally {
+        slot.classList.remove('adm-uploading');
+      }
+    });
+  });
+
+  function admApplyMarkdown(text) {
+    return text.split('\n').join('<br>').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+  }
+
+  function admWithTimeout(promise, ms, label) {
+    return Promise.race([
+      promise,
+      new Promise((_, reject) => setTimeout(() => reject(new Error(`TIMEOUT:${label}`)), ms))
+    ]);
+  }
+
+  function admFriendlyError(err) {
+    const code = err && err.code ? err.code : '';
+    const msg = err && err.message ? err.message : String(err);
+    if (msg.startsWith('TIMEOUT')) {
+      return '응답이 너무 오래 걸립니다. Firebase Firestore 보안 규칙이 막혀있을 수 있어요. (요청이 멈춤)';
+    }
+    if (code.includes('permission-denied')) {
+      return '저장 권한이 없습니다. Firebase 콘솔에서 Firestore 보안 규칙을 read/write 허용으로 바꿔주세요.';
+    }
+    if (msg.includes('longer than') || msg.includes('exceeds') || code.includes('invalid-argument')) {
+      return '이미지 용량이 너무 큽니다. 더 작은 사진으로 다시 시도해주세요.';
+    }
+    return `저장 중 오류: ${code || msg}`;
+  }
+
+  /* ---------- 어드민 패널: 전체 저장 ---------- */
+  async function admSaveAll(btn) {
+    btn.disabled = true;
+    const originalText = btn.textContent;
+    btn.textContent = '저장 중...';
+
+    try {
+      const uploadKeys = Object.keys(admPendingImages);
+      for (const key of uploadKeys) {
+        const slot = document.querySelector(`#admPanel .adm-img-slot[data-img-key="${key}"]`);
+        if (slot) slot.classList.add('adm-uploading');
+        await admWithTimeout(
+          setDoc(imgDocRef(key), { url: admPendingImages[key] }),
+          15000,
+          'image:' + key
+        );
+        if (slot) slot.classList.remove('adm-uploading');
+      }
+
+      const texts = {};
+      document.querySelectorAll('#admPanel [data-key]').forEach(el => {
+        const key = el.getAttribute('data-key');
+        if (!key) return;
+        texts[key] = (key === 'men_list' || key === 'women_list')
+          ? el.value.trim()
+          : admApplyMarkdown(el.value.trim());
+      });
+
+      const links = {};
+      document.querySelectorAll('#admPanel [data-link-key]').forEach(el => {
+        const key = el.getAttribute('data-link-key');
+        if (!key) return;
+        let url = el.value.trim();
+        if (url && !/^https?:\/\//i.test(url)) url = 'https://' + url;
+        links[key] = url;
+      });
+
+      await admWithTimeout(setDoc(DOC_REF, { texts, links }, { merge: true }), 15000, 'setDoc');
+
+      admPendingImages = {};
+      admShowBanner('저장되었습니다. 사이트에 바로 반영됩니다.');
+      loadContent();
+    } catch (err) {
+      console.error('[블랙라벨 어드민 저장 오류]', err);
+      document.querySelectorAll('#admPanel .adm-img-slot').forEach(s => s.classList.remove('adm-uploading'));
+      admShowBanner(admFriendlyError(err));
+    } finally {
+      btn.disabled = false;
+      btn.textContent = originalText;
+    }
+  }
+
+  function admShowBanner(msg) {
+    const banner = document.getElementById('admSaveBanner');
+    banner.textContent = msg;
+    banner.classList.add('adm-show');
+    clearTimeout(window.__admBannerTimer);
+    window.__admBannerTimer = setTimeout(() => banner.classList.remove('adm-show'), 5000);
+  }
+
+  // ---------- 신청자 리스트 날짜 디자인 미리보기 ----------
+  function admPastDatePreview(){
+    const get=(k)=>document.querySelector(`#admPanel [data-key="${k}"]`);
+    const text=get('past_date')?.value?.trim() || '26년 9월 27일 (일)';
+    const size=get('past_date_size')?.value || '30px';
+    const weight=get('past_date_weight')?.value || '500';
+    const color=get('past_date_color')?.value || '#F7DDE0';
+    const effect=get('past_date_effect')?.value || 'luxury';
+    const arrow=get('past_date_arrow')?.value || 'both';
+    const prefix=arrow==='both'||arrow==='left' ? '↓ ' : '';
+    const suffix=arrow==='both'||arrow==='right' ? ' ↓' : '';
+    const el=document.getElementById('admPastDateDemo');
+    if(!el)return;
+    el.textContent=prefix+text+suffix;
+    el.style.fontSize=size; el.style.fontWeight=weight; el.style.color=color;
+    el.style.textShadow=effect==='luxury' ? `0 0 5px ${color},0 0 16px ${color},0 0 30px rgba(201,123,134,.35)` : effect==='soft' ? `0 0 7px ${color}` : 'none';
+  }
+  document.querySelectorAll('#admPanel [data-key="past_date"],#admPanel [data-key="past_date_size"],#admPanel [data-key="past_date_weight"],#admPanel [data-key="past_date_color"],#admPanel [data-key="past_date_effect"],#admPanel [data-key="past_date_arrow"]').forEach(el=>el.addEventListener('input',admPastDatePreview));
+  document.querySelectorAll('#admPanel [data-key="past_date_size"],#admPanel [data-key="past_date_weight"],#admPanel [data-key="past_date_effect"],#admPanel [data-key="past_date_arrow"]').forEach(el=>el.addEventListener('change',admPastDatePreview));
+  setTimeout(admPastDatePreview, 50);
+
+  document.getElementById('admSaveAllBtn').addEventListener('click', (e) => admSaveAll(e.currentTarget));
+  document.getElementById('admSaveAllBtn2').addEventListener('click', (e) => admSaveAll(e.currentTarget));
+  document.getElementById('admCloseBtn').addEventListener('click', () => {
+    document.getElementById('admPanel').classList.remove('adm-open');
+    document.body.style.overflow = '';
+  });
 </script>
 
 </body>
