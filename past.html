@@ -591,39 +591,38 @@
 
 
 <!-- ================= BACKGROUND MUSIC ================= -->
-<audio id="bgMusic" loop preload="auto">
-  <source src="cafe(1).mp3" type="audio/mpeg">
+<audio id="bgMusic" autoplay loop preload="auto">
+  <source src="/cafe.mp3" type="audio/mpeg">
+  <source src="/cafe(1).mp3" type="audio/mpeg">
 </audio>
 
 <script>
 (function () {
-  const bgMusic = document.getElementById('bgMusic');
-  if (!bgMusic) return;
+  const music = document.getElementById('bgMusic');
+  if (!music) return;
 
-  // 배경음악 볼륨 (0.0 ~ 1.0)
-  bgMusic.volume = 0.35;
+  music.volume = 0.35;
+  music.loop = true;
+  music.autoplay = true;
 
-  function playMusic() {
-    bgMusic.play().catch(() => {
-      // 브라우저 자동재생 정책으로 차단될 수 있음
-    });
+  function tryAutoplay() {
+    const p = music.play();
+    if (p && typeof p.catch === 'function') {
+      p.catch(function(err) {
+        console.log('브라우저 자동재생 차단:', err);
+      });
+    }
   }
 
-  // 페이지 로드 시 자동재생 시도
-  window.addEventListener('load', playMusic);
-
-  // 자동재생이 차단된 경우 첫 클릭/터치/키 입력 시 재생
-  function startOnInteraction() {
-    playMusic();
-
-    document.removeEventListener('click', startOnInteraction);
-    document.removeEventListener('touchstart', startOnInteraction);
-    document.removeEventListener('keydown', startOnInteraction);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', tryAutoplay, { once: true });
+  } else {
+    tryAutoplay();
   }
 
-  document.addEventListener('click', startOnInteraction);
-  document.addEventListener('touchstart', startOnInteraction);
-  document.addEventListener('keydown', startOnInteraction);
+  window.addEventListener('load', tryAutoplay, { once: true });
+  music.addEventListener('loadeddata', tryAutoplay, { once: true });
+  music.addEventListener('canplay', tryAutoplay, { once: true });
 })();
 </script>
 
