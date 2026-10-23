@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -1389,6 +1390,48 @@
     document.getElementById('admPanel').classList.remove('adm-open');
     document.body.style.overflow = '';
   });
+</script>
+
+
+<!-- ================= BACKGROUND MUSIC ================= -->
+<audio id="bgMusic" loop preload="auto">
+  <source src="cafe.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+(function () {
+  const bgMusic = document.getElementById('bgMusic');
+  if (!bgMusic) return;
+
+  // 배경음악 볼륨: 0.0 ~ 1.0
+  bgMusic.volume = 0.35;
+
+  function playMusic() {
+    bgMusic.play().catch(() => {
+      // 브라우저가 소리 있는 자동재생을 막는 경우,
+      // 사용자의 첫 클릭/터치/키 입력 시 재생됩니다.
+    });
+  }
+
+  // 페이지 접속 시 자동재생 시도
+  if (document.readyState === 'complete') {
+    playMusic();
+  } else {
+    window.addEventListener('load', playMusic, { once: true });
+  }
+
+  // 자동재생 차단 시 첫 사용자 동작에서 재생
+  function startOnInteraction() {
+    playMusic();
+    document.removeEventListener('click', startOnInteraction);
+    document.removeEventListener('touchstart', startOnInteraction);
+    document.removeEventListener('keydown', startOnInteraction);
+  }
+
+  document.addEventListener('click', startOnInteraction, { passive: true });
+  document.addEventListener('touchstart', startOnInteraction, { passive: true });
+  document.addEventListener('keydown', startOnInteraction);
+})();
 </script>
 
 </body>
