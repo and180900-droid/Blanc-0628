@@ -137,6 +137,49 @@
     .footer-inner{flex-direction:column;}
     .footer-cols{gap:36px;}
   }
+
+  /* ---------- Music Toggle ---------- */
+  .music-toggle{
+    position:fixed;
+    right:22px;
+    bottom:22px;
+    z-index:1800;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    min-width:118px;
+    justify-content:center;
+    padding:12px 16px;
+    border:1px solid rgba(201,123,134,.72);
+    border-radius:999px;
+    background:rgba(43,37,38,.90);
+    color:#fff;
+    box-shadow:0 8px 28px rgba(0,0,0,.22);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    font-family:'Pretendard',sans-serif;
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:.8px;
+    cursor:pointer;
+    transition:transform .2s ease, background .2s ease, border-color .2s ease;
+  }
+  .music-toggle:hover{transform:translateY(-2px);}
+  .music-toggle .music-icon{font-size:16px;line-height:1;}
+  .music-toggle.is-on{
+    background:var(--rose-deep);
+    border-color:var(--rose);
+  }
+  @media(max-width:600px){
+    .music-toggle{
+      right:14px;
+      bottom:14px;
+      min-width:108px;
+      padding:11px 14px;
+      font-size:11px;
+    }
+  }
+
 </style>
 </head>
 <body>
@@ -593,71 +636,81 @@
 
 
 <!-- ================= BACKGROUND MUSIC ================= -->
-<audio
-  id="bgMusic"
-  src="/cafe_2.mp3"
-  autoplay
-  loop
-  preload="auto"
-  playsinline>
-</audio>
+<audio id="bgMusic" src="/cafe_2.mp3" loop preload="auto" playsinline></audio>
+
+<button type="button"
+        id="musicToggle"
+        class="music-toggle"
+        aria-label="배경음악 켜기">
+  <span class="music-icon" id="musicIcon">♪</span>
+  <span id="musicLabel">MUSIC ON</span>
+</button>
 
 <script>
 (function () {
   const music = document.getElementById('bgMusic');
-  if (!music) return;
+  const button = document.getElementById('musicToggle');
+  const label = document.getElementById('musicLabel');
+  const icon = document.getElementById('musicIcon');
+
+  if (!music || !button || !label || !icon) return;
 
   music.volume = 0.35;
   music.loop = true;
-  music.preload = 'auto';
 
-  function playMusic() {
-    music.muted = false;
+  function setUi(isPlaying) {
+    button.classList.toggle('is-on', isPlaying);
+    label.textContent = isPlaying ? 'MUSIC OFF' : 'MUSIC ON';
+    icon.textContent = isPlaying ? '♫' : '♪';
+    button.setAttribute(
+      'aria-label',
+      isPlaying ? '배경음악 끄기' : '배경음악 켜기'
+    );
+  }
 
-    const result = music.play();
-
-    if (result && typeof result.catch === 'function') {
-      result.catch(function (error) {
-        console.log('음악 자동재생 제한:', error);
-      });
+  async function turnOn() {
+    try {
+      await music.play();
+      setUi(true);
+      localStorage.setItem('pastMusicOn', '1');
+    } catch (err) {
+      console.error('음악 재생 실패:', err);
+      setUi(false);
     }
   }
 
-  // 접속 즉시 재생 시도
-  playMusic();
-
-  // 페이지 로딩 단계마다 추가 시도
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', playMusic, { once: true });
-  } else {
-    playMusic();
+  function turnOff() {
+    music.pause();
+    setUi(false);
+    localStorage.setItem('pastMusicOn', '0');
   }
 
-  window.addEventListener('load', playMusic, { once: true });
-  window.addEventListener('pageshow', playMusic);
-
-  music.addEventListener('loadeddata', playMusic, { once: true });
-  music.addEventListener('canplay', playMusic, { once: true });
-
-  // 브라우저에서 자동재생이 막힌 경우 첫 입력 시 즉시 재생
-  function unlockMusic() {
-    playMusic();
-
-    document.removeEventListener('pointerdown', unlockMusic);
-    document.removeEventListener('touchstart', unlockMusic);
-    document.removeEventListener('keydown', unlockMusic);
-  }
-
-  document.addEventListener('pointerdown', unlockMusic, { passive: true });
-  document.addEventListener('touchstart', unlockMusic, { passive: true });
-  document.addEventListener('keydown', unlockMusic);
-
-  // 탭에서 돌아왔을 때 멈췄다면 재개
-  document.addEventListener('visibilitychange', function () {
-    if (!document.hidden && music.paused) {
-      playMusic();
+  button.addEventListener('click', function () {
+    if (music.paused) {
+      turnOn();
+    } else {
+      turnOff();
     }
   });
+
+  music.addEventListener('play', function () {
+    setUi(true);
+  });
+
+  music.addEventListener('pause', function () {
+    setUi(false);
+  });
+
+  music.addEventListener('ended', function () {
+    setUi(false);
+  });
+
+  // 이전에 사용자가 MUSIC ON 상태로 두었다면 다음 방문 때 재생 시도
+  if (localStorage.getItem('pastMusicOn') === '1') {
+    turnOn();
+  } else {
+    setUi(false);
+  }
 })();
 </script>
 
