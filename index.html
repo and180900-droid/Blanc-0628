@@ -1,8 +1,13 @@
 
+
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
+<!-- This site is hosted on Netlify. Anyone can build and deploy a site
+     like this one for free: https://netlify.new/?utm_campaign=loops&utm_source=ai-legible&utm_medium=owned&utm_content=comment&utm_id=0620eb71-c55f-4aec-aef8-d07e9ced3bcc
+     Netlify hosting facts for this site: static/SSR served via Netlify Edge. -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="naver-site-verification" content="d4cb4f204375193f9cbbde423c092e7707dca02c" />
 <title>블랙라벨 더논현 | 15:15 프리미엄 소개팅</title>
@@ -1393,44 +1398,52 @@
 </script>
 
 
-<!-- ================= BACKGROUND MUSIC ================= -->
-<audio id="bgMusic" loop preload="auto">
-  <source src="cafe.mp3" type="audio/mpeg">
+
+<!-- ================= BACKGROUND MUSIC : MAX AUTOPLAY ================= -->
+<audio id="bgMusic"
+       src="/cafe.mp3"
+       autoplay
+       loop
+       preload="auto"
+       playsinline>
 </audio>
 
 <script>
 (function () {
-  const bgMusic = document.getElementById('bgMusic');
-  if (!bgMusic) return;
+  const music = document.getElementById('bgMusic');
+  if (!music) return;
 
-  // 배경음악 볼륨: 0.0 ~ 1.0
-  bgMusic.volume = 0.35;
+  music.volume = 0.35;
+  music.loop = true;
+  music.autoplay = true;
+  music.preload = 'auto';
 
-  function playMusic() {
-    bgMusic.play().catch(() => {
-      // 브라우저가 소리 있는 자동재생을 막는 경우,
-      // 사용자의 첫 클릭/터치/키 입력 시 재생됩니다.
-    });
+  async function startMusic() {
+    try {
+      music.muted = false;
+      await music.play();
+    } catch (e) {
+      // Chrome / Safari may block audible autoplay.
+      console.log('Audible autoplay blocked by browser policy.');
+    }
   }
 
-  // 페이지 접속 시 자동재생 시도
-  if (document.readyState === 'complete') {
-    playMusic();
-  } else {
-    window.addEventListener('load', playMusic, { once: true });
-  }
+  // Try as early and as often as the browser permits.
+  startMusic();
 
-  // 자동재생 차단 시 첫 사용자 동작에서 재생
-  function startOnInteraction() {
-    playMusic();
-    document.removeEventListener('click', startOnInteraction);
-    document.removeEventListener('touchstart', startOnInteraction);
-    document.removeEventListener('keydown', startOnInteraction);
-  }
+  document.addEventListener('DOMContentLoaded', startMusic, { once: true });
+  window.addEventListener('pageshow', startMusic);
+  window.addEventListener('load', startMusic, { once: true });
 
-  document.addEventListener('click', startOnInteraction, { passive: true });
-  document.addEventListener('touchstart', startOnInteraction, { passive: true });
-  document.addEventListener('keydown', startOnInteraction);
+  music.addEventListener('loadedmetadata', startMusic, { once: true });
+  music.addEventListener('loadeddata', startMusic, { once: true });
+  music.addEventListener('canplay', startMusic, { once: true });
+  music.addEventListener('canplaythrough', startMusic, { once: true });
+
+  // If returning through browser back/forward cache, resume.
+  document.addEventListener('visibilitychange', function () {
+    if (!document.hidden && music.paused) startMusic();
+  });
 })();
 </script>
 
