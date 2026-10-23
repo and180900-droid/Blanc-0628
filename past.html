@@ -591,10 +591,7 @@
 
 
 <!-- ================= BACKGROUND MUSIC ================= -->
-<audio id="bgMusic" autoplay loop preload="auto">
-  <source src="/cafe.mp3" type="audio/mpeg">
-  <source src="/cafe(1).mp3" type="audio/mpeg">
-</audio>
+<audio id="bgMusic" src="/cafe.mp3" loop preload="auto" playsinline></audio>
 
 <script>
 (function () {
@@ -603,26 +600,53 @@
 
   music.volume = 0.35;
   music.loop = true;
-  music.autoplay = true;
+  music.preload = 'auto';
 
-  function tryAutoplay() {
-    const p = music.play();
-    if (p && typeof p.catch === 'function') {
-      p.catch(function(err) {
-        console.log('브라우저 자동재생 차단:', err);
-      });
+  function startMusic() {
+    const promise = music.play();
+
+    if (promise && typeof promise.then === 'function') {
+      promise
+        .then(() => {
+          localStorage.setItem('musicAllowed', 'yes');
+        })
+        .catch(() => {
+          // 브라우저가 첫 방문의 소리 자동재생을 막는 경우
+        });
     }
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', tryAutoplay, { once: true });
-  } else {
-    tryAutoplay();
+  // 이전에 음악이 한 번이라도 재생된 사용자라면
+  // 페이지가 열리자마자 바로 재생 시도
+  if (localStorage.getItem('musicAllowed') === 'yes') {
+    startMusic();
+
+    document.addEventListener('DOMContentLoaded', startMusic, { once: true });
+    window.addEventListener('load', startMusic, { once: true });
+    window.addEventListener('pageshow', startMusic);
+    music.addEventListener('canplay', startMusic, { once: true });
   }
 
-  window.addEventListener('load', tryAutoplay, { once: true });
-  music.addEventListener('loadeddata', tryAutoplay, { once: true });
-  music.addEventListener('canplay', tryAutoplay, { once: true });
+  // 브라우저 정책상 첫 방문 자동재생이 막힌 경우
+  // 사용자의 첫 동작에서 재생 권한을 확보
+  function unlockMusic() {
+    startMusic();
+
+    document.removeEventListener('click', unlockMusic);
+    document.removeEventListener('touchstart', unlockMusic);
+    document.removeEventListener('keydown', unlockMusic);
+  }
+
+  document.addEventListener('click', unlockMusic);
+  document.addEventListener('touchstart', unlockMusic, { passive: true });
+  document.addEventListener('keydown', unlockMusic);
+
+  // 탭을 나갔다 돌아오면 음악이 멈춰 있을 경우 재시도
+  document.addEventListener('visibilitychange', function () {
+    if (!document.hidden && music.paused && localStorage.getItem('musicAllowed') === 'yes') {
+      startMusic();
+    }
+  });
 })();
 </script>
 
