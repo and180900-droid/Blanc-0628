@@ -360,11 +360,11 @@
 
 </style>
 </head>
-<body>
+<body id="top">
 
 <!-- ================= HEADER ================= -->
 <header id="header">
-  <div class="logo">블랙라벨 <span>더논현</span></div>
+  <a class="logo" href="#top" aria-label="블랙라벨 더논현 페이지 맨 위로 이동">블랙라벨 <span>더논현</span></a>
   <nav>
     <ul>
       <li><a href="#message">소개</a></li>
@@ -1197,6 +1197,17 @@
     VISITOR_IMG_KEYS.forEach(k => loadOneImage(k));
   }
 
+  // 기존 Firebase 날짜 문구에 직접 입력된 고정 화살표/삼각형을 제거합니다.
+  function cleanPastDateLabel(value) {
+    return String(value || '')
+      .replace(/<br\s*\/?>/gi, ' ')
+      .replace(/<[^>]*>/g, '')
+      .replace(/[↓↑⇩⇧▼▲▽△▾▴⬇⬆↧↥]/g, ' ')
+      .replace(/\s*신청자\s*리스트\s*$/g, '')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
   async function loadContent() {
     try {
       const snap = await getDoc(DOC_REF);
@@ -1224,10 +1235,7 @@
 
         const indexDateEl = document.querySelector('[data-index-past-date]');
         if (indexDateEl) {
-          const dateText = (t.past_date || '26년 9월 27일 (일)')
-            .replace(/<br\s*\/?>(\s*)/gi, ' ')
-            .replace(/<[^>]*>/g, '')
-            .trim();
+          const dateText = cleanPastDateLabel(t.past_date || '26년 9월 27일 (일)');
           const arrow = t.past_date_arrow || 'none';
           const prefix = (arrow === 'both' || arrow === 'left') ? '↓ ' : '';
           const suffix = (arrow === 'both' || arrow === 'right') ? ' ↓' : '';
@@ -1296,7 +1304,9 @@
         const data = snap.data();
         document.querySelectorAll('#admPanel [data-key]').forEach(el => {
           const key = el.getAttribute('data-key');
-          if (data.texts && data.texts[key] !== undefined) el.value = data.texts[key];
+          if (data.texts && data.texts[key] !== undefined) {
+            el.value = key === 'past_date' ? cleanPastDateLabel(data.texts[key]) : data.texts[key];
+          }
         });
         document.querySelectorAll('#admPanel [data-link-key]').forEach(el => {
           const key = el.getAttribute('data-link-key');
@@ -1425,6 +1435,11 @@
       document.querySelectorAll('#admPanel [data-key]').forEach(el => {
         const key = el.getAttribute('data-key');
         if (!key) return;
+        if (key === 'past_date') {
+          texts[key] = cleanPastDateLabel(el.value);
+          el.value = texts[key];
+          return;
+        }
         texts[key] = (key === 'men_list' || key === 'women_list' || key === 'nov_men_list' || key === 'nov_women_list')
           ? el.value.trim()
           : admApplyMarkdown(el.value.trim());
@@ -1465,7 +1480,7 @@
   // ---------- 신청자 리스트 날짜 디자인 미리보기 ----------
   function admPastDatePreview(){
     const get=(k)=>document.querySelector(`#admPanel [data-key="${k}"]`);
-    const text=get('past_date')?.value?.trim() || '26년 9월 27일 (일)';
+    const text=cleanPastDateLabel(get('past_date')?.value) || '26년 9월 27일 (일)';
     const size=get('past_date_size')?.value || '30px';
     const weight=get('past_date_weight')?.value || '500';
     const color=get('past_date_color')?.value || '#F7DDE0';
