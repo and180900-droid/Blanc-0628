@@ -801,6 +801,27 @@
     </div>
 
     <div class="adm-card">
+      <h2>지난 모임 페이지 — 11월 1일 모임 (최상단)</h2>
+      <p class="adm-desc">지난 모임 참가자 페이지 제목 바로 아래, 기존 9월 27일 모임보다 위에 표시되는 신규 모임 사진입니다. 날짜와 사진 6장을 이곳에서 수정할 수 있습니다.</p>
+      <div class="adm-field">
+        <label>모임 날짜</label>
+        <input type="text" data-key="nov_gallery_date" value="2026년 11월 1일 (일)" style="font-size:18px;font-weight:600;">
+        <p class="adm-hint">예: 2026년 11월 1일 (일) 또는 11월 1일</p>
+      </div>
+      <div class="adm-field">
+        <label>11월 1일 모임 사진 (6장)</label>
+        <div class="adm-img-grid">
+          <div class="adm-img-slot" data-img-key="nov_gallery_1"><span class="adm-label-tag">1</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
+          <div class="adm-img-slot" data-img-key="nov_gallery_2"><span class="adm-label-tag">2</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
+          <div class="adm-img-slot" data-img-key="nov_gallery_3"><span class="adm-label-tag">3</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
+          <div class="adm-img-slot" data-img-key="nov_gallery_4"><span class="adm-label-tag">4</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
+          <div class="adm-img-slot" data-img-key="nov_gallery_5"><span class="adm-label-tag">5</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
+          <div class="adm-img-slot" data-img-key="nov_gallery_6"><span class="adm-label-tag">6</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="adm-card">
       <h2>지난 모임 페이지 — 이번 모임(맨 위 리스트) 상단 사진</h2>
       <p class="adm-desc">past 페이지 맨 위, 이번 모임 신청자 리스트 바로 위에 노출되는 사진 6장입니다. 날짜는 아래쪽 "신청자 리스트 문구" 칸의 날짜가 자동으로 표시됩니다.</p>
       <div class="adm-field">
@@ -1133,7 +1154,7 @@
   const imgDocRef = (key) => doc(db, "site_images", key);
 
   /* ---------- 방문자 화면: 저장된 콘텐츠 불러와 표시 ---------- */
-  const ALL_IMG_KEYS = ['hero_image','gallery_1','gallery_2','gallery_3','gallery_4','gallery_5','gallery_6','past_gallery_1','past_gallery_2','past_gallery_3','past_gallery_4','past_gallery_5','past_gallery_6','latest_gallery_1','latest_gallery_2','latest_gallery_3','latest_gallery_4','latest_gallery_5','latest_gallery_6','older_gallery_1','older_gallery_2','older_gallery_3','older_gallery_4','older_gallery_5','older_gallery_6','current_gallery_1','current_gallery_2','current_gallery_3','current_gallery_4','current_gallery_5','current_gallery_6'];
+  const ALL_IMG_KEYS = ['hero_image','nov_gallery_1','nov_gallery_2','nov_gallery_3','nov_gallery_4','nov_gallery_5','nov_gallery_6','gallery_1','gallery_2','gallery_3','gallery_4','gallery_5','gallery_6','past_gallery_1','past_gallery_2','past_gallery_3','past_gallery_4','past_gallery_5','past_gallery_6','latest_gallery_1','latest_gallery_2','latest_gallery_3','latest_gallery_4','latest_gallery_5','latest_gallery_6','older_gallery_1','older_gallery_2','older_gallery_3','older_gallery_4','older_gallery_5','older_gallery_6','current_gallery_1','current_gallery_2','current_gallery_3','current_gallery_4','current_gallery_5','current_gallery_6'];
 
   // 방문자 화면에는 메인에 보이는 사진 7장만 필요합니다. (나머지는 past 페이지/관리자 전용)
   const VISITOR_IMG_KEYS = ['gallery_1','gallery_2','gallery_3','gallery_4','gallery_5','gallery_6'];
