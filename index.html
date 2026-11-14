@@ -939,12 +939,7 @@
               <option value="luxury" selected>로즈골드 글로우</option><option value="soft">은은한 광택</option><option value="none">효과 없음</option>
             </select>
           </div>
-          <div>
-            <small style="display:block;margin-bottom:6px;color:var(--ink-soft);">화살표</small>
-            <select data-key="past_date_arrow">
-              <option value="none" selected>화살표 없음 (삭제)</option><option value="both">↓ 날짜 ↓</option><option value="left">↓ 날짜</option><option value="right">날짜 ↓</option>
-            </select>
-          </div>
+
         </div>
       </div>
 
@@ -1236,10 +1231,7 @@
         const indexDateEl = document.querySelector('[data-index-past-date]');
         if (indexDateEl) {
           const dateText = cleanPastDateLabel(t.past_date || '26년 9월 27일 (일)');
-          const arrow = t.past_date_arrow || 'none';
-          const prefix = (arrow === 'both' || arrow === 'left') ? '↓ ' : '';
-          const suffix = (arrow === 'both' || arrow === 'right') ? ' ↓' : '';
-          indexDateEl.textContent = prefix + dateText + ' 신청자 리스트' + suffix;
+          indexDateEl.textContent = dateText + ' 신청자 리스트';
 
           const size = t.past_date_size || '';
           const weight = t.past_date_weight || '';
@@ -1445,6 +1437,9 @@
           : admApplyMarkdown(el.value.trim());
       });
 
+      // Remove any previously saved arrow setting on the next administrator save.
+      texts.past_date_arrow = 'none';
+
       const links = {};
       document.querySelectorAll('#admPanel [data-link-key]').forEach(el => {
         const key = el.getAttribute('data-link-key');
@@ -1485,17 +1480,14 @@
     const weight=get('past_date_weight')?.value || '500';
     const color=get('past_date_color')?.value || '#F7DDE0';
     const effect=get('past_date_effect')?.value || 'luxury';
-    const arrow=get('past_date_arrow')?.value || 'none';
-    const prefix=arrow==='both'||arrow==='left' ? '↓ ' : '';
-    const suffix=arrow==='both'||arrow==='right' ? ' ↓' : '';
     const el=document.getElementById('admPastDateDemo');
     if(!el)return;
-    el.textContent=prefix+text+suffix;
+    el.textContent=text;
     el.style.fontSize=size; el.style.fontWeight=weight; el.style.color=color;
     el.style.textShadow=effect==='luxury' ? `0 0 5px ${color},0 0 16px ${color},0 0 30px rgba(201,123,134,.35)` : effect==='soft' ? `0 0 7px ${color}` : 'none';
   }
-  document.querySelectorAll('#admPanel [data-key="past_date"],#admPanel [data-key="past_date_size"],#admPanel [data-key="past_date_weight"],#admPanel [data-key="past_date_color"],#admPanel [data-key="past_date_effect"],#admPanel [data-key="past_date_arrow"]').forEach(el=>el.addEventListener('input',admPastDatePreview));
-  document.querySelectorAll('#admPanel [data-key="past_date_size"],#admPanel [data-key="past_date_weight"],#admPanel [data-key="past_date_effect"],#admPanel [data-key="past_date_arrow"]').forEach(el=>el.addEventListener('change',admPastDatePreview));
+  document.querySelectorAll('#admPanel [data-key="past_date"],#admPanel [data-key="past_date_size"],#admPanel [data-key="past_date_weight"],#admPanel [data-key="past_date_color"],#admPanel [data-key="past_date_effect"]').forEach(el=>el.addEventListener('input',admPastDatePreview));
+  document.querySelectorAll('#admPanel [data-key="past_date_size"],#admPanel [data-key="past_date_weight"],#admPanel [data-key="past_date_effect"]').forEach(el=>el.addEventListener('change',admPastDatePreview));
   setTimeout(admPastDatePreview, 50);
 
   document.getElementById('admSaveAllBtn').addEventListener('click', (e) => admSaveAll(e.currentTarget));
