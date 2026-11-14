@@ -802,7 +802,7 @@
 
     <div class="adm-card">
       <h2>지난 모임 페이지 — 11월 1일 모임 (최상단)</h2>
-      <p class="adm-desc">지난 모임 참가자 페이지 제목 바로 아래, 기존 9월 27일 모임보다 위에 표시되는 신규 모임 사진입니다. 날짜와 사진 6장을 이곳에서 수정할 수 있습니다.</p>
+      <p class="adm-desc">지난 모임 참가자 페이지 제목 바로 아래, 기존 9월 27일 모임보다 위에 표시되는 신규 모임 사진입니다. 날짜와 사진 6장을 각각 클릭하여 업로드하고, 상단 또는 하단의 저장 버튼을 누르면 past 페이지에 반영됩니다.</p>
       <div class="adm-field">
         <label>모임 날짜</label>
         <input type="text" data-key="nov_gallery_date" value="2026년 11월 1일 (일)" style="font-size:18px;font-weight:600;">
@@ -818,6 +818,17 @@
           <div class="adm-img-slot" data-img-key="nov_gallery_5"><span class="adm-label-tag">5</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
           <div class="adm-img-slot" data-img-key="nov_gallery_6"><span class="adm-label-tag">6</span><img><div class="adm-placeholder">클릭하여 업로드</div><div class="adm-uploading-badge">업로드 중...</div><input type="file" accept="image/*"></div>
         </div>
+      </div>
+    </div>
+
+    <div class="adm-card">
+      <h2>11월 1일 참가자 명단 (남녀 각 20명)</h2>
+      <p class="adm-desc">첨부해주신 참가자 명단을 기본값으로 표시합니다. 수정이 필요한 경우 아래 입력창에 1명당 한 줄씩 입력하고 저장하면 지난 모임 페이지에 반영됩니다. 비워 두면 기본 명단이 유지됩니다.</p>
+      <div class="adm-row2">
+        <div class="adm-field"><label>남성 참가자 (20명)</label><textarea data-key="nov_men_list" rows="12" placeholder="남자1호. ...
+남자2호. ..."></textarea></div>
+        <div class="adm-field"><label>여성 참가자 (20명)</label><textarea data-key="nov_women_list" rows="12" placeholder="여자1호. ...
+여자2호. ..."></textarea></div>
       </div>
     </div>
 
@@ -1414,7 +1425,7 @@
       document.querySelectorAll('#admPanel [data-key]').forEach(el => {
         const key = el.getAttribute('data-key');
         if (!key) return;
-        texts[key] = (key === 'men_list' || key === 'women_list')
+        texts[key] = (key === 'men_list' || key === 'women_list' || key === 'nov_men_list' || key === 'nov_women_list')
           ? el.value.trim()
           : admApplyMarkdown(el.value.trim());
       });
