@@ -479,7 +479,7 @@
 
     <div class="index-past-date-wrap reveal">
       <a class='index-past-date-link' data-index-past-date href='/past'>
-        26년 9월 27일 (일) 신청자 리스트
+        11월 29일(일요일) 신청자 리스트
       </a>
     </div>
 
@@ -899,9 +899,9 @@
       <h2>지난 모임 페이지 사진 (past.html 하단 "그날의 모임 사진")</h2>
       <p class="adm-desc">지난 모임 참가자 페이지 맨 아래, "그날의 모임 사진" 섹션에 노출되는 사진 6장입니다. 칸을 클릭해 사진을 올리면 저장 시 past.html에 바로 반영됩니다.</p>
       <div class="adm-field">
-        <label>신청자 리스트 문구 · 공개 페이지 상단 표시</label>
-        <input type="text" data-key="past_date" value="26년 9월 27일 (일)" style="font-size:20px;font-weight:600;">
-        <p class="adm-hint">이 문구는 메인 페이지의 "날짜 신청자 리스트" 링크에만 표시됩니다. past 페이지 날짜와는 별개입니다.</p>
+        <label>신청자 리스트 표시 문구 전체 수정 (메인 홈페이지)</label>
+        <input type="text" data-key="past_date" value="11월 29일(일요일) 신청자 리스트" placeholder="예: 11월 29일(일요일) 신청자 리스트" style="font-size:20px;font-weight:600;">
+        <p class="adm-hint">날짜와 '신청자 리스트' 문구를 모두 자유롭게 수정할 수 있습니다. 입력한 내용이 아래 미리보기에 표시되고, 저장하면 메인 홈페이지에 반영됩니다. 화살표는 표시되지 않습니다. past 페이지 모임 날짜와는 별개입니다.</p>
       </div>
 
       <div class="adm-field">
@@ -944,7 +944,7 @@
       </div>
 
       <div class="adm-past-date-preview">
-        <span class="past-date-demo" id="admPastDateDemo">26년 9월 27일 (일)</span>
+        <span class="past-date-demo" id="admPastDateDemo">11월 29일(일요일) 신청자 리스트</span>
         <span class="past-date-caption">공개 페이지 표시 미리보기</span>
       </div>
       <div class="adm-field">
@@ -1192,15 +1192,23 @@
     VISITOR_IMG_KEYS.forEach(k => loadOneImage(k));
   }
 
-  // 기존 Firebase 날짜 문구에 직접 입력된 고정 화살표/삼각형을 제거합니다.
+  // 날짜와 '신청자 리스트'를 포함해 관리자 입력 문구 전체를 그대로 표시합니다.
+  // 기존에 강제로 붙던 화살표/삼각형만 제거합니다.
   function cleanPastDateLabel(value) {
     return String(value || '')
       .replace(/<br\s*\/?>/gi, ' ')
       .replace(/<[^>]*>/g, '')
       .replace(/[↓↑⇩⇧▼▲▽△▾▴⬇⬆↧↥]/g, ' ')
-      .replace(/\s*신청자\s*리스트\s*$/g, '')
       .replace(/\s+/g, ' ')
       .trim();
+  }
+
+  // 이전 버전에서는 Firebase past_date에 날짜만 저장했으므로 한 번만 호환 변환합니다.
+  function pastListDisplayText(value) {
+    const label = cleanPastDateLabel(value);
+    if (!label) return '11월 29일(일요일) 신청자 리스트';
+    const dateOnly = /^(?:(?:\d{2,4}년\s*)?\d{1,2}월\s*\d{1,2}일\s*(?:\(\s*[월화수목금토일](?:요일)?\s*\))?)$/;
+    return dateOnly.test(label) ? label + ' 신청자 리스트' : label;
   }
 
   async function loadContent() {
@@ -1230,8 +1238,8 @@
 
         const indexDateEl = document.querySelector('[data-index-past-date]');
         if (indexDateEl) {
-          const dateText = cleanPastDateLabel(t.past_date || '26년 9월 27일 (일)');
-          indexDateEl.textContent = dateText + ' 신청자 리스트';
+          const displayText = pastListDisplayText(t.past_date);
+          indexDateEl.textContent = displayText;
 
           const size = t.past_date_size || '';
           const weight = t.past_date_weight || '';
@@ -1297,7 +1305,7 @@
         document.querySelectorAll('#admPanel [data-key]').forEach(el => {
           const key = el.getAttribute('data-key');
           if (data.texts && data.texts[key] !== undefined) {
-            el.value = key === 'past_date' ? cleanPastDateLabel(data.texts[key]) : data.texts[key];
+            el.value = key === 'past_date' ? pastListDisplayText(data.texts[key]) : data.texts[key];
           }
         });
         document.querySelectorAll('#admPanel [data-link-key]').forEach(el => {
@@ -1475,7 +1483,7 @@
   // ---------- 신청자 리스트 날짜 디자인 미리보기 ----------
   function admPastDatePreview(){
     const get=(k)=>document.querySelector(`#admPanel [data-key="${k}"]`);
-    const text=cleanPastDateLabel(get('past_date')?.value) || '26년 9월 27일 (일)';
+    const text=cleanPastDateLabel(get('past_date')?.value) || '문구를 입력하세요';
     const size=get('past_date_size')?.value || '30px';
     const weight=get('past_date_weight')?.value || '500';
     const color=get('past_date_color')?.value || '#F7DDE0';
