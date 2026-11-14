@@ -70,6 +70,8 @@
   .mini-photo-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;max-width:1180px;margin:0 auto 50px;}
   .mini-photo-item{aspect-ratio:1/1;border-radius:3px;overflow:hidden;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.04);cursor:pointer;}
   .mini-photo-item img{transition:transform .5s ease;cursor:zoom-in;}
+  #novGalleryGrid .mini-photo-item{position:relative;}
+  #novGalleryGrid .mini-photo-item:has(img:not([src]))::after{content:"사진 준비 중";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#B8AAAC;font-size:12px;pointer-events:none;}
   .mini-photo-item:hover img{transform:scale(1.06);}
 
   .promise-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid rgba(255,255,255,0.15);max-width:1180px;margin:0 auto;}
@@ -207,7 +209,78 @@
   <p>블랙라벨 더논현에 실제로 참여했던<br class="br-mobile"> 회원분들의 프로필을 소개합니다.</p>
 </section>
 
-<!-- ================= CURRENT LIST (이번 모임) ================= -->
+<!-- ================= NOVEMBER 1 MEETING (최상단 신규 모임) ================= -->
+<section class="promise reveal" style="background:#2B2526;">
+  <div class="date-tag-wrap">
+    <span class="date-tag serif" id="cms-nov_gallery_date">2026년 11월 1일 (일)</span>
+  </div>
+
+  <div class="mini-photo-grid" id="novGalleryGrid">
+    <div class="mini-photo-item" data-slot="1"><img alt="11월 1일 모임 사진 1" data-cms-img="nov_gallery_1"></div>
+    <div class="mini-photo-item" data-slot="2"><img alt="11월 1일 모임 사진 2" data-cms-img="nov_gallery_2"></div>
+    <div class="mini-photo-item" data-slot="3"><img alt="11월 1일 모임 사진 3" data-cms-img="nov_gallery_3"></div>
+    <div class="mini-photo-item" data-slot="4"><img alt="11월 1일 모임 사진 4" data-cms-img="nov_gallery_4"></div>
+    <div class="mini-photo-item" data-slot="5"><img alt="11월 1일 모임 사진 5" data-cms-img="nov_gallery_5"></div>
+    <div class="mini-photo-item" data-slot="6"><img alt="11월 1일 모임 사진 6" data-cms-img="nov_gallery_6"></div>
+  </div>
+
+  <div class="promise-grid" id="novRosterGrid">
+    <div class="promise-col">
+      <span class="tag">FOR MEN</span>
+      <h3 class="serif">인성과 능력을<br>보장합니다</h3>
+      <ul id="cms-nov_men_list">
+        <li>남자1호. 95년생 / 177 / 헬스필테샵대표 / 박보검닮은 만찢남</li>
+        <li>남자2호. 90년생 / 176 / IT엔지니어 / 순정만화외모 테토성격</li>
+        <li>남자3호. 91년생 / 175 / 의사 / 솔직담백 부드러운 남자</li>
+        <li>남자4호. 89년생 / 177 / 농산물유통대표 / 깨끗한 스윗두부 상</li>
+        <li>남자5호. 88년생 / 178 / 부동산임대사업 / 차은우닮은 상남존잘남</li>
+        <li>남자6호. 88년생 / 176 / 관세사 / 남자답고 사고성 좋은 젠틀맨</li>
+        <li>남자7호. 87년생 / 177 / 개발자 / 헬스하는 깔끔 선비님</li>
+        <li>남자8호. 87년생 / 176 / 가업승계사업 / 말랑말랑 착한 도련님</li>
+        <li>남자9호. 87년생 / 178 / 외국계반도체회사 / 대형견상 도시 남자</li>
+        <li>남자10호. 86년생 / 174 / 회계사 / 두부두부한 훈남</li>
+        <li>남자11호. 85년생 / 181 / 투자자 / 예의바른 훈훈젠틀남</li>
+        <li>남자12호. 85년생 / 183 / 투자자 / 말끔한 자상에겐남</li>
+        <li>남자13호. 83년생 / 175 / 국책연구원박사 / 순둥 복종 강아지</li>
+        <li>남자14호. 83년생 / 181 / 공기업 / 남자다운 양반집 대감상</li>
+        <li>남자15호. 83년생 / 185 / 대기업팀장 / 깔끔하고 지적인 남자</li>
+        <li>남자16호. 87년생 / 177 / 공무원 / 초동안 어린왕자 상</li>
+        <li>남자17호. 91년생 / 178 / 변리사 / 아기 피부에 지적인 훈남</li>
+        <li>남자18호. 90년생 / 175 / 변호사 / 어깨넓은 슬렌더 피부미남</li>
+        <li>남자19호. 94년생 / 180 / 유통사업가 / 퇴폐적인 외모에 온순한 성격</li>
+        <li>남자20호. 92년생 / 177 / 건어물사업가 / 깨끗한 피부 두부두부남</li>
+      </ul>
+    </div>
+    <div class="promise-col">
+      <span class="tag">FOR WOMEN</span>
+      <h3 class="serif">인성과 미모를<br>보장합니다</h3>
+      <ul id="cms-nov_women_list">
+        <li>여자1호. 98년생 / 166 / 승무원 / 슬렌더 자연 미인상</li>
+        <li>여자2호. 98년생 / 161 / 학원강사 / 슬렌더 혼혈 미녀상</li>
+        <li>여자3호. 98년생 / 164 / 공기업 / 바비인형 절세미녀상</li>
+        <li>여자4호. 95년생 / 166 / 가족사업 / 똑부러지는 청순 두부상</li>
+        <li>여자5호. 93년생 / 166 / 대기업회사원 / 청순귀염 사랑에 적극적인</li>
+        <li>여자6호. 91년생 / 170 / 회계사 / 완벽한 육각형녀</li>
+        <li>여자7호. 91년생 / 167 / 입시강사 / 이지아 닮은 청순카리스마 상</li>
+        <li>여자8호. 91년생 / 158 / 디자이너 / 미소가 예쁜 아나운서 상</li>
+        <li>여자9호. 91년생 / 166 / 영유아강사 / 청순하고 이국적인 상</li>
+        <li>여자10호. 91년생 / 161 / 공무직연구원 / 땡글땡글 발랄유쾌녀</li>
+        <li>여자11호. 90년생 / 162 / 의사 / 카리스마 사슴상</li>
+        <li>여자12호. 90년생 / 168 / 학원사업가 / 여리예쁨 초고액 사업가</li>
+        <li>여자13호. 90년생 / 158 / 뷰티사업가 / 명문대 아랍 도시녀</li>
+        <li>여자14호. 90년생 / 167 / B2B / 개성있는 글래머 흑언니</li>
+        <li>여자15호. 87년생 / 158 / 대치동영어강사 / 상냥한 엔젤녀</li>
+        <li>여자16호. 93년생 / 155 / IT금융회사원 / 여리여리 이기사슴 상</li>
+        <li>여자17호. 90년생 / 164 / 가족회사근무 / 마르고 스타일 좋은</li>
+        <li>여자18호. 97년생 / 166 / 공무원 / 깨끗하고 새하얀 피부</li>
+        <li>여자19호. 96년생 / 164 / 초등학교교사 / 생그러운 복숭아 상</li>
+        <li>여자20호. 97년생 / 160 / 간호사 / 큰 눈에 앵두입술</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CURRENT LIST (9월 27일 모임) ================= -->
 <section class="promise reveal">
   <div class="date-tag-wrap">
     <span class="date-tag serif" id="cms-past_date">2026년 9월 27일 (일)</span>
@@ -549,6 +622,20 @@
       const snap = await getDoc(DOC_REF);
       if (!snap.exists()) return;
       const t = snap.data().texts || {};
+      if (t.nov_gallery_date) {
+        const novDate = document.getElementById('cms-nov_gallery_date');
+        if (novDate) novDate.textContent = fmtPastDate(t.nov_gallery_date);
+      }
+      if (t.nov_men_list || t.nov_women_list) {
+        ['nov_men_list','nov_women_list'].forEach(key => {
+          const el = document.getElementById('cms-' + key);
+          if (!el || !t[key]) return;
+          const lines = t[key].split('\n').map(x => x.trim()).filter(Boolean);
+          if (lines.length) el.replaceChildren(...lines.map(line => {
+            const li = document.createElement('li'); li.textContent = line; return li;
+          }));
+        });
+      }
       if (t.past_top_date) {
         const el = document.getElementById('cms-past_date');
         if (el) el.textContent = fmtPastDate(t.past_top_date);
@@ -573,41 +660,49 @@
     if (el.complete) el.classList.add('loaded');
   }
 
-  async function loadOneImage(key) {
-    const ref = imgDocRef(key);
-    // 1) 저장된 사본이 있으면 즉시 표시
-    try {
-      const c = await getDocFromCache(ref);
-      if (c.exists() && c.data().url) applyImg(key, c.data().url);
-    } catch (e) { /* 저장된 사본 없음 */ }
-    // 2) 서버에서 최신본 확인 (바뀌었을 때만 교체)
-    try {
-      const s = await getDoc(ref);
-      if (s.exists() && s.data().url) applyImg(key, s.data().url);
-    } catch (e) {
-      console.error('이미지 로딩 실패:', key, e);
-    }
-  }
-
-  // images/ 폴더의 사진 파일을 먼저 사용하고, 파일이 없으면 기존 관리자 업로드 사진(Firebase)으로 대신 표시합니다.
-  function loadFileImage(key) {
+  // 관리자에서 업로드한 Firebase 사진이 최우선입니다.
+  // 업로드 내역이 없을 때에만 기존 images/ 사진을 대체 이미지로 사용합니다.
+  function loadFileImageFallback(key) {
     const el = document.querySelector(`[data-cms-img="${key}"]`);
     if (!el) return;
-    el.decoding = 'async';
-    el.onload = () => el.classList.add('loaded');
-    el.onerror = () => { el.onerror = null; el.removeAttribute('src'); loadOneImage(key); };
-    el.src = `/images/${key}.jpg`;
+    const fallbackUrl = `/images/${key}.jpg`;
+    const probe = new Image();
+    probe.onload = () => applyImg(key, fallbackUrl);
+    probe.src = fallbackUrl;
+  }
+
+  async function loadOneImage(key) {
+    const ref = imgDocRef(key);
+    let found = false;
+    try {
+      const s = await getDoc(ref);
+      if (s.exists() && s.data().url) {
+        applyImg(key, s.data().url);
+        found = true;
+      }
+    } catch (e) {
+      console.error('최신 이미지 확인 실패:', key, e);
+      try {
+        const c = await getDocFromCache(ref);
+        if (c.exists() && c.data().url) {
+          applyImg(key, c.data().url);
+          found = true;
+        }
+      } catch (_) {}
+    }
+    if (!found) loadFileImageFallback(key);
   }
 
   const loadedGroups = new Set();
   function loadGroup(prefix) {
     if (loadedGroups.has(prefix)) return;
     loadedGroups.add(prefix);
-    for (let i = 1; i <= 6; i++) loadFileImage(`${prefix}_${i}`);
+    for (let i = 1; i <= 6; i++) loadOneImage(`${prefix}_${i}`);
   }
 
-  // 맨 위 "이번 모임" 사진을 가장 먼저, 나머지는 화면에 가까워질 때 불러옵니다.
+  // 맨 위 11월 1일 모임 사진을 가장 먼저, 나머지는 화면에 가까워질 때 불러옵니다.
   const GROUPS = [
+    ['novGalleryGrid',     'nov_gallery'],
     ['currentGalleryGrid', 'current_gallery'],
     ['latestGalleryGrid',  'latest_gallery'],
     ['olderGalleryGrid',   'older_gallery'],
@@ -615,7 +710,7 @@
   ];
 
   loadTexts();
-  loadGroup('current_gallery');
+  loadGroup('nov_gallery');
 
   const lazyIO = new IntersectionObserver((entries) => {
     entries.forEach(e => {
