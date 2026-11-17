@@ -5,11 +5,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>지난 모임 참가자 | 블랙라벨 더논현</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500;600;700&family=Pretendard:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root{
+  @font-face {
+    font-family: 'RIDIBatang';
+    src: url('/fonts/RIDIBatang.otf') format('opentype');
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+  }
+
+    :root{
     --white:#FFFFFF;
     --cream:#FBF7F6;
     --rose:#C97B86;
@@ -22,8 +27,9 @@
 
   *{margin:0;padding:0;box-sizing:border-box;}
   html{scroll-behavior:smooth;}
-  body{font-family:'Pretendard','Noto Serif KR',serif;color:var(--ink);background:var(--white);line-height:1.7;overflow-x:hidden;}
-  .serif{font-family:'Noto Serif KR',serif;}
+  body{font-family:'RIDIBatang',serif;color:var(--ink);background:var(--white);line-height:1.7;overflow-x:hidden;}
+  button,input,textarea,select{font-family:inherit;}
+  .serif{font-family:'RIDIBatang',serif;}
   a{text-decoration:none;color:inherit;}
   img{display:block;width:100%;height:100%;object-fit:cover;}
   img[data-cms-img]:not([src]), img[data-cms-img][src=""]{display:none;}
@@ -33,7 +39,7 @@
   /* ---------- Nav ---------- */
   header{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:22px 6%;background:rgba(255,255,255,0.88);backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .3s;}
   header.scrolled{border-color:var(--line);}
-  .logo{font-family:'Noto Serif KR',serif;font-weight:600;font-size:19px;letter-spacing:0.5px;color:var(--ink);}
+  .logo{font-family:'RIDIBatang',serif;font-weight:600;font-size:19px;letter-spacing:0.5px;color:var(--ink);}
   .logo span{color:var(--rose-deep);}
   nav ul{display:flex;gap:36px;list-style:none;}
   nav a{font-size:13.5px;letter-spacing:0.5px;color:var(--ink-soft);transition:color .25s;}
@@ -50,14 +56,14 @@
   .section-head{text-align:center;max-width:640px;margin:0 auto 60px;}
   .section-head .eyebrow{justify-content:center;}
   .section-head .eyebrow::before{display:none;}
-  .section-head h2{font-family:'Noto Serif KR',serif;font-weight:400;font-size:clamp(26px,3.4vw,38px);line-height:1.45;color:var(--ink);}
+  .section-head h2{font-family:'RIDIBatang',serif;font-weight:400;font-size:clamp(26px,3.4vw,38px);line-height:1.45;color:var(--ink);}
   .section-head h2 strong{color:var(--rose-deep);font-weight:700;}
   .section-head p{margin-top:18px;color:var(--ink-soft);font-size:15px;}
   .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:12.5px;letter-spacing:2.5px;color:var(--rose-deep);margin-bottom:20px;}
 
   /* ---------- Intro ---------- */
   .past-intro{padding:160px 6% 40px;text-align:center;}
-  .past-intro h1{font-family:'Noto Serif KR',serif;font-weight:400;font-size:clamp(28px,3.8vw,42px);color:var(--ink);margin-bottom:18px;}
+  .past-intro h1{font-family:'RIDIBatang',serif;font-weight:400;font-size:clamp(28px,3.8vw,42px);color:var(--ink);margin-bottom:18px;}
   .past-intro h1 strong{color:var(--rose-deep);font-weight:700;}
   .past-intro p{color:var(--ink-soft);font-size:15px;word-break:keep-all;}
 
@@ -78,7 +84,7 @@
   .promise-col{padding:56px 50px;position:relative;}
   .promise-col:first-child{border-right:1px solid rgba(255,255,255,0.15);}
   .promise-col .tag{font-size:12px;letter-spacing:2px;color:var(--rose);margin-bottom:18px;display:block;}
-  .promise-col h3{font-family:'Noto Serif KR',serif;font-size:25px;font-weight:400;margin-bottom:26px;}
+  .promise-col h3{font-family:'RIDIBatang',serif;font-size:25px;font-weight:400;margin-bottom:26px;}
   .promise-col ul{list-style:none;}
   .promise-col li{font-size:14px;color:#D8D0D1;padding:12px 0;border-top:1px solid rgba(255,255,255,0.1);display:flex;align-items:baseline;gap:10px;}
   .promise-col li:first-of-type{border-top:none;}
@@ -99,7 +105,7 @@
   /* ---------- Footer ---------- */
   footer{background:var(--ink);color:#B7AEAF;padding:60px 6% 36px;font-size:13px;}
   .footer-inner{max-width:1180px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:30px;padding-bottom:30px;border-bottom:1px solid rgba(255,255,255,0.12);margin-bottom:24px;}
-  .footer-logo{font-family:'Noto Serif KR',serif;font-size:18px;color:var(--white);margin-bottom:10px;}
+  .footer-logo{font-family:'RIDIBatang',serif;font-size:18px;color:var(--white);margin-bottom:10px;}
   .footer-logo span{color:var(--rose);}
   .footer-cols{display:flex;gap:60px;}
   .footer-col h4{color:var(--white);font-size:13px;letter-spacing:1px;margin-bottom:14px;font-weight:500;}
@@ -158,7 +164,7 @@
     box-shadow:0 8px 28px rgba(0,0,0,.22);
     backdrop-filter:blur(10px);
     -webkit-backdrop-filter:blur(10px);
-    font-family:'Pretendard',sans-serif;
+    font-family:'RIDIBatang',serif;
     font-size:12px;
     font-weight:600;
     letter-spacing:.8px;
