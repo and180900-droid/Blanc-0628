@@ -28,6 +28,9 @@
   *{margin:0;padding:0;box-sizing:border-box;}
   html{scroll-behavior:smooth;}
   body{font-family:'RIDIBatang',serif;color:var(--ink);background:var(--white);line-height:1.7;overflow-x:hidden;}
+  /* RIDIBatang은 Regular 단일 굵기이므로 브라우저에서 획을 미세하게 보강 */
+  body{ -webkit-text-stroke:0.22px currentColor; }
+  h1,h2,h3,h4,strong,b,.logo,.footer-logo,.adm-header h1{ -webkit-text-stroke:0.32px currentColor; }
   button,input,textarea,select{font-family:inherit;}
   .serif{font-family:'RIDIBatang',serif;}
   a{text-decoration:none;color:inherit;}
@@ -116,7 +119,7 @@
   .lightbox{position:fixed;inset:0;background:rgba(20,16,17,0.92);display:none;align-items:center;justify-content:center;z-index:1000;padding:40px;}
   .lightbox.active{display:flex;}
   .lightbox img{max-width:90vw;max-height:85vh;width:auto;height:auto;object-fit:contain;border-radius:2px;}
-  .lightbox-close{position:absolute;top:30px;right:40px;color:var(--white);font-size:28px;cursor:pointer;font-weight:300;}
+  .lightbox-close{position:absolute;top:30px;right:40px;color:var(--white);font-size:28px;cursor:pointer;font-weight:400;}
 
   /* ---------- Reveal ---------- */
   .reveal{opacity:0;transform:translateY(24px);transition:opacity .8s ease, transform .8s ease;}
