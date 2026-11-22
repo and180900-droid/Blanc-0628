@@ -325,46 +325,20 @@
   .adm-past-date-settings{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;}
   @media(max-width:700px){.adm-past-date-settings{grid-template-columns:1fr}}
 
-  /* ---------- Music Toggle ---------- */
-  .music-toggle{
-    position:fixed;
-    right:22px;
-    bottom:22px;
-    z-index:1800;
-    display:flex;
-    align-items:center;
-    gap:8px;
-    min-width:118px;
-    justify-content:center;
-    padding:12px 16px;
-    border:1px solid rgba(201,123,134,.72);
-    border-radius:999px;
-    background:rgba(43,37,38,.90);
-    color:#fff;
-    box-shadow:0 8px 28px rgba(0,0,0,.22);
-    backdrop-filter:blur(10px);
-    -webkit-backdrop-filter:blur(10px);
-    font-family:'RIDIBatang',serif;
-    font-size:12px;
-    font-weight:600;
-    letter-spacing:.8px;
-    cursor:pointer;
-    transition:transform .2s ease, background .2s ease, border-color .2s ease;
-  }
-  .music-toggle:hover{transform:translateY(-2px);}
-  .music-toggle .music-icon{font-size:16px;line-height:1;}
-  .music-toggle.is-on{
-    background:var(--rose-deep);
-    border-color:var(--rose);
-  }
-  @media(max-width:600px){
-    .music-toggle{
-      right:14px;
-      bottom:14px;
-      min-width:108px;
-      padding:11px 14px;
-      font-size:11px;
-    }
+
+
+  /* PC 전용 가독성 개선: 모바일 및 태블릿 기존 크기 유지 */
+  @media (min-width:981px){
+    .hero p.lead{font-size:19px;line-height:1.85;}
+    .section-head p{font-size:18px;line-height:1.85;}
+    .message blockquote{font-size:29px;}
+    .why-item h3{font-size:19px;}
+    .why-item p{font-size:17px;line-height:1.85;}
+    .promise-col li{font-size:17px;line-height:1.8;}
+    .process-row h3{font-size:20px;}
+    .process-row p{font-size:18px;line-height:1.85;}
+    .cta-section p{font-size:18px;line-height:1.85;}
+    .video-showcase-cap{font-size:15px;}
   }
 
 </style>
@@ -1503,82 +1477,6 @@
   });
 </script>
 
-
-
-<!-- ================= BACKGROUND MUSIC ================= -->
-<audio id="bgMusic" src="/cafe_2.mp3" loop preload="auto" playsinline></audio>
-
-<button type="button"
-        id="musicToggle"
-        class="music-toggle"
-        aria-label="배경음악 켜기">
-  <span class="music-icon" id="musicIcon">♪</span>
-  <span id="musicLabel">MUSIC ON</span>
-</button>
-
-<script>
-(function () {
-  const music = document.getElementById('bgMusic');
-  const button = document.getElementById('musicToggle');
-  const label = document.getElementById('musicLabel');
-  const icon = document.getElementById('musicIcon');
-
-  if (!music || !button || !label || !icon) return;
-
-  music.volume = 0.35;
-  music.loop = true;
-
-  function setUi(isPlaying) {
-    button.classList.toggle('is-on', isPlaying);
-    label.textContent = isPlaying ? 'MUSIC OFF' : 'MUSIC ON';
-    icon.textContent = isPlaying ? '♫' : '♪';
-    button.setAttribute(
-      'aria-label',
-      isPlaying ? '배경음악 끄기' : '배경음악 켜기'
-    );
-  }
-
-  async function turnOn() {
-    try {
-      await music.play();
-      setUi(true);
-      localStorage.setItem('siteMusicOn', '1');
-    } catch (err) {
-      console.error('음악 재생 실패:', err);
-      setUi(false);
-    }
-  }
-
-  function turnOff() {
-    music.pause();
-    setUi(false);
-    localStorage.setItem('siteMusicOn', '0');
-  }
-
-  button.addEventListener('click', function () {
-    if (music.paused) {
-      turnOn();
-    } else {
-      turnOff();
-    }
-  });
-
-  music.addEventListener('play', function () {
-    setUi(true);
-  });
-
-  music.addEventListener('pause', function () {
-    setUi(false);
-  });
-
-  // index/past 둘 다 같은 상태 공유
-  if (localStorage.getItem('siteMusicOn') === '1') {
-    turnOn();
-  } else {
-    setUi(false);
-  }
-})();
-</script>
 
 </body>
 </html>
