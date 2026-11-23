@@ -358,6 +358,34 @@
   .promise-col li{font-size:13px;line-height:1.65;}
 }
 
+
+/* ===== 모바일 참가자 정보 한 줄 표시 ===== */
+@media (max-width:980px){
+  .promise-col ul{
+    display:block;
+    width:100%;
+    max-width:100%;
+    overflow-x:auto;
+    overflow-y:hidden;
+    -webkit-overflow-scrolling:touch;
+    overscroll-behavior-x:contain;
+    scrollbar-width:thin;
+  }
+  .promise-col li{
+    display:flex;
+    flex-wrap:nowrap;
+    width:max-content;
+    min-width:100%;
+    white-space:nowrap;
+    word-break:keep-all;
+    overflow-wrap:normal;
+  }
+  .promise-col li::before{flex:0 0 5px;}
+}
+@media (max-width:600px){
+  .promise-col li{font-size:12.5px;line-height:1.7;}
+}
+
 </style>
 </head>
 <body id="top">
